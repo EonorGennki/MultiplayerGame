@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseManager : MonoBehaviour
+public class BaseManager
 {
     protected GameFace face;
 
-    public BaseManager(GameFace _face)
+    public BaseManager()
     {
-        face = _face;
+        face = GameFace.Instance;
     }
 
     public virtual void OnInit()

@@ -1,19 +1,31 @@
 using SocketGameProtocal;
 using UnityEngine;
 
-public class GameFace : MonoBehaviour
+public class GameFace : MonoSingleton<GameFace>
 {
-    public ClientManager clientManager;
+    private ClientManager clientManager;
+    private RequestManager requestManager;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        clientManager = new ClientManager();
+        requestManager = new RequestManager();
+    }
 
     void Start()
     {
-        clientManager = new ClientManager(this);
         clientManager.OnInit();
+        requestManager.OnInit();
     }
 
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
+        base.OnDestroy();
+
         clientManager.OnDestroy();
+        requestManager.OnDestroy();
     }
 
     public void Send(MainPack _pack)
@@ -23,6 +35,16 @@ public class GameFace : MonoBehaviour
 
     public void HandleResponse(MainPack _pack)
     {
-        //¥¶¿Ì
+        requestManager.HandleResponse(_pack);
+    }
+
+    public void AddRequest(BaseRequest request)
+    {
+        requestManager.AddRequest(request);
+    }
+
+    public void RemoveRequest(ActionCode action)
+    {
+        requestManager.RemoveRequest(action);
     }
 }

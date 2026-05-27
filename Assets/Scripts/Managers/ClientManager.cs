@@ -8,7 +8,7 @@ public class ClientManager : BaseManager
     private Socket socket;
     private Message message;
 
-    public ClientManager(GameFace _face) : base(_face)
+    public ClientManager() : base()
     {
     }
 
@@ -25,7 +25,7 @@ public class ClientManager : BaseManager
         base.OnDestroy();
 
         message = null;
-        CloseSocket();
+        Close();
     }
 
     /// <summary>
@@ -37,17 +37,18 @@ public class ClientManager : BaseManager
         try
         {
             socket.Connect("127.0.0.1", 6666);
+            StartReceive();
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
-            Debug.LogWarning(ex);
+            Debug.LogWarning(e);
         }
     }
 
     /// <summary>
     /// 关闭socket
     /// </summary>
-    private void CloseSocket()
+    private void Close()
     {
         if (socket.Connected && socket is not null)
         {
@@ -64,21 +65,31 @@ public class ClientManager : BaseManager
     {
         try
         {
-            int _len = socket.EndReceive(_result);
-            if (_len == 0 && socket.Connected == false)
+            if (socket == null || !socket.Connected)
             {
-                CloseSocket();
+                return;
+            }
+
+            int _len = socket.EndReceive(_result);
+            if (_len == 0)
+            {
+                Close();
                 return;
             }
 
             message.ReadBuffer(_len, HandleResponse);
+            StartReceive();
         }
-        catch
+        catch (Exception ex)
         {
-
+            Debug.LogWarning(ex);
         }
     }
 
+    /// <summary>
+    /// 处理响应
+    /// </summary>
+    /// <param name="_pack"></param>
     private void HandleResponse(MainPack _pack)
     {
         face.HandleResponse(_pack);

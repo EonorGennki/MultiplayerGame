@@ -6,7 +6,7 @@ using UnityEngine;
 using SocketGameProtocal;
 using Google.Protobuf;
 
-public class Message : MonoBehaviour
+public class Message
 {
     private byte[] buffer = new byte[1024];
     private int startIndex;
