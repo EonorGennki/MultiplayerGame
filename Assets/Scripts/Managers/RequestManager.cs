@@ -11,21 +11,21 @@ public class RequestManager : BaseManager
     {
     }
 
-    public void AddRequest(BaseRequest _request)
+    public void AddRequest(BaseRequest request)
     {
-        requestDic.Add(_request.GetActionCode, _request);
+        requestDic.Add(request.GetActionCode, request);
     }
 
-    public void RemoveRequest(ActionCode _actionCode)
+    public void RemoveRequest(ActionCode actionCode)
     {
-        requestDic.Remove(_actionCode);
+        requestDic.Remove(actionCode);
     }
 
-    public void HandleResponse(MainPack _pack)
+    public void HandleResponse(MainPack pack)
     {
-        if (requestDic.TryGetValue(_pack.ActionCode, out BaseRequest request))
+        if (requestDic.TryGetValue(pack.ActionCode, out BaseRequest request))
         {
-            request.OnResponse(_pack);
+            request.OnResponse(pack);
         }
         else
         {

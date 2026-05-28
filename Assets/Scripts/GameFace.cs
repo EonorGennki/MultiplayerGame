@@ -28,14 +28,14 @@ public class GameFace : MonoSingleton<GameFace>
         requestManager.OnDestroy();
     }
 
-    public void Send(MainPack _pack)
+    public void Send(MainPack pack)
     {
-        clientManager.Send(_pack);
+        clientManager.Send(pack);
     }
 
-    public void HandleResponse(MainPack _pack)
+    public void HandleResponse(MainPack pack)
     {
-        requestManager.HandleResponse(_pack);
+        requestManager.HandleResponse(pack);
     }
 
     public void AddRequest(BaseRequest request)

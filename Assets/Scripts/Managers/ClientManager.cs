@@ -61,7 +61,7 @@ public class ClientManager : BaseManager
         socket.BeginReceive(message.Buffer, message.StartIndex, message.RemSize, SocketFlags.None, ReceiveCallBack, null);
     }
 
-    private void ReceiveCallBack(IAsyncResult _result)
+    private void ReceiveCallBack(IAsyncResult result)
     {
         try
         {
@@ -70,14 +70,14 @@ public class ClientManager : BaseManager
                 return;
             }
 
-            int _len = socket.EndReceive(_result);
-            if (_len == 0)
+            int len = socket.EndReceive(result);
+            if (len == 0)
             {
                 Close();
                 return;
             }
 
-            message.ReadBuffer(_len, HandleResponse);
+            message.ReadBuffer(len, HandleResponse);
             StartReceive();
         }
         catch (Exception ex)
@@ -89,14 +89,14 @@ public class ClientManager : BaseManager
     /// <summary>
     /// ¥¶¿ÌœÏ”¶
     /// </summary>
-    /// <param name="_pack"></param>
-    private void HandleResponse(MainPack _pack)
+    /// <param name="pack"></param>
+    private void HandleResponse(MainPack pack)
     {
-        face.HandleResponse(_pack);
+        face.HandleResponse(pack);
     }
 
-    public void Send(MainPack _pack)
+    public void Send(MainPack pack)
     {
-        socket.Send(Message.PackData(_pack));
+        socket.Send(Message.PackData(pack));
     }
 }

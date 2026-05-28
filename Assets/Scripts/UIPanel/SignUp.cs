@@ -25,16 +25,16 @@ public class SignUp : MonoBehaviour
     private void OnSignUpBtnClick()
     {
         //去除零宽字符
-        string _username = Regex.Replace(username.text, "[\u200B-\u200D\uFEFF]", "");
-        string _password = Regex.Replace(password.text, "[\u200B-\u200D\uFEFF]", "");
+        string username = Regex.Replace(this.username.text, "[\u200B-\u200D\uFEFF]", "");
+        string password = Regex.Replace(this.password.text, "[\u200B-\u200D\uFEFF]", "");
 
-        if (_username == string.Empty)
+        if (username == string.Empty)
         {
             Tip1.text = "用户名不能为空！";
             Tip1.color = Color.red;
             return;
         }
-        else if (_password == string.Empty)
+        else if (password == string.Empty)
         {
             Tip1.text = "密码不能为空！";
             Tip1.color = Color.red;
@@ -42,7 +42,7 @@ public class SignUp : MonoBehaviour
         }
         else
         {
-            SignUpRequest.SendRequest(_username, _password);
+            SignUpRequest.SendRequest(username, password);
         }
     }
 }
