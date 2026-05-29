@@ -22,25 +22,34 @@ public class UIManager : BaseManager
 
         InitPanel();
         canvasTransform = GameObject.Find("Canvas").transform;
+        PushPanel(PanelType.Main);
     }
 
     /// <summary>
     /// 显示UI界面
     /// </summary>
     /// <param name="panelType"></param>
-    private void PushPanel(PanelType panelType)
+    public void PushPanel(PanelType panelType)
     {
+        if (!panelDic.TryGetValue(panelType, out BasePanel panel))
+        {
+            panel = SpawnPanel(panelType);
+        }
+
         if (panelStack.Count > 0)
         {
             BasePanel topPanel = panelStack.Peek();
             topPanel.OnPause();
         }
-        BasePanel panel = SpawnPanel(panelType);
+
         panelStack.Push(panel);
         panel.OnEnter();
     }
 
-    private void PopPanel()
+    /// <summary>
+    /// 关闭当前UI界面
+    /// </summary>
+    public void PopPanel()
     {
         if (panelStack.Count <= 0)
         {
@@ -48,6 +57,13 @@ public class UIManager : BaseManager
         }
 
         BasePanel topPanel = panelStack.Pop();
+        topPanel.OnExit();
+
+        if (panelStack.Count > 0)
+        {
+            BasePanel panel = panelStack.Peek();
+            panel.OnResume();
+        }
     }
 
     /// <summary> 
@@ -58,9 +74,10 @@ public class UIManager : BaseManager
     {
         if (panelPathDic.TryGetValue(panelType, out string path))
         {
-            GameObject o = Resources.Load<GameObject>(path);
-            GameObject.Instantiate(o, canvasTransform, false);
+            GameObject prefab = Resources.Load<GameObject>(path);
+            GameObject o = GameObject.Instantiate(prefab, canvasTransform, false);
             BasePanel panel = o.GetComponent<BasePanel>();
+            panel.UIManager = this;
             panelDic.Add(panelType, panel);
             return panel;
         }
@@ -80,11 +97,11 @@ public class UIManager : BaseManager
 
         string panelPath = "Prefabs/UIPanel/";
         string[] pathArray = new string[]
-        { "TooltipPane" , "MainPanel", "LoginPanel", "SignPanel"};
+        { "TooltipPanel" , "MainPanel", "LoginPanel", "SignUpPanel"};
 
         for (int i = 0; i < pathArray.Length; i++)
         {
-            panelPathDic.Add((PanelType)i, panelPath + pathArray[0]);
+            panelPathDic.Add((PanelType)i, panelPath + pathArray[i]);
         }
     }
 }

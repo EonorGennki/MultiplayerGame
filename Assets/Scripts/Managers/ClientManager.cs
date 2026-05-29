@@ -50,7 +50,7 @@ public class ClientManager : BaseManager
     /// </summary>
     private void Close()
     {
-        if (socket.Connected && socket is not null)
+        if (socket is not null && socket.Connected)
         {
             socket.Close();
         }

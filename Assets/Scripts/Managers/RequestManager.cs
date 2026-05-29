@@ -13,7 +13,7 @@ public class RequestManager : BaseManager
 
     public void AddRequest(BaseRequest request)
     {
-        requestDic.Add(request.GetActionCode, request);
+        requestDic.Add(request.ActionCode, request);
     }
 
     public void RemoveRequest(ActionCode actionCode)

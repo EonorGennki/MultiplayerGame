@@ -9,7 +9,7 @@ public class BaseRequest : MonoBehaviour
     protected ActionCode actionCode;
     protected GameFace face;
 
-    public ActionCode GetActionCode
+    public ActionCode ActionCode
     {
         get
         {

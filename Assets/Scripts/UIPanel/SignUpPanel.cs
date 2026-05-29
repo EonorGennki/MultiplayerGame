@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SignUp : MonoBehaviour
+public class SignUpPanel : BasePanel
 {
     private SignUpRequest SignUpRequest;
     [SerializeField] private TextMeshProUGUI username;
@@ -14,12 +14,11 @@ public class SignUp : MonoBehaviour
     [SerializeField] private TextMeshProUGUI Tip1;
     [SerializeField] private TextMeshProUGUI Tip2;
     [SerializeField] private Button SignUpBtn;
+    [SerializeField] private Button BackBtn;
 
     private void Start()
     {
         SignUpRequest = GetComponent<SignUpRequest>();
-
-        SignUpBtn.onClick.AddListener(OnSignUpBtnClick);
     }
 
     private void OnSignUpBtnClick()
@@ -44,5 +43,62 @@ public class SignUp : MonoBehaviour
         {
             SignUpRequest.SendRequest(username, password);
         }
+    }
+
+    private void OnBackBtnClick()
+    {
+        uiManager.PopPanel();
+    }
+
+    public override void OnEnter()
+    {
+        base.OnEnter();
+
+        Display();
+    }
+
+    public override void OnPause()
+    {
+        base.OnPause();
+
+        Hide();
+    }
+
+    public override void OnResume()
+    {
+        base.OnResume();
+
+        Display();
+    }
+
+    public override void OnExit()
+    {
+        base.OnExit();
+
+        Hide();
+    }
+
+    private void AddListeners()
+    {
+        SignUpBtn.onClick.AddListener(OnSignUpBtnClick);
+        BackBtn.onClick.AddListener(OnBackBtnClick);
+    }
+
+    private void RemoveListeners()
+    {
+        SignUpBtn.onClick.RemoveAllListeners();
+        BackBtn.onClick.RemoveAllListeners();
+    }
+
+    private void Display()
+    {
+        gameObject.SetActive(true);
+        AddListeners();
+    }
+
+    protected void Hide()
+    {
+        RemoveListeners();
+        gameObject.SetActive(false);
     }
 }

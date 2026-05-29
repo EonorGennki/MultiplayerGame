@@ -5,6 +5,7 @@ public class GameFace : MonoSingleton<GameFace>
 {
     private ClientManager clientManager;
     private RequestManager requestManager;
+    private UIManager uiManager;
 
     protected override void Awake()
     {
@@ -12,12 +13,15 @@ public class GameFace : MonoSingleton<GameFace>
 
         clientManager = new ClientManager();
         requestManager = new RequestManager();
+        uiManager = new UIManager();
+        
     }
 
     void Start()
     {
         clientManager.OnInit();
         requestManager.OnInit();
+        uiManager.OnInit();
     }
 
     protected override void OnDestroy()
@@ -26,6 +30,7 @@ public class GameFace : MonoSingleton<GameFace>
 
         clientManager.OnDestroy();
         requestManager.OnDestroy();
+        uiManager.OnDestroy();
     }
 
     public void Send(MainPack pack)
