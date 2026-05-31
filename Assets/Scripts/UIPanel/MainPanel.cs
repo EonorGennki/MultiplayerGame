@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class MainPanel : BasePanel
@@ -9,8 +10,16 @@ public class MainPanel : BasePanel
 
     private void OnStartBtnClick()
     {
-        Debug.Log("click");
-        uiManager.PushPanel(PanelType.SignUp);
+        uiManager.PushPanel(PanelType.Login);
+    }
+    private void AddListeners()
+    {
+        startBtn.onClick.AddListener(OnStartBtnClick);
+    }
+
+    private void RemoveListeners()
+    {
+        startBtn.onClick.RemoveAllListeners();
     }
 
     public override void OnEnter()
@@ -27,6 +36,18 @@ public class MainPanel : BasePanel
         Hide();
     }
 
+    private void Display()
+    {
+        gameObject.SetActive(true);
+        AddListeners();
+    }
+
+    private void Hide()
+    {
+        RemoveListeners();
+        gameObject.SetActive(false);
+    }
+
     public override void OnPause()
     {
         base.OnPause();
@@ -39,29 +60,5 @@ public class MainPanel : BasePanel
         base.OnResume();
 
         Display();
-    }
-
-    private void AddListeners()
-    {
-        Debug.Log(gameObject.activeSelf);
-
-        startBtn.onClick.AddListener(OnStartBtnClick);
-    }
-
-    private void RemoveListeners()
-    {
-        startBtn.onClick.RemoveAllListeners();
-    }
-
-    private void Display()
-    {
-        gameObject.SetActive(true);
-        AddListeners();
-    }
-
-    private void Hide()
-    {
-        RemoveListeners();
-        gameObject.SetActive(false);
     }
 }

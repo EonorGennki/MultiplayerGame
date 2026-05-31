@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -6,22 +5,23 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SignUpPanel : BasePanel
+public class LoginPanel : BasePanel
 {
-    private SignUpRequest SignUpRequest;
+    private LoginRequest loginRequest;
     [SerializeField] private TextMeshProUGUI username;
     [SerializeField] private TextMeshProUGUI password;
     [SerializeField] private TextMeshProUGUI Tip1;
     [SerializeField] private TextMeshProUGUI Tip2;
     [SerializeField] private Button SignUpBtn;
+    [SerializeField] private Button LoginBtn;
     [SerializeField] private Button BackBtn;
 
-    private void Start()
+    private void OnSignUpBtnClick()
     {
-        SignUpRequest = GetComponent<SignUpRequest>();
+        uiManager.PushPanel(PanelType.SignUp);
     }
 
-    private void OnSignUpBtnClick()
+    private void OnLoginBtnClick()
     {
         //È¥³ýÁã¿í×Ö·û
         string username = Regex.Replace(this.username.text, "[\u200B-\u200D\uFEFF]", "");
@@ -41,7 +41,7 @@ public class SignUpPanel : BasePanel
         }
         else
         {
-            SignUpRequest.SendRequest(username, password);
+            loginRequest.SendRequest(username, password);
         }
     }
 
@@ -53,12 +53,14 @@ public class SignUpPanel : BasePanel
     private void AddListeners()
     {
         SignUpBtn.onClick.AddListener(OnSignUpBtnClick);
+        LoginBtn.onClick.AddListener(OnLoginBtnClick);
         BackBtn.onClick.AddListener(OnBackBtnClick);
     }
 
     private void RemoveListeners()
     {
         SignUpBtn.onClick.RemoveAllListeners();
+        LoginBtn.onClick.RemoveAllListeners();
         BackBtn.onClick.RemoveAllListeners();
     }
 

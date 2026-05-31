@@ -13,9 +13,9 @@ public class SignUpRequest : BaseRequest
         base.Awake();
     }
 
-    public override void OnResponse(MainPack _pack)
+    public override void OnResponse(MainPack pack)
     {
-        switch(_pack.ReturnCode)
+        switch(pack.ReturnCode)
         {
             case ReturnCode.Succeeded:
                 Debug.Log("×¢²á³É¹¦");
@@ -27,11 +27,11 @@ public class SignUpRequest : BaseRequest
         }
     }
 
-    public void SendRequest(string _username, string _password)
+    public void SendRequest(string username, string password)
     {
         LoginPack loginPack = new LoginPack();
-        loginPack.Username = _username;
-        loginPack.Password = _password;
+        loginPack.Username = username;
+        loginPack.Password = password;
         MainPack _pack = new MainPack();
         _pack.RequestCode = requestCode;
         _pack.ActionCode = actionCode;

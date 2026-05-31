@@ -33,13 +33,13 @@ public class BaseRequest : MonoBehaviour
         face.RemoveRequest(actionCode);
     }
 
-    public virtual void OnResponse(MainPack _pack)
+    public virtual void OnResponse(MainPack pack)
     {
 
     }
 
-    public virtual void SendRequest(MainPack _pack)
+    public virtual void SendRequest(MainPack pack)
     {
-        face.Send(_pack);
+        face.Send(pack);
     }
 }
