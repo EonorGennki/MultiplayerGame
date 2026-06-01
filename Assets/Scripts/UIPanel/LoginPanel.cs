@@ -64,7 +64,7 @@ public class LoginPanel : BasePanel
         BackBtn.onClick.RemoveAllListeners();
     }
 
-    private void Display()
+    private void Show()
     {
         gameObject.SetActive(true);
         AddListeners();
@@ -80,7 +80,7 @@ public class LoginPanel : BasePanel
     {
         base.OnEnter();
 
-        Display();
+        Show();
     }
 
     public override void OnPause()
@@ -94,7 +94,7 @@ public class LoginPanel : BasePanel
     {
         base.OnResume();
 
-        Display();
+        Show();
     }
 
     public override void OnExit()

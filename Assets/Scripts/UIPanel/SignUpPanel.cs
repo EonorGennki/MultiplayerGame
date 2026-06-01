@@ -62,7 +62,7 @@ public class SignUpPanel : BasePanel
         BackBtn.onClick.RemoveAllListeners();
     }
 
-    private void Display()
+    private void Show()
     {
         gameObject.SetActive(true);
         AddListeners();
@@ -78,7 +78,7 @@ public class SignUpPanel : BasePanel
     {
         base.OnEnter();
 
-        Display();
+        Show();
     }
 
     public override void OnPause()
@@ -92,7 +92,7 @@ public class SignUpPanel : BasePanel
     {
         base.OnResume();
 
-        Display();
+        Show();
     }
 
     public override void OnExit()

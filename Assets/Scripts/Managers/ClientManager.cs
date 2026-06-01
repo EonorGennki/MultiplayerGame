@@ -42,6 +42,7 @@ public class ClientManager : BaseManager
         catch (Exception e)
         {
             Debug.LogWarning(e);
+            face.ShowSignUpTooltip("¡¨Ω” ß∞‹");
         }
     }
 

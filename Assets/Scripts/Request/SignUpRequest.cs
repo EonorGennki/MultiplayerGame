@@ -18,10 +18,10 @@ public class SignUpRequest : BaseRequest
         switch(pack.ReturnCode)
         {
             case ReturnCode.Succeeded:
-                Debug.Log("×¢²á³É¹¦");
+                face.ShowSignUpTooltip("×¢²á³É¹¦£¡", true);
                 break;
             case ReturnCode.Failed:
-                Debug.Log("×¢²áÊ§°Ü");
+                face.ShowSignUpTooltip("×¢²áÊ§°Ü£¡", true);
                 break;
 
         }

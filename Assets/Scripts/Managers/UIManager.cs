@@ -12,6 +12,8 @@ public class UIManager : BaseManager
 
     private Transform canvasTransform;
 
+    private TooltipPanel tooltipPanel;
+
     public UIManager() : base()
     {
     }
@@ -97,11 +99,21 @@ public class UIManager : BaseManager
 
         string panelPath = "Prefabs/UIPanel/";
         string[] pathArray = new string[]
-        { "TooltipPanel" , "MainPanel", "LoginPanel", "SignUpPanel"};
+        { "SignUpTooltipPanel" , "MainPanel", "LoginPanel", "SignUpPanel"};
 
         for (int i = 0; i < pathArray.Length; i++)
         {
             panelPathDic.Add((PanelType)i, panelPath + pathArray[i]);
         }
+    }
+
+    public void ShowSignUpToolTip(string tip, bool sync = false)
+    {
+        if (!panelDic.TryGetValue(PanelType.Tooltip, out BasePanel panel))
+        {
+            tooltipPanel = SpawnPanel(PanelType.Tooltip) as TooltipPanel;
+            tooltipPanel.Show(tip, sync);
+        }
+
     }
 }

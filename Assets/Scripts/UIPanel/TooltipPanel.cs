@@ -1,18 +1,44 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class TooltipPanel : MonoBehaviour
+public class TooltipPanel : BasePanel
 {
-    // Start is called before the first frame update
-    void Start()
+    public TextMeshProUGUI text;
+    private string msg;
+
+    private void Update()
     {
-        
+        if (msg is not null)
+        {
+            ShowText(msg);
+            msg = null;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Show(string str, bool sync = false)
     {
-        
+        if (sync)
+        {
+            Debug.Log(sync);
+            msg = str;
+        }
+
+        gameObject.SetActive(true);
+        ShowText(str);
+    }
+
+    private void ShowText(string str)
+    {
+        text.text = str;
+    }
+
+    public override void OnEnter()
+    {
+        base.OnEnter();
+    }
+
+    public override void OnExit()
+    {
+        base.OnExit();
     }
 }

@@ -26,7 +26,7 @@ public class MainPanel : BasePanel
     {
         base.OnEnter();
 
-        Display();
+        Show();
     }
 
     public override void OnExit()
@@ -36,7 +36,7 @@ public class MainPanel : BasePanel
         Hide();
     }
 
-    private void Display()
+    private void Show()
     {
         gameObject.SetActive(true);
         AddListeners();
@@ -59,6 +59,6 @@ public class MainPanel : BasePanel
     {
         base.OnResume();
 
-        Display();
+        Show();
     }
 }

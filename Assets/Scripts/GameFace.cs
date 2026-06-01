@@ -11,17 +11,17 @@ public class GameFace : MonoSingleton<GameFace>
     {
         base.Awake();
 
+        uiManager = new UIManager();
         clientManager = new ClientManager();
         requestManager = new RequestManager();
-        uiManager = new UIManager();
         
     }
 
     void Start()
     {
+        uiManager.OnInit();
         clientManager.OnInit();
         requestManager.OnInit();
-        uiManager.OnInit();
     }
 
     protected override void OnDestroy()
@@ -51,5 +51,10 @@ public class GameFace : MonoSingleton<GameFace>
     public void RemoveRequest(ActionCode action)
     {
         requestManager.RemoveRequest(action);
+    }
+
+    public void ShowSignUpTooltip(string tip, bool sync = false)
+    {
+        uiManager.ShowSignUpToolTip(tip, sync);
     }
 }
