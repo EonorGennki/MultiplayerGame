@@ -1,27 +1,24 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SignUpPanel : BasePanel
+public class RegisterPanel : BasePanel
 {
-    private SignUpRequest SignUpRequest;
+    private RegisterRequest RegisterRequest;
     [SerializeField] private TextMeshProUGUI username;
     [SerializeField] private TextMeshProUGUI password;
     [SerializeField] private TextMeshProUGUI Tip1;
     [SerializeField] private TextMeshProUGUI Tip2;
-    [SerializeField] private Button SignUpBtn;
+    [SerializeField] private Button RegisterBtn;
     [SerializeField] private Button BackBtn;
 
     private void Start()
     {
-        SignUpRequest = GetComponent<SignUpRequest>();
+        RegisterRequest = GetComponent<RegisterRequest>();
     }
 
-    private void OnSignUpBtnClick()
+    private void OnRegisterBtnClick()
     {
         //È¥³ýÁã¿í×Ö·û
         string username = Regex.Replace(this.username.text, "[\u200B-\u200D\uFEFF]", "");
@@ -41,7 +38,19 @@ public class SignUpPanel : BasePanel
         }
         else
         {
-            SignUpRequest.SendRequest(username, password);
+            RegisterRequest.SendRequest(username, password);
+        }
+    }
+
+    public void ShowAuthTooltip(bool isSuccessful)
+    {
+        if (isSuccessful == true)
+        {
+            uiManager.ShowAuthToolTip("×¢²á³É¹¦", true);
+        }
+        else
+        {
+            uiManager.ShowAuthToolTip("×¢²áÊ§°Ü", true);
         }
     }
 
@@ -52,13 +61,13 @@ public class SignUpPanel : BasePanel
 
     private void AddListeners()
     {
-        SignUpBtn.onClick.AddListener(OnSignUpBtnClick);
+        RegisterBtn.onClick.AddListener(OnRegisterBtnClick);
         BackBtn.onClick.AddListener(OnBackBtnClick);
     }
 
     private void RemoveListeners()
     {
-        SignUpBtn.onClick.RemoveAllListeners();
+        RegisterBtn.onClick.RemoveAllListeners();
         BackBtn.onClick.RemoveAllListeners();
     }
 
@@ -73,6 +82,7 @@ public class SignUpPanel : BasePanel
         RemoveListeners();
         gameObject.SetActive(false);
     }
+
 
     public override void OnEnter()
     {

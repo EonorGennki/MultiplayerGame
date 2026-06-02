@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum PanelType
 {
-    Tooltip,
+    AuthTooltip,
     Main,
     Login,
     SignUp,

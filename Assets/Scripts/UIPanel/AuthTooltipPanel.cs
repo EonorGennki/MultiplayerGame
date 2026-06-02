@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class TooltipPanel : BasePanel
+public class AuthTooltipPanel : BasePanel
 {
     public TextMeshProUGUI text;
     private string msg;
@@ -17,14 +17,16 @@ public class TooltipPanel : BasePanel
 
     public void Show(string str, bool sync = false)
     {
+        gameObject.SetActive(true);
+
         if (sync)
         {
-            Debug.Log(sync);
             msg = str;
         }
-
-        gameObject.SetActive(true);
-        ShowText(str);
+        else
+        {
+            ShowText(str);
+        }
     }
 
     private void ShowText(string str)

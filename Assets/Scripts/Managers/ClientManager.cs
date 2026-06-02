@@ -1,6 +1,7 @@
 using SocketGameProtocal;
 using System;
 using System.Net.Sockets;
+using System.Threading;
 using UnityEngine;
 
 public class ClientManager : BaseManager

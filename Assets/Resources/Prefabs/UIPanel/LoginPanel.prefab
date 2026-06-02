@@ -423,7 +423,7 @@ GameObject:
   - component: {fileID: 7522971307488137448}
   - component: {fileID: 8946001428744538673}
   m_Layer: 5
-  m_Name: SignUpBtn
+  m_Name: RegisterBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -856,7 +856,7 @@ MonoBehaviour:
   password: {fileID: 8409836690488707622}
   Tip1: {fileID: 3397041990845233349}
   Tip2: {fileID: 967085605968886860}
-  SignUpBtn: {fileID: 8946001428744538673}
+  RegisterBtn: {fileID: 8946001428744538673}
   LoginBtn: {fileID: 3867153886517339149}
   BackBtn: {fileID: 5458773108243042946}
 --- !u!114 &7574487789385602684

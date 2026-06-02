@@ -12,11 +12,11 @@ public class LoginPanel : BasePanel
     [SerializeField] private TextMeshProUGUI password;
     [SerializeField] private TextMeshProUGUI Tip1;
     [SerializeField] private TextMeshProUGUI Tip2;
-    [SerializeField] private Button SignUpBtn;
+    [SerializeField] private Button RegisterBtn;
     [SerializeField] private Button LoginBtn;
     [SerializeField] private Button BackBtn;
 
-    private void OnSignUpBtnClick()
+    private void OnRegisterBtnClick()
     {
         uiManager.PushPanel(PanelType.SignUp);
     }
@@ -45,6 +45,18 @@ public class LoginPanel : BasePanel
         }
     }
 
+    public void ShowAuthTooltip(bool succeeded)
+    {
+        if (succeeded == true)
+        {
+            uiManager.ShowAuthToolTip("×¢²á³É¹¦", true);
+        }
+        else
+        {
+            uiManager.ShowAuthToolTip("×¢²áÊ§°Ü", true);
+        }
+    }
+
     private void OnBackBtnClick()
     {
         uiManager.PopPanel();
@@ -52,14 +64,14 @@ public class LoginPanel : BasePanel
 
     private void AddListeners()
     {
-        SignUpBtn.onClick.AddListener(OnSignUpBtnClick);
+        RegisterBtn.onClick.AddListener(OnRegisterBtnClick);
         LoginBtn.onClick.AddListener(OnLoginBtnClick);
         BackBtn.onClick.AddListener(OnBackBtnClick);
     }
 
     private void RemoveListeners()
     {
-        SignUpBtn.onClick.RemoveAllListeners();
+        RegisterBtn.onClick.RemoveAllListeners();
         LoginBtn.onClick.RemoveAllListeners();
         BackBtn.onClick.RemoveAllListeners();
     }

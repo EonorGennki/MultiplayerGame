@@ -1,6 +1,7 @@
 using SocketGameProtocal;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class BaseRequest : MonoBehaviour
@@ -8,6 +9,7 @@ public class BaseRequest : MonoBehaviour
     protected RequestCode requestCode;
     protected ActionCode actionCode;
     protected GameFace face;
+    protected SynchronizationContext mainContext;
 
     public ActionCode ActionCode
     {
@@ -19,7 +21,7 @@ public class BaseRequest : MonoBehaviour
 
     public virtual void Awake()
     {
-
+        mainContext = SynchronizationContext.Current;
     }
 
     public virtual void Start()
@@ -37,6 +39,7 @@ public class BaseRequest : MonoBehaviour
     {
 
     }
+
 
     public virtual void SendRequest(MainPack pack)
     {

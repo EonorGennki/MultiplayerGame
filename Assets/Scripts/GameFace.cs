@@ -55,6 +55,6 @@ public class GameFace : MonoSingleton<GameFace>
 
     public void ShowSignUpTooltip(string tip, bool sync = false)
     {
-        uiManager.ShowSignUpToolTip(tip, sync);
+        uiManager.ShowAuthToolTip(tip, sync);
     }
 }

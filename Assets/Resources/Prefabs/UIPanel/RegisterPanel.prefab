@@ -300,9 +300,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 978710002753210785}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 360, y: -412.5}
   m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5323322246824306674
@@ -434,9 +434,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 978710002753210785}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 360, y: -79.16667}
   m_SizeDelta: {x: 500, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7418429154446951671
@@ -570,9 +570,9 @@ RectTransform:
   - {fileID: 3869688046224100274}
   m_Father: {fileID: 978710002753210785}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 360, y: -177.5}
   m_SizeDelta: {x: 500, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2771176716552552357
@@ -898,9 +898,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 978710002753210785}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 360, y: -255.83334}
   m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2751911143881062329
@@ -1013,9 +1013,9 @@ GameObject:
   - component: {fileID: 8916582262250498436}
   - component: {fileID: 7973134545378793152}
   - component: {fileID: 7266098257524942627}
-  - component: {fileID: 3187852633203828459}
+  - component: {fileID: 1660707003213573323}
   m_Layer: 5
-  m_Name: SignUpPanel
+  m_Name: RegisterPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1127,9 +1127,9 @@ MonoBehaviour:
   password: {fileID: 5347663760101595074}
   Tip1: {fileID: 8574868762468392884}
   Tip2: {fileID: 7540421370324961611}
-  SignUpBtn: {fileID: 5231923698172964031}
+  RegisterBtn: {fileID: 5231923698172964031}
   BackBtn: {fileID: 8408006224938727820}
---- !u!114 &3187852633203828459
+--- !u!114 &1660707003213573323
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1138,7 +1138,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5658561292801608650}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db7f29fdbbc60064abffab1a4b942d29, type: 3}
+  m_Script: {fileID: 11500000, guid: f2bc133441b729e4a9cc4458129e63cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5690601203091547068
@@ -1547,9 +1547,9 @@ RectTransform:
   - {fileID: 4668839991328563434}
   m_Father: {fileID: 978710002753210785}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 360, y: -334.16666}
   m_SizeDelta: {x: 500, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5872026043424035138
@@ -1843,7 +1843,7 @@ GameObject:
   - component: {fileID: 1226765218731878074}
   - component: {fileID: 5231923698172964031}
   m_Layer: 5
-  m_Name: SignUpBtn
+  m_Name: RegisterBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1864,9 +1864,9 @@ RectTransform:
   - {fileID: 8124768275515689664}
   m_Father: {fileID: 978710002753210785}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 360, y: -485.83334}
   m_SizeDelta: {x: 150, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5871709176065344787
