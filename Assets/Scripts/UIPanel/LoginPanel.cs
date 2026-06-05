@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
@@ -16,10 +14,12 @@ public class LoginPanel : BasePanel
     [SerializeField] private Button LoginBtn;
     [SerializeField] private Button BackBtn;
 
-    private void OnRegisterBtnClick()
+    protected override void Start()
     {
-        uiManager.PushPanel(PanelType.SignUp);
+        loginRequest = GetComponent<LoginRequest>();
     }
+
+    private void OnRegisterBtnClick() => uiManager.PushPanel(PanelType.Register);
 
     private void OnLoginBtnClick()
     {
@@ -45,15 +45,13 @@ public class LoginPanel : BasePanel
         }
     }
 
-    public void ShowAuthTooltip(bool succeeded)
+    public void ShowAuthTooltip(bool success, string str)
     {
-        if (succeeded == true)
+        uiManager.ShowTooltip(PanelType.AuthTooltip, str);
+
+        if (success == true)
         {
-            uiManager.ShowAuthToolTip("×¢²á³É¹¦", true);
-        }
-        else
-        {
-            uiManager.ShowAuthToolTip("×¢²áÊ§°Ü", true);
+            uiManager.PushPanel(PanelType.RoomList);
         }
     }
 

@@ -1,4 +1,4 @@
-using SocketGameProtocal;
+ using SocketGameProtocal;
 using UnityEngine;
 
 public class GameFace : MonoSingleton<GameFace>
@@ -51,10 +51,5 @@ public class GameFace : MonoSingleton<GameFace>
     public void RemoveRequest(ActionCode action)
     {
         requestManager.RemoveRequest(action);
-    }
-
-    public void ShowSignUpTooltip(string tip, bool sync = false)
-    {
-        uiManager.ShowAuthToolTip(tip, sync);
     }
 }

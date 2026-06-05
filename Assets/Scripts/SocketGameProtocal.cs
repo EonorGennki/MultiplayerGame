@@ -26,20 +26,28 @@ namespace SocketGameProtocal {
           string.Concat(
             "ChhTb2NrZXRHYW1lUHJvdG9jYWwucHJvdG8SElNvY2tldEdhbWVQcm90b2Nh",
             "bCIuCghBdXRoUGFjaxIQCgh1c2VybmFtZRgBIAEoCRIQCghwYXNzd29yZBgC",
-            "IAEoCSLcAQoITWFpblBhY2sSNQoMcmVxdWVzdF9jb2RlGAEgASgOMh8uU29j",
-            "a2V0R2FtZVByb3RvY2FsLlJlcXVlc3RDb2RlEjMKC2FjdGlvbl9jb2RlGAIg",
-            "ASgOMh4uU29ja2V0R2FtZVByb3RvY2FsLkFjdGlvbkNvZGUSMwoLcmV0dXJu",
-            "X2NvZGUYAyABKA4yHi5Tb2NrZXRHYW1lUHJvdG9jYWwuUmV0dXJuQ29kZRIv",
-            "CglhdXRoX3BhY2sYBCABKAsyHC5Tb2NrZXRHYW1lUHJvdG9jYWwuQXV0aFBh",
-            "Y2sqJAoLUmVxdWVzdENvZGUSCwoHUmVxTm9uZRAAEggKBFVzZXIQASoyCgpB",
-            "Y3Rpb25Db2RlEgsKB0FjdE5vbmUQABIMCghSZWdpc3RlchABEgkKBUxvZ2lu",
-            "EAIqNAoKUmV0dXJuQ29kZRILCgdSZXROb25lEAASDQoJU3VjY2VlZGVkEAES",
-            "CgoGRmFpbGVkEAJiBnByb3RvMw=="));
+            "IAEoCSJ2CghSb29tUGFjaxIRCglyb29tX25hbWUYASABKAkSDwoHbWF4X251",
+            "bRgCIAEoBRITCgtjdXJyZW50X251bRgDIAEoBRIxCgpzdGF0ZV9Db2RlGAQg",
+            "ASgOMh0uU29ja2V0R2FtZVByb3RvY2FsLlN0YXRlQ29kZSKNAgoITWFpblBh",
+            "Y2sSNQoMcmVxdWVzdF9jb2RlGAEgASgOMh8uU29ja2V0R2FtZVByb3RvY2Fs",
+            "LlJlcXVlc3RDb2RlEjMKC2FjdGlvbl9jb2RlGAIgASgOMh4uU29ja2V0R2Ft",
+            "ZVByb3RvY2FsLkFjdGlvbkNvZGUSMwoLcmV0dXJuX2NvZGUYAyABKA4yHi5T",
+            "b2NrZXRHYW1lUHJvdG9jYWwuUmV0dXJuQ29kZRIvCglhdXRoX3BhY2sYBCAB",
+            "KAsyHC5Tb2NrZXRHYW1lUHJvdG9jYWwuQXV0aFBhY2sSLwoJcm9vbV9wYWNr",
+            "GAUgAygLMhwuU29ja2V0R2FtZVByb3RvY2FsLlJvb21QYWNrKi4KC1JlcXVl",
+            "c3RDb2RlEgsKB1JlcU5vbmUQABIICgRVc2VyEAESCAoEUm9vbRACKlIKCkFj",
+            "dGlvbkNvZGUSCwoHQWN0Tm9uZRAAEgwKCFJlZ2lzdGVyEAESCQoFTG9naW4Q",
+            "AhIOCgpDcmVhdGVSb29tEAMSDgoKU2VhcmNoUm9vbRAEKjMKClJldHVybkNv",
+            "ZGUSCwoHUmV0Tm9uZRAAEgsKB1N1Y2Nlc3MQARILCgdGYWlsdXJlEAIqJgoJ",
+            "RXJyb3JDb2RlEgsKB0Vyck5vbmUQABIMCghOb3RGb3VuZBABKj4KCVN0YXRl",
+            "Q29kZRINCglTdGF0ZU5vbmUQABILCgdXYWl0aW5nEAESCwoHUGxheWluZxAC",
+            "EggKBEZ1bGwQA2IGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::SocketGameProtocal.RequestCode), typeof(global::SocketGameProtocal.ActionCode), typeof(global::SocketGameProtocal.ReturnCode), }, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::SocketGameProtocal.RequestCode), typeof(global::SocketGameProtocal.ActionCode), typeof(global::SocketGameProtocal.ReturnCode), typeof(global::SocketGameProtocal.ErrorCode), typeof(global::SocketGameProtocal.StateCode), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::SocketGameProtocal.AuthPack), global::SocketGameProtocal.AuthPack.Parser, new[]{ "Username", "Password" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::SocketGameProtocal.MainPack), global::SocketGameProtocal.MainPack.Parser, new[]{ "RequestCode", "ActionCode", "ReturnCode", "AuthPack" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::SocketGameProtocal.RoomPack), global::SocketGameProtocal.RoomPack.Parser, new[]{ "RoomName", "MaxNum", "CurrentNum", "StateCode" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::SocketGameProtocal.MainPack), global::SocketGameProtocal.MainPack.Parser, new[]{ "RequestCode", "ActionCode", "ReturnCode", "AuthPack", "RoomPack" }, null, null, null, null)
           }));
     }
     #endregion
@@ -52,6 +60,10 @@ namespace SocketGameProtocal {
     ///用户
     /// </summary>
     [pbr::OriginalName("User")] User = 1,
+    /// <summary>
+    ///房间
+    /// </summary>
+    [pbr::OriginalName("Room")] Room = 2,
   }
 
   public enum ActionCode {
@@ -64,6 +76,14 @@ namespace SocketGameProtocal {
     ///登录
     /// </summary>
     [pbr::OriginalName("Login")] Login = 2,
+    /// <summary>
+    ///创建房间
+    /// </summary>
+    [pbr::OriginalName("CreateRoom")] CreateRoom = 3,
+    /// <summary>
+    ///搜索房间
+    /// </summary>
+    [pbr::OriginalName("SearchRoom")] SearchRoom = 4,
   }
 
   public enum ReturnCode {
@@ -71,11 +91,35 @@ namespace SocketGameProtocal {
     /// <summary>
     ///连接成功
     /// </summary>
-    [pbr::OriginalName("Succeeded")] Succeeded = 1,
+    [pbr::OriginalName("Success")] Success = 1,
     /// <summary>
     ///连接失败
     /// </summary>
-    [pbr::OriginalName("Failed")] Failed = 2,
+    [pbr::OriginalName("Failure")] Failure = 2,
+  }
+
+  public enum ErrorCode {
+    [pbr::OriginalName("ErrNone")] ErrNone = 0,
+    /// <summary>
+    ///未找到
+    /// </summary>
+    [pbr::OriginalName("NotFound")] NotFound = 1,
+  }
+
+  public enum StateCode {
+    [pbr::OriginalName("StateNone")] StateNone = 0,
+    /// <summary>
+    ///等待中
+    /// </summary>
+    [pbr::OriginalName("Waiting")] Waiting = 1,
+    /// <summary>
+    ///游戏中
+    /// </summary>
+    [pbr::OriginalName("Playing")] Playing = 2,
+    /// <summary>
+    ///已满
+    /// </summary>
+    [pbr::OriginalName("Full")] Full = 3,
   }
 
   #endregion
@@ -130,6 +174,9 @@ namespace SocketGameProtocal {
     /// <summary>Field number for the "username" field.</summary>
     public const int UsernameFieldNumber = 1;
     private string username_ = "";
+    /// <summary>
+    ///用户名
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public string Username {
@@ -142,6 +189,9 @@ namespace SocketGameProtocal {
     /// <summary>Field number for the "password" field.</summary>
     public const int PasswordFieldNumber = 2;
     private string password_ = "";
+    /// <summary>
+    ///密码
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public string Password {
@@ -317,6 +367,324 @@ namespace SocketGameProtocal {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class RoomPack : pb::IMessage<RoomPack>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<RoomPack> _parser = new pb::MessageParser<RoomPack>(() => new RoomPack());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<RoomPack> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::SocketGameProtocal.SocketGameProtocalReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public RoomPack() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public RoomPack(RoomPack other) : this() {
+      roomName_ = other.roomName_;
+      maxNum_ = other.maxNum_;
+      currentNum_ = other.currentNum_;
+      stateCode_ = other.stateCode_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public RoomPack Clone() {
+      return new RoomPack(this);
+    }
+
+    /// <summary>Field number for the "room_name" field.</summary>
+    public const int RoomNameFieldNumber = 1;
+    private string roomName_ = "";
+    /// <summary>
+    ///房间名
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string RoomName {
+      get { return roomName_; }
+      set {
+        roomName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "max_num" field.</summary>
+    public const int MaxNumFieldNumber = 2;
+    private int maxNum_;
+    /// <summary>
+    ///房间最大人数
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int MaxNum {
+      get { return maxNum_; }
+      set {
+        maxNum_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "current_num" field.</summary>
+    public const int CurrentNumFieldNumber = 3;
+    private int currentNum_;
+    /// <summary>
+    ///当前人数
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CurrentNum {
+      get { return currentNum_; }
+      set {
+        currentNum_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "state_Code" field.</summary>
+    public const int StateCodeFieldNumber = 4;
+    private global::SocketGameProtocal.StateCode stateCode_ = global::SocketGameProtocal.StateCode.StateNone;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::SocketGameProtocal.StateCode StateCode {
+      get { return stateCode_; }
+      set {
+        stateCode_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as RoomPack);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(RoomPack other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (RoomName != other.RoomName) return false;
+      if (MaxNum != other.MaxNum) return false;
+      if (CurrentNum != other.CurrentNum) return false;
+      if (StateCode != other.StateCode) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (RoomName.Length != 0) hash ^= RoomName.GetHashCode();
+      if (MaxNum != 0) hash ^= MaxNum.GetHashCode();
+      if (CurrentNum != 0) hash ^= CurrentNum.GetHashCode();
+      if (StateCode != global::SocketGameProtocal.StateCode.StateNone) hash ^= StateCode.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (RoomName.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(RoomName);
+      }
+      if (MaxNum != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(MaxNum);
+      }
+      if (CurrentNum != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(CurrentNum);
+      }
+      if (StateCode != global::SocketGameProtocal.StateCode.StateNone) {
+        output.WriteRawTag(32);
+        output.WriteEnum((int) StateCode);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (RoomName.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(RoomName);
+      }
+      if (MaxNum != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(MaxNum);
+      }
+      if (CurrentNum != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(CurrentNum);
+      }
+      if (StateCode != global::SocketGameProtocal.StateCode.StateNone) {
+        output.WriteRawTag(32);
+        output.WriteEnum((int) StateCode);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (RoomName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(RoomName);
+      }
+      if (MaxNum != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(MaxNum);
+      }
+      if (CurrentNum != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CurrentNum);
+      }
+      if (StateCode != global::SocketGameProtocal.StateCode.StateNone) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) StateCode);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(RoomPack other) {
+      if (other == null) {
+        return;
+      }
+      if (other.RoomName.Length != 0) {
+        RoomName = other.RoomName;
+      }
+      if (other.MaxNum != 0) {
+        MaxNum = other.MaxNum;
+      }
+      if (other.CurrentNum != 0) {
+        CurrentNum = other.CurrentNum;
+      }
+      if (other.StateCode != global::SocketGameProtocal.StateCode.StateNone) {
+        StateCode = other.StateCode;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            RoomName = input.ReadString();
+            break;
+          }
+          case 16: {
+            MaxNum = input.ReadInt32();
+            break;
+          }
+          case 24: {
+            CurrentNum = input.ReadInt32();
+            break;
+          }
+          case 32: {
+            StateCode = (global::SocketGameProtocal.StateCode) input.ReadEnum();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            RoomName = input.ReadString();
+            break;
+          }
+          case 16: {
+            MaxNum = input.ReadInt32();
+            break;
+          }
+          case 24: {
+            CurrentNum = input.ReadInt32();
+            break;
+          }
+          case 32: {
+            StateCode = (global::SocketGameProtocal.StateCode) input.ReadEnum();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class MainPack : pb::IMessage<MainPack>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -331,7 +699,7 @@ namespace SocketGameProtocal {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::SocketGameProtocal.SocketGameProtocalReflection.Descriptor.MessageTypes[1]; }
+      get { return global::SocketGameProtocal.SocketGameProtocalReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -355,6 +723,7 @@ namespace SocketGameProtocal {
       actionCode_ = other.actionCode_;
       returnCode_ = other.returnCode_;
       authPack_ = other.authPack_ != null ? other.authPack_.Clone() : null;
+      roomPack_ = other.roomPack_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -412,6 +781,17 @@ namespace SocketGameProtocal {
       }
     }
 
+    /// <summary>Field number for the "room_pack" field.</summary>
+    public const int RoomPackFieldNumber = 5;
+    private static readonly pb::FieldCodec<global::SocketGameProtocal.RoomPack> _repeated_roomPack_codec
+        = pb::FieldCodec.ForMessage(42, global::SocketGameProtocal.RoomPack.Parser);
+    private readonly pbc::RepeatedField<global::SocketGameProtocal.RoomPack> roomPack_ = new pbc::RepeatedField<global::SocketGameProtocal.RoomPack>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::SocketGameProtocal.RoomPack> RoomPack {
+      get { return roomPack_; }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -431,6 +811,7 @@ namespace SocketGameProtocal {
       if (ActionCode != other.ActionCode) return false;
       if (ReturnCode != other.ReturnCode) return false;
       if (!object.Equals(AuthPack, other.AuthPack)) return false;
+      if(!roomPack_.Equals(other.roomPack_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -442,6 +823,7 @@ namespace SocketGameProtocal {
       if (ActionCode != global::SocketGameProtocal.ActionCode.ActNone) hash ^= ActionCode.GetHashCode();
       if (ReturnCode != global::SocketGameProtocal.ReturnCode.RetNone) hash ^= ReturnCode.GetHashCode();
       if (authPack_ != null) hash ^= AuthPack.GetHashCode();
+      hash ^= roomPack_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -476,6 +858,7 @@ namespace SocketGameProtocal {
         output.WriteRawTag(34);
         output.WriteMessage(AuthPack);
       }
+      roomPack_.WriteTo(output, _repeated_roomPack_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -502,6 +885,7 @@ namespace SocketGameProtocal {
         output.WriteRawTag(34);
         output.WriteMessage(AuthPack);
       }
+      roomPack_.WriteTo(ref output, _repeated_roomPack_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -524,6 +908,7 @@ namespace SocketGameProtocal {
       if (authPack_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(AuthPack);
       }
+      size += roomPack_.CalculateSize(_repeated_roomPack_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -551,6 +936,7 @@ namespace SocketGameProtocal {
         }
         AuthPack.MergeFrom(other.AuthPack);
       }
+      roomPack_.Add(other.roomPack_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -589,6 +975,10 @@ namespace SocketGameProtocal {
             input.ReadMessage(AuthPack);
             break;
           }
+          case 42: {
+            roomPack_.AddEntriesFrom(input, _repeated_roomPack_codec);
+            break;
+          }
         }
       }
     #endif
@@ -625,6 +1015,10 @@ namespace SocketGameProtocal {
               AuthPack = new global::SocketGameProtocal.AuthPack();
             }
             input.ReadMessage(AuthPack);
+            break;
+          }
+          case 42: {
+            roomPack_.AddEntriesFrom(ref input, _repeated_roomPack_codec);
             break;
           }
         }

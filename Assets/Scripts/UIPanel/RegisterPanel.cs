@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class RegisterPanel : BasePanel
 {
-    private RegisterRequest RegisterRequest;
+    private RegisterRequest registerRequest;
     [SerializeField] private TextMeshProUGUI username;
     [SerializeField] private TextMeshProUGUI password;
     [SerializeField] private TextMeshProUGUI Tip1;
@@ -13,10 +13,12 @@ public class RegisterPanel : BasePanel
     [SerializeField] private Button RegisterBtn;
     [SerializeField] private Button BackBtn;
 
-    private void Start()
+    protected override void Start()
     {
-        RegisterRequest = GetComponent<RegisterRequest>();
+        registerRequest = GetComponent<RegisterRequest>();
     }
+
+    private void OnBackBtnClick() => uiManager.PopPanel();
 
     private void OnRegisterBtnClick()
     {
@@ -38,25 +40,18 @@ public class RegisterPanel : BasePanel
         }
         else
         {
-            RegisterRequest.SendRequest(username, password);
+            registerRequest.SendRequest(username, password);
         }
     }
 
-    public void ShowAuthTooltip(bool isSuccessful)
+    public void ShowAuthTooltip(bool success, string str)
     {
-        if (isSuccessful == true)
-        {
-            uiManager.ShowAuthToolTip("×¢²á³É¹¦", true);
-        }
-        else
-        {
-            uiManager.ShowAuthToolTip("×¢²áÊ§°Ü", true);
-        }
-    }
+        uiManager.ShowTooltip(PanelType.AuthTooltip, str);
 
-    private void OnBackBtnClick()
-    {
-        uiManager.PopPanel();
+        if (success == true)
+        {
+            uiManager.PushPanel(PanelType.Login);
+        }
     }
 
     private void AddListeners()
@@ -82,7 +77,6 @@ public class RegisterPanel : BasePanel
         RemoveListeners();
         gameObject.SetActive(false);
     }
-
 
     public override void OnEnter()
     {

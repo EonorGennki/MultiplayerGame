@@ -5,9 +5,10 @@ using UnityEngine;
 public enum PanelType
 {
     AuthTooltip,
+    RoomTooltip,
     Main,
     Login,
-    SignUp,
+    Register,
     RoomList,
     Room,
     Game,

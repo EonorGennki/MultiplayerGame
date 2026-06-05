@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class RegisterRequest : BaseRequest
 {
-    private RegisterPanel RegisterPanel;
+    private RegisterPanel registerPanel;
 
     public override void Awake()
     {
@@ -17,25 +17,33 @@ public class RegisterRequest : BaseRequest
 
     public override void Start()
     {
-        RegisterPanel = GetComponent<RegisterPanel>();
+        registerPanel = GetComponent<RegisterPanel>();
         base.Start();
     }
 
     public override void OnResponse(MainPack pack)
     {
-        bool isSuccessful = false;
+        bool success;
+        string str;
+
         switch (pack.ReturnCode)
         {
-            case ReturnCode.Succeeded:
-                isSuccessful = true;
+            case ReturnCode.Success:
+                success = true;
+                str = "×¢²á³É¹¦";
                 break;
-            case ReturnCode.Failed:
-                isSuccessful = false;
+            case ReturnCode.Failure:
+                success = false;
+                str = " ×¢²áÊ§°Ü";
+                break;
+            default:
+                success = false;
+                str = "Î´Öª´íÎó";
                 break;
         }
 
         //ÇÐ»»µ½Ö÷Ïß³Ì
-        mainContext.Post(_ => RegisterPanel.ShowAuthTooltip(isSuccessful), null);
+        mainContext.Post(_ => registerPanel.ShowAuthTooltip(success, str), null);
     }
 
     public void SendRequest(string username, string password)

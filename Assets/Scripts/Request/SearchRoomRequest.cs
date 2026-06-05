@@ -1,23 +1,20 @@
 using SocketGameProtocal;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class LoginRequest : BaseRequest
+public class SearchRoomRequest : BaseRequest
 {
-    private LoginPanel loginPanel;
+    private RoomListPanel roomListPanel;
 
     public override void Awake()
     {
-        requestCode = RequestCode.User;
-        actionCode = ActionCode.Login;
+        requestCode = RequestCode.Room;
+        actionCode = ActionCode.SearchRoom;
 
         base.Awake();
     }
 
     public override void Start()
     {
-        loginPanel = GetComponent<LoginPanel>();
+        roomListPanel = GetComponent<RoomListPanel>();
 
         base.Start();
     }
@@ -31,11 +28,11 @@ public class LoginRequest : BaseRequest
         {
             case ReturnCode.Success:
                 success = true;
-                str = "µÇÂ½³É¹¦";
+                str = "ËÑË÷³É¹¦";
                 break;
             case ReturnCode.Failure:
                 success = false;
-                str = " µÇÂ½Ê§°Ü";
+                str = "ËÑË÷Ê§°Ü";
                 break;
             default:
                 success = false;
@@ -43,19 +40,25 @@ public class LoginRequest : BaseRequest
                 break;
         }
 
+        foreach (RoomPack room in pack.RoomPack)
+        {
+            RoomInfo roomInfo = new RoomInfo();
+            roomInfo.roomName = room.RoomName;
+            roomInfo.currentNum = room.CurrentNum;
+            roomInfo.maxNum = room.MaxNum;
+            roomInfo.state = room.StateCode.ToString();
+            roomListPanel.roomInfoList.Add(roomInfo);
+        }
+
         //ÇÐ»»µ½Ö÷Ïß³Ì
-        mainContext.Post(_ => loginPanel.ShowAuthTooltip(success, str), null);
+        mainContext.Post(_ => roomListPanel.ShowRoomTooltip<SearchRoomRequest>(success, str), null);
     }
 
-    public void SendRequest(string username, string password)
+    public void SendRequest()
     {
         MainPack pack = new MainPack();
         pack.RequestCode = requestCode;
         pack.ActionCode = actionCode;
-        AuthPack loginPack = new AuthPack();
-        loginPack.Username = username;
-        loginPack.Password = password;
-        pack.AuthPack = loginPack;
 
         base.SendRequest(pack);
     }

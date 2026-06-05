@@ -13,6 +13,11 @@ public class BasePanel : MonoBehaviour
         }
     }
 
+    protected virtual void Start()
+    {
+
+    }
+
     public virtual void OnEnter()
     {
         

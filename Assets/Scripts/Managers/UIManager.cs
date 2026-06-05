@@ -12,8 +12,6 @@ public class UIManager : BaseManager
 
     private Transform canvasTransform;
 
-    private AuthTooltipPanel authTooltipPanel;
-
     public UIManager() : base()
     {
     }
@@ -99,7 +97,7 @@ public class UIManager : BaseManager
 
         string panelPath = "Prefabs/UIPanel/";
         string[] pathArray = new string[]
-        { "AuthTooltipPanel" , "MainPanel", "LoginPanel", "RegisterPanel",
+        { "AuthTooltipPanel", "RoomTooltipPanel", "MainPanel", "LoginPanel", "RegisterPanel",
           "RoomListPanel", "RoomPanel"};
 
         for (int i = 0; i < pathArray.Length; i++)
@@ -108,13 +106,16 @@ public class UIManager : BaseManager
         }
     }
 
-    public void ShowAuthToolTip(string tip, bool sync = false)
+    public void ShowTooltip(PanelType panelType, string str)
     {
-        if (!panelDic.TryGetValue(PanelType.AuthTooltip, out BasePanel panel))
+        if (!panelDic.TryGetValue(panelType, out BasePanel panel))
         {
-            panel = SpawnPanel(PanelType.AuthTooltip);
-            authTooltipPanel = panel as AuthTooltipPanel;
+            panel = SpawnPanel(panelType);
         }
-            authTooltipPanel.Show(tip, sync);
+
+        if (panel is ITooltipPanel tooltipPanel)
+        {
+            tooltipPanel.Show(str);
+        }
     }
 }

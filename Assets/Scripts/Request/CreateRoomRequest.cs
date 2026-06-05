@@ -3,39 +3,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LoginRequest : BaseRequest
+public class CreateRoomRequest : BaseRequest
 {
-    private LoginPanel loginPanel;
+    private RoomListPanel roomListPanel;
 
     public override void Awake()
     {
-        requestCode = RequestCode.User;
-        actionCode = ActionCode.Login;
+        requestCode = RequestCode.Room;
+        actionCode = ActionCode.CreateRoom;
 
         base.Awake();
     }
 
     public override void Start()
     {
-        loginPanel = GetComponent<LoginPanel>();
+        roomListPanel = GetComponent<RoomListPanel>();
 
         base.Start();
     }
 
     public override void OnResponse(MainPack pack)
     {
+
         bool success;
         string str;
-
         switch (pack.ReturnCode)
         {
             case ReturnCode.Success:
                 success = true;
-                str = "登陆成功";
+                str = "创建成功";
                 break;
             case ReturnCode.Failure:
                 success = false;
-                str = " 登陆失败";
+                str = "创建失败";
                 break;
             default:
                 success = false;
@@ -44,18 +44,14 @@ public class LoginRequest : BaseRequest
         }
 
         //切换到主线程
-        mainContext.Post(_ => loginPanel.ShowAuthTooltip(success, str), null);
+        mainContext.Post(_=> roomListPanel.ShowRoomTooltip<CreateRoomRequest>(success, str), null);
     }
 
-    public void SendRequest(string username, string password)
+    public void SendRequest()
     {
         MainPack pack = new MainPack();
         pack.RequestCode = requestCode;
         pack.ActionCode = actionCode;
-        AuthPack loginPack = new AuthPack();
-        loginPack.Username = username;
-        loginPack.Password = password;
-        pack.AuthPack = loginPack;
 
         base.SendRequest(pack);
     }

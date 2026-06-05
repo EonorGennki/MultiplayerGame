@@ -40,7 +40,6 @@ public class BaseRequest : MonoBehaviour
 
     }
 
-
     public virtual void SendRequest(MainPack pack)
     {
         face.Send(pack);

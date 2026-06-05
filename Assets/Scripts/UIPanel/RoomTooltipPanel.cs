@@ -1,7 +1,9 @@
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class AuthTooltipPanel : BasePanel, ITooltipPanel
+public class RoomTooltipPanel : BasePanel, ITooltipPanel
 {
     [SerializeField] private TextMeshProUGUI text;
 
@@ -22,6 +24,6 @@ public class AuthTooltipPanel : BasePanel, ITooltipPanel
     private void Hide()
     {
         text.text = "";
-        gameObject.SetActive (false);
+        gameObject.SetActive(false);
     }
 }
