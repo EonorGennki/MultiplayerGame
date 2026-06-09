@@ -4,13 +4,14 @@ using UnityEngine.UI;
 
 public class RoomItem : MonoBehaviour
 {
-    [SerializeField] private Button joinBtn;
+    private Button joinBtn;
     [SerializeField] private TextMeshProUGUI roomName;
     [SerializeField] private TextMeshProUGUI playerNumber;
     [SerializeField] private TextMeshProUGUI roomState;
 
     private void Start()
     {
+        joinBtn = GetComponent<Button>();
         joinBtn.onClick.AddListener(OnJoinClick);
     }
 

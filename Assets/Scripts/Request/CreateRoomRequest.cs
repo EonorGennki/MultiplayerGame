@@ -47,11 +47,15 @@ public class CreateRoomRequest : BaseRequest
         mainContext.Post(_=> roomListPanel.ShowRoomTooltip<CreateRoomRequest>(success, str), null);
     }
 
-    public void SendRequest()
+    public void SendRequest(string roomName, int maxNum)
     {
         MainPack pack = new MainPack();
         pack.RequestCode = requestCode;
         pack.ActionCode = actionCode;
+        RoomPack roomPack = new RoomPack();
+        roomPack.RoomName = roomName;
+        roomPack.MaxNum = maxNum;
+        pack.RoomPack.Add(roomPack);
 
         base.SendRequest(pack);
     }

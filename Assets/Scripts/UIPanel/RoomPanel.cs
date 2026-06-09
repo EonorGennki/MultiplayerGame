@@ -2,17 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoomPanel : MonoBehaviour
+public class RoomPanel : BasePanel
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Show()
     {
-        
+        gameObject.SetActive(true);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Hide()
     {
-        
+        gameObject.SetActive(false);
+    }
+
+    public override void OnEnter()
+    {
+        base.OnEnter();
+        Show();
+    }
+
+    public override void OnExit()
+    {
+        base.OnExit();
+        Hide();
+    }
+
+    public override void OnPause()
+    {
+        base.OnPause();
+        Hide();
+    }
+
+    public override void OnResume()
+    {
+        base.OnResume();
+        Show();
     }
 }

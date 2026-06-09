@@ -1,4 +1,5 @@
 using SocketGameProtocal;
+using UnityEngine;
 
 public class SearchRoomRequest : BaseRequest
 {
@@ -28,15 +29,15 @@ public class SearchRoomRequest : BaseRequest
         {
             case ReturnCode.Success:
                 success = true;
-                str = "搜索成功";
+                str = "成功搜索到" + pack.RoomPack.Count + "房间";
                 break;
             case ReturnCode.Failure:
                 success = false;
-                str = "搜索失败";
+                str = WhyFalse(pack.ErrorCode);
                 break;
             default:
                 success = false;
-                str = "未知错误";
+                str = "你什么意思";
                 break;
         }
 
@@ -61,5 +62,16 @@ public class SearchRoomRequest : BaseRequest
         pack.ActionCode = actionCode;
 
         base.SendRequest(pack);
+    }
+
+    private string WhyFalse(ErrorCode errorCode)
+    {
+        switch (errorCode)
+        {
+            case ErrorCode.NotFound:
+                return "未找到房间";
+            default:
+                return "未知错误";
+        }
     }
 }

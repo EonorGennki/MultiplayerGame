@@ -136,9 +136,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83ed93e48f97a0642af1ffd8e47b55ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  join: {fileID: 6419360033307379824}
   roomName: {fileID: 2066212983988916314}
-  roomNumber: {fileID: 7199481175622576114}
+  playerNumber: {fileID: 7199481175622576114}
   roomState: {fileID: 4341570318008636361}
 --- !u!1 &4719778573449374705
 GameObject:

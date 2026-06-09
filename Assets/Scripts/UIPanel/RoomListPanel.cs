@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,7 @@ public class RoomListPanel : BasePanel
     [SerializeField] private Button searchBtn;
     [SerializeField] private Button createbtn;
     [SerializeField] private TextMeshProUGUI roomName;
+    [SerializeField] private Slider maxNum;
     [SerializeField] private Transform roomListTransform;
     [SerializeField] private GameObject roomItemPrefab;
 
@@ -31,7 +33,13 @@ public class RoomListPanel : BasePanel
 
     private void OnCreateBtnClick()
     {
-        createRoomRequest.SendRequest();
+        string roomName = Regex.Replace(this.roomName.text, "[\u200B-\u200D\uFEFF]", "");
+        if (roomName == string.Empty)
+        {
+            uiManager.ShowTooltip(PanelType.RoomTooltip, "房间名不能为空！");
+            return;
+        }
+        createRoomRequest.SendRequest(roomName, (int)maxNum.value);
     }
 
     public void ShowRoomTooltip<T>(bool success, string str) where T : BaseRequest
@@ -94,7 +102,7 @@ public class RoomListPanel : BasePanel
         foreach (var roomInfo in roomInfoList)
         {
             GameObject gameObject = Instantiate(roomItemPrefab, roomListTransform, false);
-            RoomItem item = gameObject.AddComponent<RoomItem>();
+            RoomItem item = gameObject.GetComponent<RoomItem>();
             item.SetRoomInfo(roomInfo.roomName, roomInfo.currentNum, roomInfo.maxNum, roomInfo.state);
         }
     }
