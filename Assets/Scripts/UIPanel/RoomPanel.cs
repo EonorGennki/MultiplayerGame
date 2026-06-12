@@ -16,9 +16,20 @@ public class RoomPanel : BasePanel
     [SerializeField] private Transform playerListTransform;
     [SerializeField] private GameObject playerItemPrefab;
 
-    public List<PlayerInfo> playerInfoList = new List<PlayerInfo>();
+    private LeaveRoomRequest leaveRoomRequest;
+    public List<PlayerInfo> playerList = new List<PlayerInfo>();
 
-    private void OnLeaveBtnClick() => uiManager.PopPanel();
+    protected override void Start()
+    {
+        leaveRoomRequest = GetComponent<LeaveRoomRequest>();
+
+        base.Start();
+    }
+
+    private void OnLeaveBtnClick()
+    {
+        leaveRoomRequest.SendRequest();
+    }
 
     private void OnStartBtnClick()
     {
@@ -35,28 +46,27 @@ public class RoomPanel : BasePanel
         UpdatePlayerList();
     }
 
-
     /// <summary>
     /// 更新玩家列表
     /// </summary>
     private void UpdatePlayerList()
     {
-        for (int i = 0; i < playerListTransform.childCount; i++)
+        for (int i = playerListTransform.childCount - 1; i >= 0; i--)
         {
             Destroy(playerListTransform.GetChild(i).gameObject);
         }
 
-        foreach (var playerInfo in playerInfoList)
+        foreach (var player in playerList)
         {
             GameObject gameObject = Instantiate(playerItemPrefab, playerListTransform, false);
             PlayerItem item = gameObject.GetComponent<PlayerItem>();
-            item.SetPlayerInfo(playerInfo);
+            item.SetPlayerInfo(player);
         }
     }
 
     private void UpdatePlayerList(List<PlayerInfo> playerList)
     {
-        for (int i = 0; i < playerListTransform.childCount; i++)
+        for (int i = playerListTransform.childCount - 1; i >= 0; i--)
         {
             Destroy(playerListTransform.GetChild(i).gameObject);
         }
@@ -71,8 +81,15 @@ public class RoomPanel : BasePanel
 
     public void UpdateRoomInfo(RoomInfo roomInfo)
     {
-        roomName.text = roomName.text + roomInfo.roomName;
-        playerNum.text = playerNum.text + roomInfo.currentNum + "/" + roomInfo.maxNum;
+        string str1 = "房间名：";
+        roomName.text = str1 + roomInfo.roomName;
+        string str2 = "房间人数：";
+        playerNum.text = str2 + roomInfo.currentNum + "/" + roomInfo.maxNum;
+    }
+
+    public void AutoLeaveRoom()
+    {
+        uiManager.PopPanel();
     }
 
     private void AddListeners()

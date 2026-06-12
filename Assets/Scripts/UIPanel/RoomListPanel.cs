@@ -27,7 +27,10 @@ public class RoomListPanel : BasePanel
         joinRoomRequest = GetComponent<JoinRoomRequest>();
     }
 
-    private void OnBackBtnClick() => uiManager.PopPanel();
+    private void OnBackBtnClick()
+    {
+        uiManager.PopPanel();
+    }
 
     private void OnSearchBtnClick()
     {
@@ -64,10 +67,7 @@ public class RoomListPanel : BasePanel
         }
         else if (typeof(T) == typeof(SearchRoomRequest))
         {
-            if (success)
-            {
-                UpdateRoomList();
-            }
+            UpdateRoomList();
         }
         else if (typeof(T) == typeof(JoinRoomRequest))
         {
@@ -87,7 +87,7 @@ public class RoomListPanel : BasePanel
     public void UpdateRoomList()
     {
         //更新前清空房间列表
-        for (int i = 0; i < roomListTransform.childCount; i++)
+        for (int i = roomListTransform.childCount - 1; i >= 0; i--)
         {
             Destroy(roomListTransform.GetChild(i).gameObject);
         }

@@ -1,4 +1,5 @@
 using SocketGameProtocal;
+using UnityEngine;
 
 public class ShowPlayersRequest : BaseRequest
 {
@@ -21,11 +22,12 @@ public class ShowPlayersRequest : BaseRequest
     public override void OnResponse(MainPack pack)
     {
         RoomInfo roomInfo = new RoomInfo();
-        PlayerInfo playerInfo = new PlayerInfo();
+        roomPanel.playerList.Clear();
         foreach (var player in pack.PlayerPack)
         {
+            PlayerInfo playerInfo = new PlayerInfo();
             playerInfo.playerName = player.PlayerName;
-            roomPanel.playerInfoList.Add(playerInfo);
+            roomPanel.playerList.Add(playerInfo);
             UpdateRoomInfo(pack, roomInfo);
         }
 

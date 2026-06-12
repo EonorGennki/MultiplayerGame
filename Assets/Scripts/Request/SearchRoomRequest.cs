@@ -41,6 +41,7 @@ public class SearchRoomRequest : BaseRequest
                 break;
         }
 
+        roomListPanel.roomInfoList.Clear();
         foreach (RoomPack room in pack.RoomPack)
         {
             RoomInfo roomInfo = new RoomInfo();
