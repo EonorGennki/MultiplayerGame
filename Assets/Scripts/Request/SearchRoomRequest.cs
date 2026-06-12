@@ -37,7 +37,7 @@ public class SearchRoomRequest : BaseRequest
                 break;
             default:
                 success = false;
-                str = "你什么意思";
+                str = "请求异常";
                 break;
         }
 

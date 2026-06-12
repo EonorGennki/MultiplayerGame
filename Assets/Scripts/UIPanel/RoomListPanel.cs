@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class RoomListPanel : BasePanel
 {
-    private CreateRoomRequest createRoomRequest;
-    private SearchRoomRequest searchRoomRequest;
     [SerializeField] private Button backbtn;
     [SerializeField] private Button searchBtn;
     [SerializeField] private Button createbtn;
@@ -16,12 +14,17 @@ public class RoomListPanel : BasePanel
     [SerializeField] private Transform roomListTransform;
     [SerializeField] private GameObject roomItemPrefab;
 
+    private CreateRoomRequest createRoomRequest;
+    private SearchRoomRequest searchRoomRequest;
+    private JoinRoomRequest joinRoomRequest;
     public List<RoomInfo> roomInfoList = new List<RoomInfo>();
+    public List<PlayerInfo> playerInfoList = new List<PlayerInfo>();
 
     protected override void Start()
     {
         createRoomRequest = GetComponent<CreateRoomRequest>();
         searchRoomRequest = GetComponent<SearchRoomRequest>();
+        joinRoomRequest = GetComponent<JoinRoomRequest>();
     }
 
     private void OnBackBtnClick() => uiManager.PopPanel();
@@ -42,24 +45,60 @@ public class RoomListPanel : BasePanel
         createRoomRequest.SendRequest(roomName, (int)maxNum.value);
     }
 
-    public void ShowRoomTooltip<T>(bool success, string str) where T : BaseRequest
+    public void JoinRoom(string roomName)
+    {
+        joinRoomRequest.SendRequest(roomName);
+    }
+
+    public void ShowRoomTooltip<T>(bool success, string str, List<PlayerInfo> playerList = null, RoomInfo roomInfo = null) where T : BaseRequest
     {
         uiManager.ShowTooltip(PanelType.RoomTooltip, str);
         if (typeof(T) == typeof(CreateRoomRequest))
         {
-            if (success == true)
+            if (success)
             {
                 uiManager.PushPanel(PanelType.Room);
+                uiManager.OnPlayerListUpdate.Invoke(playerList);
+                uiManager.OnRoomInfoUpdate.Invoke(roomInfo);
             }
         }
         else if (typeof(T) == typeof(SearchRoomRequest))
         {
-            if (success == true)
+            if (success)
             {
                 UpdateRoomList();
             }
         }
+        else if (typeof(T) == typeof(JoinRoomRequest))
+        {
+            if (success)
+            {
+                uiManager.PushPanel(PanelType.Room);
+                uiManager.OnPlayerListUpdate.Invoke(playerList);
+                uiManager.OnRoomInfoUpdate.Invoke(roomInfo);
+            }
+        }
 
+    }
+
+    /// <summary>
+    /// 更新房间列表
+    /// </summary>
+    public void UpdateRoomList()
+    {
+        //更新前清空房间列表
+        for (int i = 0; i < roomListTransform.childCount; i++)
+        {
+            Destroy(roomListTransform.GetChild(i).gameObject);
+        }
+
+        foreach (var roomInfo in roomInfoList)
+        {
+            GameObject gameObject = Instantiate(roomItemPrefab, roomListTransform, false);
+            RoomItem item = gameObject.GetComponent<RoomItem>();
+            item.roomListPanel = this;
+            item.SetRoomInfo(roomInfo);
+        }
     }
 
     private void AddListeners()
@@ -86,25 +125,6 @@ public class RoomListPanel : BasePanel
     {
         RemoveListeners();
         gameObject.SetActive(false);
-    }
-
-    /// <summary>
-    /// 更新房间列表
-    /// </summary>
-    public void UpdateRoomList()
-    {
-        //更新前清空房间列表
-        for (int i = 0; i < roomListTransform.childCount; i++)
-        {
-            Destroy(roomListTransform.GetChild(i).gameObject);
-        }
-
-        foreach (var roomInfo in roomInfoList)
-        {
-            GameObject gameObject = Instantiate(roomItemPrefab, roomListTransform, false);
-            RoomItem item = gameObject.GetComponent<RoomItem>();
-            item.SetRoomInfo(roomInfo.roomName, roomInfo.currentNum, roomInfo.maxNum, roomInfo.state);
-        }
     }
 
     public override void OnEnter()

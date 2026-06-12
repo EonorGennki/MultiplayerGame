@@ -39,7 +39,7 @@ public class LoginRequest : BaseRequest
                 break;
             default:
                 success = false;
-                str = "Î´Öª´íÎó";
+                str = "ÇëÇóÒì³£";
                 break;
         }
 

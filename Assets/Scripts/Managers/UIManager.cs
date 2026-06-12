@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,9 @@ public class UIManager : BaseManager
     private Stack<BasePanel> panelStack = new Stack<BasePanel>();
 
     private Transform canvasTransform;
+
+    public Action<List<PlayerInfo>> OnPlayerListUpdate;
+    public Action<RoomInfo> OnRoomInfoUpdate;
 
     public UIManager() : base()
     {
@@ -29,7 +33,7 @@ public class UIManager : BaseManager
     /// œ‘ æUIΩÁ√Ê
     /// </summary>
     /// <param name="panelType"></param>
-    public void PushPanel(PanelType panelType)
+    public BasePanel PushPanel(PanelType panelType)
     {
         if (!panelDic.TryGetValue(panelType, out BasePanel panel))
         {
@@ -44,6 +48,7 @@ public class UIManager : BaseManager
 
         panelStack.Push(panel);
         panel.OnEnter();
+        return panel;
     }
 
     /// <summary>

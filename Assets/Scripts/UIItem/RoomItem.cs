@@ -9,6 +9,8 @@ public class RoomItem : MonoBehaviour
     [SerializeField] private TextMeshProUGUI playerNumber;
     [SerializeField] private TextMeshProUGUI roomState;
 
+    public RoomListPanel roomListPanel;
+
     private void Start()
     {
         joinBtn = GetComponent<Button>();
@@ -17,13 +19,13 @@ public class RoomItem : MonoBehaviour
 
     private void OnJoinClick()
     {
-
+        roomListPanel.JoinRoom(roomName.text);
     }
 
-    public void SetRoomInfo(string roomName, int currentNum, int maxNum, string roomState)
+    public void SetRoomInfo(RoomInfo roomInfo)
     {
-        this.roomName.text = roomName;
-        this.playerNumber.text = currentNum + "/" + maxNum;
-        this.roomState.text = roomState;
+        roomName.text = roomInfo.roomName;
+        playerNumber.text = roomInfo.currentNum + "/" + roomInfo.maxNum;
+        roomState.text = roomInfo.state;
     }
 }
