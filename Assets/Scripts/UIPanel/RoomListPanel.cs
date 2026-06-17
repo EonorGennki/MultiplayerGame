@@ -17,8 +17,7 @@ public class RoomListPanel : BasePanel
     private CreateRoomRequest createRoomRequest;
     private SearchRoomRequest searchRoomRequest;
     private JoinRoomRequest joinRoomRequest;
-    public List<RoomInfo> roomInfoList = new List<RoomInfo>();
-    public List<PlayerInfo> playerInfoList = new List<PlayerInfo>();
+    public List<RoomInfo> roomList = new List<RoomInfo>();
 
     protected override void Start()
     {
@@ -61,8 +60,9 @@ public class RoomListPanel : BasePanel
             if (success)
             {
                 uiManager.PushPanel(PanelType.Room);
-                uiManager.OnPlayerListUpdate.Invoke(playerList);
+                uiManager.OnIsHostSet.Invoke(true);
                 uiManager.OnRoomInfoUpdate.Invoke(roomInfo);
+                uiManager.OnPlayerListUpdate.Invoke(playerList);
             }
         }
         else if (typeof(T) == typeof(SearchRoomRequest))
@@ -74,8 +74,9 @@ public class RoomListPanel : BasePanel
             if (success)
             {
                 uiManager.PushPanel(PanelType.Room);
-                uiManager.OnPlayerListUpdate.Invoke(playerList);
+                uiManager.OnIsHostSet.Invoke(false);
                 uiManager.OnRoomInfoUpdate.Invoke(roomInfo);
+                uiManager.OnPlayerListUpdate.Invoke(playerList);
             }
         }
 
@@ -92,7 +93,7 @@ public class RoomListPanel : BasePanel
             Destroy(roomListTransform.GetChild(i).gameObject);
         }
 
-        foreach (var roomInfo in roomInfoList)
+        foreach (var roomInfo in roomList)
         {
             GameObject gameObject = Instantiate(roomItemPrefab, roomListTransform, false);
             RoomItem item = gameObject.GetComponent<RoomItem>();

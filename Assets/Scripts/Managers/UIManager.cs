@@ -15,6 +15,7 @@ public class UIManager : BaseManager
 
     public Action<List<PlayerInfo>> OnPlayerListUpdate;
     public Action<RoomInfo> OnRoomInfoUpdate;
+    public Action<bool> OnIsHostSet;
 
     public UIManager() : base()
     {

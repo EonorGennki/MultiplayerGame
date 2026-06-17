@@ -74,6 +74,7 @@ public class ClientManager : BaseManager
             int len = socket.EndReceive(result);
             if (len == 0)
             {
+
                 Close();
                 return;
             }

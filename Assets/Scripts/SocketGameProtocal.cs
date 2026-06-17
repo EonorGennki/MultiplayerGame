@@ -28,35 +28,37 @@ namespace SocketGameProtocal {
             "bCIuCghBdXRoUGFjaxIQCgh1c2VybmFtZRgBIAEoCRIQCghwYXNzd29yZBgC",
             "IAEoCSJ2CghSb29tUGFjaxIRCglyb29tX25hbWUYASABKAkSDwoHbWF4X251",
             "bRgCIAEoBRITCgtjdXJyZW50X251bRgDIAEoBRIxCgpzdGF0ZV9Db2RlGAQg",
-            "ASgOMh0uU29ja2V0R2FtZVByb3RvY2FsLlN0YXRlQ29kZSIhCgpQbGF5ZXJQ",
-            "YWNrEhMKC3BsYXllcl9uYW1lGAEgASgJIoMDCghNYWluUGFjaxI1CgxyZXF1",
-            "ZXN0X2NvZGUYASABKA4yHy5Tb2NrZXRHYW1lUHJvdG9jYWwuUmVxdWVzdENv",
-            "ZGUSMwoLYWN0aW9uX2NvZGUYAiABKA4yHi5Tb2NrZXRHYW1lUHJvdG9jYWwu",
-            "QWN0aW9uQ29kZRIzCgtyZXR1cm5fY29kZRgDIAEoDjIeLlNvY2tldEdhbWVQ",
-            "cm90b2NhbC5SZXR1cm5Db2RlEjEKCmVycm9yX2NvZGUYBCABKA4yHS5Tb2Nr",
-            "ZXRHYW1lUHJvdG9jYWwuRXJyb3JDb2RlEi8KCWF1dGhfcGFjaxgFIAEoCzIc",
-            "LlNvY2tldEdhbWVQcm90b2NhbC5BdXRoUGFjaxIvCglyb29tX3BhY2sYBiAD",
-            "KAsyHC5Tb2NrZXRHYW1lUHJvdG9jYWwuUm9vbVBhY2sSMwoLcGxheWVyX3Bh",
-            "Y2sYByADKAsyHi5Tb2NrZXRHYW1lUHJvdG9jYWwuUGxheWVyUGFjaxIMCgR0",
-            "ZXh0GAggASgJKi4KC1JlcXVlc3RDb2RlEgsKB1JlcU5vbmUQABIICgRVc2Vy",
-            "EAESCAoEUm9vbRACKpkBCgpBY3Rpb25Db2RlEgsKB0FjdE5vbmUQABIMCghS",
-            "ZWdpc3RlchABEgkKBUxvZ2luEAISDgoKQ3JlYXRlUm9vbRADEg4KClNlYXJj",
-            "aFJvb20QBBIMCghKb2luUm9vbRAFEg0KCUxlYXZlUm9vbRAGEg0KCUxlYXZl",
-            "R2FtZRAHEg8KC1Nob3dQbGF5ZXJzEAgSCAoEQ2hhdBAJKjMKClJldHVybkNv",
-            "ZGUSCwoHUmV0Tm9uZRAAEgsKB1N1Y2Nlc3MQARILCgdGYWlsdXJlEAIq8gEK",
-            "CUVycm9yQ29kZRINCglFcnJvck5vbmUQABIRCgxVbmtub3duRXJyb3IQ6AcS",
-            "EgoNQWxyZWFkeUV4aXN0cxDpBxINCghOb3RGb3VuZBDqBxISCg1EYXRhYmFz",
-            "ZUVycm9yENEPEhoKFUludmFsaWRVc2VybmFtZUZvcm1hdBDSDxIaChVJbnZh",
-            "bGlkUGFzc3dvcmRGb3JtYXQQ0w8SFAoPSW52YWxpZFVzZXJuYW1lENQPEhQK",
-            "D0ludmFsaWRQYXNzd29yZBDVDxIXChJHYW1lQWxyZWFkeVN0YXJ0ZWQQuRcS",
-            "DwoKUm9vbUlzRnVsbBC6Fyo+CglTdGF0ZUNvZGUSDQoJU3RhdGVOb25lEAAS",
-            "CwoHV2FpdGluZxABEggKBEZ1bGwQAhILCgdQbGF5aW5nEANiBnByb3RvMw=="));
+            "ASgOMh0uU29ja2V0R2FtZVByb3RvY2FsLlN0YXRlQ29kZSJCCgpQbGF5ZXJQ",
+            "YWNrEg4KBnVzZXJJZBgBIAEoBRITCgtwbGF5ZXJfbmFtZRgCIAEoCRIPCgdp",
+            "c1JlYWR5GAMgASgIIoMDCghNYWluUGFjaxI1CgxyZXF1ZXN0X2NvZGUYASAB",
+            "KA4yHy5Tb2NrZXRHYW1lUHJvdG9jYWwuUmVxdWVzdENvZGUSMwoLYWN0aW9u",
+            "X2NvZGUYAiABKA4yHi5Tb2NrZXRHYW1lUHJvdG9jYWwuQWN0aW9uQ29kZRIz",
+            "CgtyZXR1cm5fY29kZRgDIAEoDjIeLlNvY2tldEdhbWVQcm90b2NhbC5SZXR1",
+            "cm5Db2RlEjEKCmVycm9yX2NvZGUYBCABKA4yHS5Tb2NrZXRHYW1lUHJvdG9j",
+            "YWwuRXJyb3JDb2RlEi8KCWF1dGhfcGFjaxgFIAEoCzIcLlNvY2tldEdhbWVQ",
+            "cm90b2NhbC5BdXRoUGFjaxIvCglyb29tX3BhY2sYBiADKAsyHC5Tb2NrZXRH",
+            "YW1lUHJvdG9jYWwuUm9vbVBhY2sSMwoLcGxheWVyX3BhY2sYByADKAsyHi5T",
+            "b2NrZXRHYW1lUHJvdG9jYWwuUGxheWVyUGFjaxIMCgR0ZXh0GAggASgJKi4K",
+            "C1JlcXVlc3RDb2RlEgsKB1JlcU5vbmUQABIICgRVc2VyEAESCAoEUm9vbRAC",
+            "KrMBCgpBY3Rpb25Db2RlEgsKB0FjdE5vbmUQABIMCghSZWdpc3RlchABEgkK",
+            "BUxvZ2luEAISDgoKQ3JlYXRlUm9vbRADEg4KClNlYXJjaFJvb20QBBIMCghK",
+            "b2luUm9vbRAFEg0KCUxlYXZlUm9vbRAGEg0KCUxlYXZlR2FtZRAHEg8KC1No",
+            "b3dQbGF5ZXJzEAgSCAoEQ2hhdBAJEg0KCVN0YXJ0R2FtZRAKEgkKBVJlYWR5",
+            "EAsqMwoKUmV0dXJuQ29kZRILCgdSZXROb25lEAASCwoHU3VjY2VzcxABEgsK",
+            "B0ZhaWx1cmUQAiryAQoJRXJyb3JDb2RlEg0KCUVycm9yTm9uZRAAEhEKDFVu",
+            "a25vd25FcnJvchDoBxISCg1BbHJlYWR5RXhpc3RzEOkHEg0KCE5vdEZvdW5k",
+            "EOoHEhIKDURhdGFiYXNlRXJyb3IQ0Q8SGgoVSW52YWxpZFVzZXJuYW1lRm9y",
+            "bWF0ENIPEhoKFUludmFsaWRQYXNzd29yZEZvcm1hdBDTDxIUCg9JbnZhbGlk",
+            "VXNlcm5hbWUQ1A8SFAoPSW52YWxpZFBhc3N3b3JkENUPEhcKEkdhbWVBbHJl",
+            "YWR5U3RhcnRlZBC5FxIPCgpSb29tSXNGdWxsELoXKj4KCVN0YXRlQ29kZRIN",
+            "CglTdGF0ZU5vbmUQABILCgdXYWl0aW5nEAESCAoERnVsbBACEgsKB1BsYXlp",
+            "bmcQA2IGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::SocketGameProtocal.RequestCode), typeof(global::SocketGameProtocal.ActionCode), typeof(global::SocketGameProtocal.ReturnCode), typeof(global::SocketGameProtocal.ErrorCode), typeof(global::SocketGameProtocal.StateCode), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::SocketGameProtocal.AuthPack), global::SocketGameProtocal.AuthPack.Parser, new[]{ "Username", "Password" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::SocketGameProtocal.RoomPack), global::SocketGameProtocal.RoomPack.Parser, new[]{ "RoomName", "MaxNum", "CurrentNum", "StateCode" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::SocketGameProtocal.PlayerPack), global::SocketGameProtocal.PlayerPack.Parser, new[]{ "PlayerName" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::SocketGameProtocal.PlayerPack), global::SocketGameProtocal.PlayerPack.Parser, new[]{ "UserId", "PlayerName", "IsReady" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::SocketGameProtocal.MainPack), global::SocketGameProtocal.MainPack.Parser, new[]{ "RequestCode", "ActionCode", "ReturnCode", "ErrorCode", "AuthPack", "RoomPack", "PlayerPack", "Text" }, null, null, null, null)
           }));
     }
@@ -114,6 +116,14 @@ namespace SocketGameProtocal {
     ///聊天
     /// </summary>
     [pbr::OriginalName("Chat")] Chat = 9,
+    /// <summary>
+    ///开始游戏
+    /// </summary>
+    [pbr::OriginalName("StartGame")] StartGame = 10,
+    /// <summary>
+    ///准备
+    /// </summary>
+    [pbr::OriginalName("Ready")] Ready = 11,
   }
 
   public enum ReturnCode {
@@ -788,7 +798,9 @@ namespace SocketGameProtocal {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public PlayerPack(PlayerPack other) : this() {
+      userId_ = other.userId_;
       playerName_ = other.playerName_;
+      isReady_ = other.isReady_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -798,8 +810,20 @@ namespace SocketGameProtocal {
       return new PlayerPack(this);
     }
 
+    /// <summary>Field number for the "userId" field.</summary>
+    public const int UserIdFieldNumber = 1;
+    private int userId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int UserId {
+      get { return userId_; }
+      set {
+        userId_ = value;
+      }
+    }
+
     /// <summary>Field number for the "player_name" field.</summary>
-    public const int PlayerNameFieldNumber = 1;
+    public const int PlayerNameFieldNumber = 2;
     private string playerName_ = "";
     /// <summary>
     ///玩家名称
@@ -810,6 +834,21 @@ namespace SocketGameProtocal {
       get { return playerName_; }
       set {
         playerName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "isReady" field.</summary>
+    public const int IsReadyFieldNumber = 3;
+    private bool isReady_;
+    /// <summary>
+    ///是否准备
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool IsReady {
+      get { return isReady_; }
+      set {
+        isReady_ = value;
       }
     }
 
@@ -828,7 +867,9 @@ namespace SocketGameProtocal {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (UserId != other.UserId) return false;
       if (PlayerName != other.PlayerName) return false;
+      if (IsReady != other.IsReady) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -836,7 +877,9 @@ namespace SocketGameProtocal {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
+      if (UserId != 0) hash ^= UserId.GetHashCode();
       if (PlayerName.Length != 0) hash ^= PlayerName.GetHashCode();
+      if (IsReady != false) hash ^= IsReady.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -855,9 +898,17 @@ namespace SocketGameProtocal {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
+      if (UserId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(UserId);
+      }
       if (PlayerName.Length != 0) {
-        output.WriteRawTag(10);
+        output.WriteRawTag(18);
         output.WriteString(PlayerName);
+      }
+      if (IsReady != false) {
+        output.WriteRawTag(24);
+        output.WriteBool(IsReady);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -869,9 +920,17 @@ namespace SocketGameProtocal {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (UserId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(UserId);
+      }
       if (PlayerName.Length != 0) {
-        output.WriteRawTag(10);
+        output.WriteRawTag(18);
         output.WriteString(PlayerName);
+      }
+      if (IsReady != false) {
+        output.WriteRawTag(24);
+        output.WriteBool(IsReady);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -883,8 +942,14 @@ namespace SocketGameProtocal {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
+      if (UserId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(UserId);
+      }
       if (PlayerName.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(PlayerName);
+      }
+      if (IsReady != false) {
+        size += 1 + 1;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -898,8 +963,14 @@ namespace SocketGameProtocal {
       if (other == null) {
         return;
       }
+      if (other.UserId != 0) {
+        UserId = other.UserId;
+      }
       if (other.PlayerName.Length != 0) {
         PlayerName = other.PlayerName;
+      }
+      if (other.IsReady != false) {
+        IsReady = other.IsReady;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -920,8 +991,16 @@ namespace SocketGameProtocal {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
+          case 8: {
+            UserId = input.ReadInt32();
+            break;
+          }
+          case 18: {
             PlayerName = input.ReadString();
+            break;
+          }
+          case 24: {
+            IsReady = input.ReadBool();
             break;
           }
         }
@@ -943,8 +1022,16 @@ namespace SocketGameProtocal {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
+          case 8: {
+            UserId = input.ReadInt32();
+            break;
+          }
+          case 18: {
             PlayerName = input.ReadString();
+            break;
+          }
+          case 24: {
+            IsReady = input.ReadBool();
             break;
           }
         }
