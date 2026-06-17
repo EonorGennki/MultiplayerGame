@@ -13,6 +13,8 @@ public class RegisterPanel : BasePanel
     [SerializeField] private Button RegisterBtn;
     [SerializeField] private Button BackBtn;
 
+    private bool isProcessingRegister = false;
+
     protected override void Start()
     {
         registerRequest = GetComponent<RegisterRequest>();
@@ -22,6 +24,12 @@ public class RegisterPanel : BasePanel
 
     private void OnRegisterBtnClick()
     {
+        if (isProcessingRegister)
+        {
+            return;
+        }
+        isProcessingRegister = true;
+
         //È¥³ýÁã¿í×Ö·û
         string username = Regex.Replace(this.username.text, "[\u200B-\u200D\uFEFF]", "");
         string password = Regex.Replace(this.password.text, "[\u200B-\u200D\uFEFF]", "");
@@ -46,10 +54,14 @@ public class RegisterPanel : BasePanel
 
     public void ShowAuthTooltip(bool success, string str)
     {
+        isProcessingRegister = false;
+
         uiManager.ShowTooltip(PanelType.AuthTooltip, str);
 
         if (success == true)
         {
+            username.text = "";
+            password.text = "";
             uiManager.PushPanel(PanelType.Login);
         }
     }

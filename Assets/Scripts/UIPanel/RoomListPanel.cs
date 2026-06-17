@@ -19,6 +19,9 @@ public class RoomListPanel : BasePanel
     private JoinRoomRequest joinRoomRequest;
     public List<RoomInfo> roomList = new List<RoomInfo>();
 
+    private bool isProcessingCreate = false;
+    private bool isProcessingSearch = false;
+
     protected override void Start()
     {
         createRoomRequest = GetComponent<CreateRoomRequest>();
@@ -33,11 +36,23 @@ public class RoomListPanel : BasePanel
 
     private void OnSearchBtnClick()
     {
+        if (isProcessingSearch)
+        {
+            return;
+        }
+        isProcessingSearch = true;
+
         searchRoomRequest.SendRequest();
     }
 
     private void OnCreateBtnClick()
     {
+        if (isProcessingCreate)
+        {
+            return;
+        }
+        isProcessingCreate = true;
+
         string roomName = Regex.Replace(this.roomName.text, "[\u200B-\u200D\uFEFF]", "");
         if (roomName == string.Empty)
         {
@@ -57,6 +72,7 @@ public class RoomListPanel : BasePanel
         uiManager.ShowTooltip(PanelType.RoomTooltip, str);
         if (typeof(T) == typeof(CreateRoomRequest))
         {
+            isProcessingCreate = false;
             if (success)
             {
                 uiManager.PushPanel(PanelType.Room);
@@ -67,6 +83,7 @@ public class RoomListPanel : BasePanel
         }
         else if (typeof(T) == typeof(SearchRoomRequest))
         {
+            isProcessingSearch = false;
             UpdateRoomList();
         }
         else if (typeof(T) == typeof(JoinRoomRequest))

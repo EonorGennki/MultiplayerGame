@@ -14,6 +14,8 @@ public class LoginPanel : BasePanel
     [SerializeField] private Button LoginBtn;
     [SerializeField] private Button BackBtn;
 
+    private bool isProcessingLogin = false;
+
     protected override void Start()
     {
         loginRequest = GetComponent<LoginRequest>();
@@ -23,6 +25,12 @@ public class LoginPanel : BasePanel
 
     private void OnLoginBtnClick()
     {
+        if (isProcessingLogin)
+        {
+            return;
+        }
+        isProcessingLogin = true;
+
         //È¥³ýÁã¿í×Ö·û
         string username = Regex.Replace(this.username.text, "[\u200B-\u200D\uFEFF]", "");
         string password = Regex.Replace(this.password.text, "[\u200B-\u200D\uFEFF]", "");
@@ -47,6 +55,8 @@ public class LoginPanel : BasePanel
 
     public void ShowAuthTooltip(bool success, string str)
     {
+        isProcessingLogin = false;
+
         uiManager.ShowTooltip(PanelType.AuthTooltip, str);
 
         if (success == true)
