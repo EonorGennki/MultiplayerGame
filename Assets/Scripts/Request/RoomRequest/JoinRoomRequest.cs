@@ -77,11 +77,11 @@ public class JoinRoomRequest : BaseRequest
         }
     }
 
-    private PlayerInfo ToPlayerInfo(PlayerPack player)
+    private PlayerInfo ToPlayerInfo(PlayerPack playerPack)
     {
-        int userId = player.UserId;
-        string playerName = player.PlayerName;
-        bool isReady = player.IsReady;
+        int userId = playerPack.PlayerId;
+        string playerName = playerPack.PlayerName;
+        bool isReady = playerPack.IsReady;
         PlayerInfo playerInfo = new PlayerInfo(userId, playerName, isReady);
         return playerInfo;
     }

@@ -37,7 +37,7 @@ public class SearchRoomRequest : BaseRequest
                 break;
             default:
                 success = false;
-                str = "请求异常";
+                str = "返回码异常";
                 break;
         }
 
@@ -80,7 +80,7 @@ public class SearchRoomRequest : BaseRequest
     {
         switch (errorCode)
         {
-            case ErrorCode.NotFound:
+            case ErrorCode.RoomNotFound:
                 return "未找到房间";
             default:
                 return "未知错误";

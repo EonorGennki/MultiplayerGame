@@ -26,7 +26,10 @@ public class RoomPanel : BasePanel
     public List<PlayerInfo> playerList { get; set; } = new List<PlayerInfo>();
 
     private bool isHost = false;
-    private bool isProcessingReady = false; //防抖处理
+    //防抖处理
+    private bool isProcessingReady = false; 
+    private bool isProcessingLeave = false;
+    private bool isProcessingStart = false;
 
     protected override void Start()
     {
@@ -40,11 +43,23 @@ public class RoomPanel : BasePanel
 
     private void OnLeaveBtnClick()
     {
+        if (isProcessingLeave)
+        {
+            return;
+        }
+        isProcessingLeave = true;
+
         leaveRoomRequest.SendRequest();
     }
 
     private void OnStartBtnClick()
     {
+        if (isProcessingStart)
+        {
+            return;
+        }
+        isProcessingStart = true;
+
         startGameRequest.SendRequest();
     }
 
@@ -135,7 +150,10 @@ public class RoomPanel : BasePanel
 
         if (msgListTransform.childCount > 20)
         {
-            Destroy(msgListTransform.GetChild(0));
+            for (int i = 0; i < msgListTransform.childCount - 20; i++)
+            {
+                Destroy(msgListTransform.GetChild(i).gameObject);
+            }
         }
     }
 
@@ -190,11 +208,22 @@ public class RoomPanel : BasePanel
 
     public void AutoLeaveRoom()
     {
+        isProcessingLeave = false;
+
         for (int i = msgListTransform.childCount - 1; i >= 0; i--)
         {
             Destroy(msgListTransform.GetChild(i).gameObject);
         }
         uiManager.PopPanel();
+    }
+
+    public void ShowRoomTooltip(bool success, string str)
+    {
+        if (!success)
+        {
+            uiManager.ShowTooltip(PanelType.RoomTooltip, str);
+            isProcessingStart = false;
+        }
     }
 
     private void AddListeners()

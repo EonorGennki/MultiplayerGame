@@ -61,19 +61,10 @@ public class LoginRequest : BaseRequest
         base.SendRequest(pack);
     }
 
-    private static void OnLoginSuccess(MainPack pack)
+    private void OnLoginSuccess(MainPack pack)
     {
-        int userId = pack.PlayerPack[0].UserId;
+        int userId = pack.AuthPack.UserId;
         string username = pack.AuthPack.Username;
         GameManager.Instance.SetUserInfo(userId, username);
-    }
-
-    private PlayerInfo ToPlayerInfo(PlayerPack player)
-    {
-        int userId = player.UserId;
-        string playerName = player.PlayerName;
-        bool isReady = player.IsReady;
-        PlayerInfo playerInfo = new PlayerInfo(userId, playerName, isReady);
-        return playerInfo;
     }
 }

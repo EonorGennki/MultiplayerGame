@@ -41,10 +41,9 @@ public class ReadyRequest : BaseRequest
 
     private PlayerInfo ToPlayerInfo(PlayerPack player)
     {
-        int userId = player.UserId;
+        int userId = player.PlayerId;
         string playerName = player.PlayerName;
         bool isReady = player.IsReady;
-        PlayerInfo playerInfo = new PlayerInfo(userId, playerName, isReady);
-        return playerInfo;
+        return new PlayerInfo(userId, playerName, isReady);
     }
 }
