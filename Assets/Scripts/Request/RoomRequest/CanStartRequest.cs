@@ -14,6 +14,28 @@ public class CanStartRequest : BaseRequest
 
     public override void OnResponse(MainPack pack)
     {
+        List<PlayerInfo> playerList = ToPlayerList(pack); ;
+
         mainContext.Post(_ => Debug.Log("start"), null);
+    }
+
+    private List<PlayerInfo> ToPlayerList(MainPack pack)
+    {
+        List<PlayerInfo> playerList = new List<PlayerInfo>();
+        foreach (var player in pack.PlayerPack)
+        {
+            PlayerInfo playerInfo = ToPlayerInfo(player);
+            playerList.Add(playerInfo);
+        }
+        return playerList;
+    }
+
+    private PlayerInfo ToPlayerInfo(PlayerPack playerPack)
+    {
+        long playerId = playerPack.PlayerId;
+        string playerName = playerPack.PlayerName;
+        bool isReady = playerPack.IsReady;
+        PlayerInfo playerInfo = new PlayerInfo(playerId, playerName, isReady);
+        return playerInfo;
     }
 }

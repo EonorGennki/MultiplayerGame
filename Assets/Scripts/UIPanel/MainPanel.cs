@@ -36,13 +36,13 @@ public class MainPanel : BasePanel
         Hide();
     }
 
-    private void Show()
+    protected override void Show()
     {
         gameObject.SetActive(true);
         AddListeners();
     }
 
-    private void Hide()
+    protected override void Hide()
     {
         RemoveListeners();
         gameObject.SetActive(false);

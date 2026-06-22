@@ -21,7 +21,7 @@ public class RoomTooltipPanel : BasePanel, ITooltipPanel
         text.text = str;
     }
 
-    private void Hide()
+    protected override void Hide()
     {
         text.text = "";
         gameObject.SetActive(false);

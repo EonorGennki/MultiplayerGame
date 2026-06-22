@@ -31,6 +31,25 @@ public class UIManager : BaseManager
     }
 
     /// <summary>
+    /// 初始化UI界面
+    /// </summary>
+    private void InitPanel()
+    {
+        panelDic.Clear();
+        panelPathDic.Clear();
+
+        string panelPath = "Prefabs/UIPanel/";
+        string[] pathArray = new string[]
+        { "AuthTooltipPanel", "RoomTooltipPanel", "MainPanel", "LoginPanel", "RegisterPanel",
+          "RoomListPanel", "RoomPanel", "InGamePanel"};
+
+        for (int i = 0; i < pathArray.Length; i++)
+        {
+            panelPathDic.Add((PanelType)i, panelPath + pathArray[i]);
+        }
+    }
+
+    /// <summary>
     /// 显示UI界面
     /// </summary>
     /// <param name="panelType"></param>
@@ -94,24 +113,10 @@ public class UIManager : BaseManager
     }
 
     /// <summary>
-    /// 初始化UI界面
+    /// 显示tooltip
     /// </summary>
-    private void InitPanel()
-    {
-        panelDic.Clear();
-        panelPathDic.Clear();
-
-        string panelPath = "Prefabs/UIPanel/";
-        string[] pathArray = new string[]
-        { "AuthTooltipPanel", "RoomTooltipPanel", "MainPanel", "LoginPanel", "RegisterPanel",
-          "RoomListPanel", "RoomPanel"};
-
-        for (int i = 0; i < pathArray.Length; i++)
-        {
-            panelPathDic.Add((PanelType)i, panelPath + pathArray[i]);
-        }
-    }
-
+    /// <param name="panelType"></param>
+    /// <param name="str"></param>
     public void ShowTooltip(PanelType panelType, string str)
     {
         if (!panelDic.TryGetValue(panelType, out BasePanel panel))

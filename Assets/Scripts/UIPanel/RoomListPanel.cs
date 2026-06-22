@@ -133,13 +133,13 @@ public class RoomListPanel : BasePanel
         createbtn.onClick.RemoveAllListeners();
     }
 
-    private void Show()
+    protected override void Show()
     {
         gameObject.SetActive(true);
         AddListeners();
     }
 
-    private void Hide()
+    protected override void Hide()
     {
         RemoveListeners();
         gameObject.SetActive(false);

@@ -94,7 +94,7 @@ public class ClientManager : BaseManager
     /// <param name="pack"></param>
     private void HandleResponse(MainPack pack)
     {
-        face.HandleResponse(pack);
+        facade.HandleResponse(pack);
     }
 
     public void Send(MainPack pack)

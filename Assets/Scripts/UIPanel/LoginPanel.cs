@@ -84,13 +84,13 @@ public class LoginPanel : BasePanel
         BackBtn.onClick.RemoveAllListeners();
     }
 
-    private void Show()
+    protected override void Show()
     {
         gameObject.SetActive(true);
         AddListeners();
     }
 
-    protected void Hide()
+    protected override void Hide()
     {
         RemoveListeners();
         gameObject.SetActive(false);

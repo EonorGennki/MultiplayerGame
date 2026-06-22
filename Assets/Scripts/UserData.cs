@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoSingleton<GameManager>
+public class UserData
 {
-    public int LocalUserId {  get; private set; }
+    public int LocalUserId { get; private set; }
     public string LocalUsername { get; private set; }
 
-    public void SetUserInfo(int userId, string username)
+    public UserData(int userId, string username)
     {
         LocalUserId = userId;
         LocalUsername = username;

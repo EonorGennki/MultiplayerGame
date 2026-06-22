@@ -1,11 +1,19 @@
  using SocketGameProtocal;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class GameFace : MonoSingleton<GameFace>
+public class GameFacade : MonoSingleton<GameFacade>
 {
     private ClientManager clientManager;
     private RequestManager requestManager;
     private UIManager uiManager;
+    private PlayerManeger playerManeger;
+
+    public long LocalPlayerId
+    {
+        get => playerManeger.GetLocalPlayerId();
+        set => playerManeger.SetLocalPlayerId(value);
+    }
 
     protected override void Awake()
     {
@@ -14,7 +22,7 @@ public class GameFace : MonoSingleton<GameFace>
         uiManager = new UIManager();
         clientManager = new ClientManager();
         requestManager = new RequestManager();
-        
+        playerManeger = new PlayerManeger();
     }
 
     void Start()
@@ -22,6 +30,7 @@ public class GameFace : MonoSingleton<GameFace>
         uiManager.OnInit();
         clientManager.OnInit();
         requestManager.OnInit();
+        playerManeger.OnInit();
     }
 
     protected override void OnDestroy()
@@ -51,5 +60,15 @@ public class GameFace : MonoSingleton<GameFace>
     public void RemoveRequest(ActionCode action)
     {
         requestManager.RemoveRequest(action);
+    }
+
+    public void AddPlayer(List<PlayerInfo> playerList)
+    {
+        playerManeger.AddPlayer(playerList);
+    }
+
+    public void RemovePlayer(int playerId)
+    {
+        playerManeger.RemovePlayer(playerId);
     }
 }

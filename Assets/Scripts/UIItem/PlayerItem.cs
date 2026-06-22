@@ -8,13 +8,13 @@ public class PlayerItem : MonoBehaviour
     [SerializeField] private TextMeshProUGUI playerName;
     [SerializeField] private TextMeshProUGUI readyText;
     private bool isReady;
-    private int userId;
+    private long playerId;
 
     public void SetPlayerInfo(PlayerInfo player)
     {
         playerName.text = player.PlayerName;
         isReady = player.IsReady;
-        userId = player.UserId;
+        playerId = player.PlayerId;
         if (isReady)
         {
             readyText.text = "ÒÑ×¼±¸";
@@ -27,5 +27,5 @@ public class PlayerItem : MonoBehaviour
         }
     }
 
-    public PlayerInfo GetPlayerInfo() => new PlayerInfo(userId, playerName.text, isReady);
+    public PlayerInfo GetPlayerInfo() => new PlayerInfo(playerId, playerName.text, isReady);
 }

@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class PlayerInfo
 {
-    public int UserId { get; }
+    public long PlayerId { get; }
     public string PlayerName { get; }
     public bool IsReady {  get; set; }
 
-    public PlayerInfo(int userId, string playerName, bool isReady)
+    public PlayerInfo(long playerId, string playerName, bool isReady)
     {
-        this.UserId = userId;
-        this.PlayerName = playerName;
-        this.IsReady = isReady;
+        PlayerId = playerId;
+        PlayerName = playerName;
+        IsReady = isReady;
     }
 }

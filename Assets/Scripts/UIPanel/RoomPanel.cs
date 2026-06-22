@@ -130,7 +130,7 @@ public class RoomPanel : BasePanel
             PlayerItem item = gameObject.GetComponent<PlayerItem>();
             item.SetPlayerInfo(player);
 
-            if (player.UserId == GameManager.Instance.LocalUserId)
+            if (player.PlayerId == GameFacade.Instance.LocalPlayerId)
             {
                 SetButtonText(player);
             }
@@ -179,7 +179,7 @@ public class RoomPanel : BasePanel
         {
             PlayerItem item = playerListTransform.GetChild(i).GetComponent<PlayerItem>();
             PlayerInfo playerInfo = item.GetPlayerInfo();
-            if (playerInfo.UserId == GameManager.Instance.LocalUserId)
+            if (playerInfo.PlayerId == GameFacade.Instance.LocalPlayerId)
             {
                 SetButtonText(player);
             }
@@ -217,6 +217,10 @@ public class RoomPanel : BasePanel
         uiManager.PopPanel();
     }
 
+    public void StartGame()
+    {
+
+    }
     public void ShowRoomTooltip(bool success, string str)
     {
         if (!success)
@@ -248,13 +252,13 @@ public class RoomPanel : BasePanel
         uiManager.OnIsHostSet -= SetIsHost;
     }
 
-    private void Show()
+    protected override void Show()
     {
         gameObject.SetActive(true);
         AddListeners();
     }
 
-    private void Hide()
+    protected override void Hide()
     {
         RemoveListeners();
         gameObject.SetActive(false);

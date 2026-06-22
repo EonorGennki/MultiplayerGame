@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class BaseManager
 {
-    protected GameFace face;
+    protected GameFacade facade;
 
     public BaseManager()
     {
-        face = GameFace.Instance;
+        facade = GameFacade.Instance;
     }
 
     public virtual void OnInit()

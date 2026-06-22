@@ -63,8 +63,6 @@ public class LoginRequest : BaseRequest
 
     private void OnLoginSuccess(MainPack pack)
     {
-        int userId = pack.AuthPack.UserId;
-        string username = pack.AuthPack.Username;
-        GameManager.Instance.SetUserInfo(userId, username);
+        
     }
 }

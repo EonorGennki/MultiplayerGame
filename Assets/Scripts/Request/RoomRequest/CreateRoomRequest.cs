@@ -21,6 +21,26 @@ public class CreateRoomRequest : BaseRequest
         base.Start();
     }
 
+    public void SendRequest(string roomName, int maxNum)
+    {
+        MainPack pack = new MainPack();
+        pack.RequestCode = requestCode;
+        pack.ActionCode = actionCode;
+        RoomPack roomPack = ToRoomPack(roomName, maxNum);
+        pack.RoomPack.Add(roomPack);
+
+        base.SendRequest(pack);
+    }
+
+    private RoomPack ToRoomPack(string roomName, int maxNum)
+    {
+        RoomPack roomPack = new RoomPack();
+        roomPack.RoomName = roomName;
+        roomPack.MaxNum = maxNum;
+        roomPack.StateCode = StateCode.Waiting;
+        return roomPack;
+    }
+
     public override void OnResponse(MainPack pack)
     {
 
@@ -52,26 +72,6 @@ public class CreateRoomRequest : BaseRequest
         mainContext.Post(_ => roomListPanel.ShowRoomTooltip<CreateRoomRequest>(success, str, playerList, roomInfo), null);
     }
 
-    public void SendRequest(string roomName, int maxNum)
-    {
-        MainPack pack = new MainPack();
-        pack.RequestCode = requestCode;
-        pack.ActionCode = actionCode;
-        RoomPack roomPack = ToRoomPack(roomName, maxNum);
-        pack.RoomPack.Add(roomPack);
-
-        base.SendRequest(pack);
-    }
-
-    private RoomPack ToRoomPack(string roomName, int maxNum)
-    {
-        RoomPack roomPack = new RoomPack();
-        roomPack.RoomName = roomName;
-        roomPack.MaxNum = maxNum;
-        roomPack.StateCode = StateCode.Waiting;
-        return roomPack;
-    }
-
     private void UpdatePlayerList(List<PlayerInfo> playerList, MainPack pack)
     {
         foreach (var player in pack.PlayerPack)
@@ -83,7 +83,7 @@ public class CreateRoomRequest : BaseRequest
 
     private PlayerInfo ToPlayerInfo(PlayerPack player)
     {
-        int userId = player.PlayerId;
+        long userId = player.PlayerId;
         string playerName = player.PlayerName;
         bool isReady = player.IsReady;
         PlayerInfo playerInfo = new PlayerInfo(userId, playerName, isReady);

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class BasePanel : MonoBehaviour
 {
@@ -14,6 +15,16 @@ public class BasePanel : MonoBehaviour
     }
 
     protected virtual void Start()
+    {
+
+    }
+
+    protected virtual void Show()
+    {
+
+    }
+
+    protected virtual void Hide()
     {
 
     }
