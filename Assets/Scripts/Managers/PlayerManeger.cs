@@ -13,7 +13,7 @@ public class PlayerManeger : BaseManager
     public override void OnInit()
     {
         base.OnInit();
-        character = Resources.Load("Prefab/Character") as GameObject;
+        character = Resources.Load("Prefab/Player") as GameObject;
     }
 
     public void AddPlayer(List<PlayerInfo> playerList)

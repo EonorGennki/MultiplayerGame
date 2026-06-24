@@ -29,10 +29,7 @@ public class RoomListPanel : BasePanel
         joinRoomRequest = GetComponent<JoinRoomRequest>();
     }
 
-    private void OnBackBtnClick()
-    {
-        uiManager.PopPanel();
-    }
+    private void OnBackBtnClick() => uiManager.PopPanel();
 
     private void OnSearchBtnClick()
     {

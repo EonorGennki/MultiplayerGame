@@ -7,15 +7,24 @@ using UnityEngine.UI;
 public class PlayerStateItem : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI playerName;
-    [SerializeField] private Slider slider;
+    [SerializeField] private Slider healthBar;
 
     public Event OnChanged;
 
-    public void Init(string playername, int value)
+    public void Init(string playerName, int health)
     {
-        playerName.text = playername;
-        slider.value = value;
+        this.playerName.text = playerName;
+        healthBar.value = health;
     }
 
+    public void UpdateState(string playerName, int health)
+    {
+        this.playerName.text = playerName;
+        healthBar.value = health;
+    }
 
+    public void UpdateHealth(int health)
+    {
+        healthBar.value = health;
+    }
 }

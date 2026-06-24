@@ -217,9 +217,10 @@ public class RoomPanel : BasePanel
         uiManager.PopPanel();
     }
 
-    public void StartGame()
+    public void StartGame(List<PlayerInfo> playerList)
     {
-
+        uiManager.PushPanel(PanelType.Game);
+        uiManager.OnPlayerListUpdate.Invoke(playerList);
     }
     public void ShowRoomTooltip(bool success, string str)
     {

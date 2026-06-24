@@ -7,6 +7,8 @@ public class PlayerInfo
     public long PlayerId { get; }
     public string PlayerName { get; }
     public bool IsReady {  get; set; }
+    public int Health { get; set; }
+    public Vector2 Position { get; set; }
 
     public PlayerInfo(long playerId, string playerName, bool isReady)
     {

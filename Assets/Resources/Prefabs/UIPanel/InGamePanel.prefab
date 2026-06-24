@@ -1049,6 +1049,7 @@ MonoBehaviour:
   playerStateItem: {fileID: 7138269898355142782}
   playerListTransform: {fileID: 782086493817941832}
   countDown: {fileID: 3514123936042279545}
+  timer: 300
   exitGame: {fileID: 0}
   cancelBtn: {fileID: 3585116056499167700}
   confirmBtn: {fileID: 1183848776641750285}

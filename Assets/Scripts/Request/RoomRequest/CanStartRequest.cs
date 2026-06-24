@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class CanStartRequest : BaseRequest
 {
+    private RoomPanel roomPanel;
+
     public override void Awake()
     {
         actionCode = ActionCode.CanStart;
@@ -12,11 +14,20 @@ public class CanStartRequest : BaseRequest
         base.Awake();
     }
 
+    public override void Start()
+    {
+        roomPanel = GetComponent<RoomPanel>();  
+
+        base.Start();
+    }
+
     public override void OnResponse(MainPack pack)
     {
         List<PlayerInfo> playerList = ToPlayerList(pack); ;
-
-        mainContext.Post(_ => Debug.Log("start"), null);
+        mainContext.Post(_ => {
+            facade.AddPlayer(playerList);
+            roomPanel.StartGame(playerList);
+            }, null);
     }
 
     private List<PlayerInfo> ToPlayerList(MainPack pack)
