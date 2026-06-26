@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2a97a3387c3b834fa446dc2e058637f, type: 3}
+  m_Name: SR
+  m_EditorClassIdentifier: 
+  weaponName: "\u72D9\u51FB\u6B65\u67AA"
+  gunType: 4
+  sprite: {fileID: 0}
+  description: "\u72D9\u51FB\u6B65\u67AA"
+  attack: 80
+  fireRate: 1.2
+  range: 25
+  bulletSpeed: 30
+  baseSpread: 0.5
+  spreadIncreasePerShot: 1
+  maxSpread: 10
+  spreadRecoverySpeed: 2
+  fireMode: 0
+  bulletPrefab: {fileID: 823963237816808145, guid: 735b17f612fc60a4fa8a84ef33cd2673, type: 3}
+  bulletsPerShot: 1
+  gunPrefab: {fileID: 0}
+  hitLayerMask:
+    serializedVersion: 2
+    m_Bits: 64

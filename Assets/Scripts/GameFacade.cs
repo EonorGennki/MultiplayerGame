@@ -8,6 +8,7 @@ public class GameFacade : MonoSingleton<GameFacade>
     private RequestManager requestManager;
     private UIManager uiManager;
     private PlayerManeger playerManeger;
+    private InputManager inputManager;
 
     public long LocalPlayerId
     {
@@ -23,14 +24,16 @@ public class GameFacade : MonoSingleton<GameFacade>
         clientManager = new ClientManager();
         requestManager = new RequestManager();
         playerManeger = new PlayerManeger();
+        inputManager = new InputManager();
     }
 
     void Start()
     {
-        uiManager.OnInit();
         clientManager.OnInit();
         requestManager.OnInit();
+        uiManager.OnInit();
         playerManeger.OnInit();
+        inputManager.OnInit();
     }
 
     protected override void OnDestroy()
@@ -40,6 +43,8 @@ public class GameFacade : MonoSingleton<GameFacade>
         clientManager.OnDestroy();
         requestManager.OnDestroy();
         uiManager.OnDestroy();
+        playerManeger.OnDestroy();
+        inputManager.OnDestroy();
     }
 
     public void Send(MainPack pack)
