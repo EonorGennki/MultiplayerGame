@@ -4,7 +4,7 @@ using UnityEngine;
 public class GunData : ScriptableObject
 {
     [Header("Basic info")]
-    public string weaponName; //武器名称
+    public string gunName; //枪械名称
     public GunType gunType; //枪械种类
     public Sprite sprite; //精灵
     [TextArea]

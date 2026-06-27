@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a97a3387c3b834fa446dc2e058637f, type: 3}
   m_Name: SMG
   m_EditorClassIdentifier: 
-  weaponName: "\u51B2\u950B\u67AA"
+  gunName: "\u51B2\u950B\u67AA"
   gunType: 2
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 036ee831162c10f46a550da038b742e7, type: 3}
   description: "\u51B2\u950B\u67AA"
   attack: 10
   fireRate: 0.08
@@ -27,7 +27,7 @@ MonoBehaviour:
   fireMode: 1
   bulletPrefab: {fileID: 971291480576107566, guid: 124606e80a712bc47ac8bb6f2e2d95f1, type: 3}
   bulletsPerShot: 1
-  gunPrefab: {fileID: 0}
+  gunPrefab: {fileID: 9054327607378664442, guid: 863ec6f4176d71b4aafb9ec1ecba5ad0, type: 3}
   hitLayerMask:
     serializedVersion: 2
     m_Bits: 64

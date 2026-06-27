@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a97a3387c3b834fa446dc2e058637f, type: 3}
   m_Name: SR
   m_EditorClassIdentifier: 
-  weaponName: "\u72D9\u51FB\u6B65\u67AA"
+  gunName: "\u72D9\u51FB\u6B65\u67AA"
   gunType: 4
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 1046a88c6b970d241982ed386a074ce8, type: 3}
   description: "\u72D9\u51FB\u6B65\u67AA"
   attack: 80
   fireRate: 1.2
@@ -27,7 +27,7 @@ MonoBehaviour:
   fireMode: 0
   bulletPrefab: {fileID: 823963237816808145, guid: 735b17f612fc60a4fa8a84ef33cd2673, type: 3}
   bulletsPerShot: 1
-  gunPrefab: {fileID: 0}
+  gunPrefab: {fileID: 7860058967605657980, guid: d4f5b7e0853b81a43a21ab1f6534d4e3, type: 3}
   hitLayerMask:
     serializedVersion: 2
     m_Bits: 64

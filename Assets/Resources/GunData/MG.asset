@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a97a3387c3b834fa446dc2e058637f, type: 3}
   m_Name: MG
   m_EditorClassIdentifier: 
-  weaponName: "\u673A\u67AA"
+  gunName: "\u673A\u67AA"
   gunType: 3
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: fff5c3ab66ede0449b5d45e60f487823, type: 3}
   description: "\u673A\u67AA"
   attack: 10
   fireRate: 0.1
@@ -27,7 +27,7 @@ MonoBehaviour:
   fireMode: 1
   bulletPrefab: {fileID: 2196834731628026858, guid: 9919b90aaf1df3d4e9a284c8efd61aaa, type: 3}
   bulletsPerShot: 1
-  gunPrefab: {fileID: 0}
+  gunPrefab: {fileID: 3436180706297768010, guid: 68afad0119eeee845b5c919e0e241d5c, type: 3}
   hitLayerMask:
     serializedVersion: 2
     m_Bits: 64
