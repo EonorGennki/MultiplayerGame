@@ -18,7 +18,7 @@ MonoBehaviour:
   description: "\u673A\u67AA"
   attack: 10
   fireRate: 0.1
-  range: 20
+  range: 25
   bulletSpeed: 20
   baseSpread: 2
   spreadIncreasePerShot: 1
@@ -27,7 +27,7 @@ MonoBehaviour:
   fireMode: 1
   bulletPrefab: {fileID: 2196834731628026858, guid: 9919b90aaf1df3d4e9a284c8efd61aaa, type: 3}
   bulletsPerShot: 1
-  gunPrefab: {fileID: 3436180706297768010, guid: 68afad0119eeee845b5c919e0e241d5c, type: 3}
+  gunPrefab: {fileID: 5019994644441918428, guid: 90ff9a5ac2d39e1499bad40a04163932, type: 3}
   hitLayerMask:
     serializedVersion: 2
     m_Bits: 64

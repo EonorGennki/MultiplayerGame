@@ -3,19 +3,21 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    #region component
-    public Rigidbody2D Rb {  get; private set; }
-    public Animator Animator {  get; private set; }
+    #region Component
+    public Rigidbody2D Rb { get; private set; }
+    public Animator Animator { get; private set; }
     public GunController GunController { get; private set; }
     #endregion
 
+    #region State
     private StateMachine stateMachine;
     public PlayerStates PlayerStates { get; private set; }
+    #endregion
 
-    #region input
+    #region Input
     private PlayerInputSet input;
-    public Vector2 MoveInput {  get; private set; }
-    public bool Jump {  get; private set; }
+    public Vector2 MoveInput { get; private set; }
+    public bool Jump { get; private set; }
     public bool IsFiring { get; private set; }
     #endregion
 
@@ -29,7 +31,10 @@ public class PlayerController : MonoBehaviour
     [Header("Collision detected")]
     [SerializeField] private float groundCheckDistance;
     [SerializeField] private LayerMask whatIsGroud;
-    public bool isGrounded {  get; private set; }
+    public bool isGrounded { get; private set; }
+
+    [Space]
+    [SerializeField] private Transform aimTarget;
 
     private void Awake()
     {
@@ -48,6 +53,8 @@ public class PlayerController : MonoBehaviour
         input.Player.Jump.performed += OnJumpPerformed;
         input.Player.Jump.canceled += OnJumpCanceled;
 
+        input.Player.Aim.performed += OnAimTargetUpdate;
+
         input.Player.Fire.performed += OnFirePerformed;
         input.Player.Fire.performed += OnFire;
         input.Player.Fire.canceled += OnFireCanceled;
@@ -60,6 +67,8 @@ public class PlayerController : MonoBehaviour
 
         input.Player.Jump.performed -= OnJumpPerformed;
         input.Player.Jump.canceled -= OnJumpCanceled;
+
+        input.Player.Aim.performed -= OnAimTargetUpdate;
 
         input.Player.Fire.performed -= OnFirePerformed;
         input.Player.Fire.performed -= OnFire;
@@ -98,23 +107,30 @@ public class PlayerController : MonoBehaviour
     public void SetVelocity(float xVelocity, float yVeclocity)
     {
         Rb.velocity = new Vector2(xVelocity, yVeclocity);
-        HandleFlip(xVelocity);
     }
 
     public void SetZeroVelocity() => Rb.velocity = Vector2.zero;
 
-    private void HandleFlip(float xVelocity)
+    private void HandleFlip(Vector2 mousePos)
     {
-        if (xVelocity > 0 && !facingRignt)
+        float direction = mousePos.x - transform.position.x;
+
+        //∑¿∂∂¥¶¿Ì
+        if (Mathf.Abs(direction) < .1f)
+        {
+            return;
+        }
+
+        if (mousePos.x < transform.position.x && facingRignt)
         {
             Flip();
         }
-        else if (xVelocity <0 && facingRignt)
+        else if (mousePos.x > transform.position.x && !facingRignt)
         {
-            Flip();
+            Flip(); 
         }
     }
-    
+
     private void Flip()
     {
         transform.Rotate(0, 180, 0);
@@ -160,5 +176,10 @@ public class PlayerController : MonoBehaviour
     private void OnJumpCanceled(InputAction.CallbackContext ctx) => Jump = false;
     private void OnFirePerformed(InputAction.CallbackContext ctx) => IsFiring = true;
     private void OnFireCanceled(InputAction.CallbackContext ctx) => IsFiring = false;
+    private void OnAimTargetUpdate(InputAction.CallbackContext ctx)
+    {
+        aimTarget.position = Camera.main.ScreenToWorldPoint(ctx.ReadValue<Vector2>());
+        HandleFlip(aimTarget.position);
+    }
     #endregion
 }

@@ -111,7 +111,7 @@ public partial class @PlayerInputSet: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""AIm"",
+                    ""name"": ""Aim"",
                     ""type"": ""Value"",
                     ""id"": ""0eb36202-0fd6-4b6b-b77b-1154e6222956"",
                     ""expectedControlType"": ""Vector2"",
@@ -203,7 +203,7 @@ public partial class @PlayerInputSet: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";PC"",
-                    ""action"": ""AIm"",
+                    ""action"": ""Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -272,7 +272,7 @@ public partial class @PlayerInputSet: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
-        m_Player_AIm = m_Player.FindAction("AIm", throwIfNotFound: true);
+        m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
@@ -360,7 +360,7 @@ public partial class @PlayerInputSet: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Jump;
-    private readonly InputAction m_Player_AIm;
+    private readonly InputAction m_Player_Aim;
     private readonly InputAction m_Player_Fire;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
@@ -382,9 +382,9 @@ public partial class @PlayerInputSet: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         /// <summary>
-        /// Provides access to the underlying input action "Player/AIm".
+        /// Provides access to the underlying input action "Player/Aim".
         /// </summary>
-        public InputAction @AIm => m_Wrapper.m_Player_AIm;
+        public InputAction @Aim => m_Wrapper.m_Player_Aim;
         /// <summary>
         /// Provides access to the underlying input action "Player/Fire".
         /// </summary>
@@ -421,9 +421,9 @@ public partial class @PlayerInputSet: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
-            @AIm.started += instance.OnAIm;
-            @AIm.performed += instance.OnAIm;
-            @AIm.canceled += instance.OnAIm;
+            @Aim.started += instance.OnAim;
+            @Aim.performed += instance.OnAim;
+            @Aim.canceled += instance.OnAim;
             @Fire.started += instance.OnFire;
             @Fire.performed += instance.OnFire;
             @Fire.canceled += instance.OnFire;
@@ -444,9 +444,9 @@ public partial class @PlayerInputSet: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
-            @AIm.started -= instance.OnAIm;
-            @AIm.performed -= instance.OnAIm;
-            @AIm.canceled -= instance.OnAIm;
+            @Aim.started -= instance.OnAim;
+            @Aim.performed -= instance.OnAim;
+            @Aim.canceled -= instance.OnAim;
             @Fire.started -= instance.OnFire;
             @Fire.performed -= instance.OnFire;
             @Fire.canceled -= instance.OnFire;
@@ -614,12 +614,12 @@ public partial class @PlayerInputSet: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnJump(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "AIm" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Aim" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnAIm(InputAction.CallbackContext context);
+        void OnAim(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Fire" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

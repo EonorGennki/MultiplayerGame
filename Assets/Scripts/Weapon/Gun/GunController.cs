@@ -9,13 +9,13 @@ public class GunController : MonoBehaviour
     [Header("Transform")]
     [SerializeField] private Transform firePoint; //开枪位置
     [SerializeField] private Transform gunHolder; //武器载点
+    [SerializeField] private Transform aimTarget;
 
-    private bool canShoot;
+    private bool canShoot => Time.time >= nextFireTime && currentGunData is not null;
     private float spread;
     private float nextFireTime;
     private GameObject currentGunModel;
     private Mouse mouse;
-    private Vector3 aimTarget;
 
     public System.Action<GunData> OnGunChanged;
 
@@ -29,7 +29,6 @@ public class GunController : MonoBehaviour
 
     private void Update()
     {
-        UpdateAimDirection();
 
         if (currentGunData is null)
         {
@@ -78,6 +77,8 @@ public class GunController : MonoBehaviour
                 gunHolder.rotation,
                 gunHolder
                 );
+
+            firePoint = currentGunModel.transform.GetChild(0);
         }
     }
 
@@ -86,39 +87,41 @@ public class GunController : MonoBehaviour
     /// </summary>
     private void UpdateGunAim()
     {
-        Vector2 aimDirection = (aimTarget - gunHolder.position).normalized;
+        Vector2 aimDirection = (aimTarget.position - gunHolder.position).normalized;
         float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-        gunHolder.rotation = Quaternion.Euler(0, 0, angle);
 
-        if (angle > 90 || angle < -90)
+        bool ShouldFlip = aimTarget.position.x - transform.position.x < 0 ? true : false;
+
+        if (!ShouldFlip)
         {
-            gunHolder.localScale = new Vector3(1, -1, 1);
+            if (angle > 60)
+            {
+                angle = 60;
+            }
+            else if (angle < -70)
+            {
+                angle = -70;
+            }
+
+            gunHolder.localScale = new Vector3(1, 1, 1);
         }
         else
         {
-            gunHolder.localScale = new Vector3(1, 1, 1);
-        }
-    }
+            if (angle > 0 && angle < 120)
+            {
+                angle = 120;
+            }
+            else if (angle < 0 && angle > -110)
+            {
+                angle = -110;
+            }
 
-    /// <summary>
-    /// 更新瞄准方向
-    /// </summary>
-    private void UpdateAimDirection()
-    {
-        mouse = Mouse.current;
-
-        if (mouse is null)
-        {
-            return;
+            gunHolder.localScale = new Vector3(1, -1, 1);
         }
 
-        //获取鼠标世界位置
-        Vector2 mouseScreenPos = mouse.position.ReadValue();
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
-        mouseWorldPos.z = 0;
-
-        aimTarget = mouseWorldPos;
+        gunHolder.rotation = Quaternion.Euler(0, 0, angle);
     }
+
 
     /// <summary>
     /// 尝试射击
@@ -146,6 +149,7 @@ public class GunController : MonoBehaviour
         {
             float spreadAngle = Random.Range(-spread, spread);
             Vector2 direction = GetShootDirection(spreadAngle);
+            ShootBullet(direction);
         }
 
         spread = Mathf.Min(spread + currentGunData.spreadIncreasePerShot, currentGunData.maxSpread);
@@ -158,7 +162,7 @@ public class GunController : MonoBehaviour
     /// <returns></returns>
     private Vector2 GetShootDirection(float spreadAngle)
     {
-        Vector2 shootDirection = (aimTarget - firePoint.position).normalized;
+        Vector2 shootDirection = (aimTarget.position - firePoint.position).normalized;
 
         if (Mathf.Approximately(spreadAngle, 0))
         {
@@ -174,27 +178,11 @@ public class GunController : MonoBehaviour
             );
     }
 
-    private void ProjectileShoot(Vector2 direction)
+    private void ShootBullet(Vector2 direction)
     {
-        if (currentGunData.bulletPrefab == null) return;
+        if (currentGunData.bulletPrefab is null) return;
 
-        GameObject bullet = Instantiate(
-            currentGunData.bulletPrefab,
-            firePoint.position,
-            Quaternion.identity
-        );
-
-        BulletController bulletScript = bullet.GetComponent<BulletController>();
-        if (bulletScript != null)
-        {
-            bulletScript.Init(
-                direction * currentGunData.bulletSpeed,
-                currentGunData.attack,
-                currentGunData.range,
-                firePoint.position,
-                currentGunData.hitLayerMask
-            );
-        }
+        BulletPool.Instance.ShootBullet(currentGunData, firePoint.position, direction);
     }
 
 }

@@ -18,7 +18,7 @@ MonoBehaviour:
   description: "\u9730\u5F39\u67AA"
   attack: 8
   fireRate: 0.8
-  range: 5
+  range: 8
   bulletSpeed: 20
   baseSpread: 15
   spreadIncreasePerShot: 1

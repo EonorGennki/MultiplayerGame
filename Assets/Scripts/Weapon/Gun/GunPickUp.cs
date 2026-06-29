@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunPickUp : MonoBehaviour
+public class GunPickup : MonoBehaviour
 {
     #region Component
     private Rigidbody2D rb;
@@ -12,6 +12,7 @@ public class GunPickUp : MonoBehaviour
     #endregion
 
     [SerializeField] private GunData gunData;
+
     [Header("DOTween")]
     [SerializeField] private float duration = 1f;
     [SerializeField] private float height = .2f;
@@ -34,6 +35,12 @@ public class GunPickUp : MonoBehaviour
         }
 
         sr = GetComponent<SpriteRenderer>();
+
+        if (sr is null)
+        {
+            return;
+        }
+
         sr.sprite = gunData.sprite;
         gameObject.name = "Object - " + gunData.gunName;
     }
@@ -64,5 +71,10 @@ public class GunPickUp : MonoBehaviour
     private void OnDestroy()
     {
         floatTween?.Kill();
+    }
+
+    private void SetGunData(GunData gunData)
+    {
+        this.gunData = gunData;
     }
 }

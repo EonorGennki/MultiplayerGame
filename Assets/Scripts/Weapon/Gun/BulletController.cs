@@ -4,19 +4,27 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
+    #region Bullet stats
     private Vector2 velocity;
     private float damage;
     private float range;
     private Vector2 spawnPos;
     private LayerMask hitLayerMask;
+    #endregion
 
-    public void Init(Vector2 velocity, float damage, float range, Vector2 spawnPos, LayerMask hitLayerMask)
+    private float lifeTimer = 5f;
+
+    private ObjectPool<BulletController> pool;
+
+    public void Init(Vector2 spawnPos, Vector2 velocity, float damage, float range,  LayerMask hitLayerMask, ObjectPool<BulletController> pool)
     {
+        this.spawnPos = spawnPos;
         this.velocity = velocity;
         this.damage = damage;
         this.range = range;
-        this.spawnPos = spawnPos;
         this.hitLayerMask = hitLayerMask;
+        this.pool = pool;
+        transform.right = velocity.normalized;
     }
 
     private void Update()
@@ -34,13 +42,27 @@ public class BulletController : MonoBehaviour
         {
             IDamageable damageable = hit.collider.GetComponent<IDamageable>();
             damageable?.TakeDamage(damage, hit.point, velocity.normalized);
-            Destroy(gameObject);
+            ReturnBullet();
             return;
         }
 
         if (Vector2.Distance(spawnPos, transform.position) >= range)
         {
-            Destroy(gameObject);
+            ReturnBullet();
         }
+
+        lifeTimer -= Time.deltaTime;
+        if (lifeTimer <= 0)
+        {
+            ReturnBullet();
+        }
+    }
+
+    /// <summary>
+    /// »ØÊÕ×Óµ¯
+    /// </summary>
+    public void ReturnBullet()
+    {
+        BulletPool.Instance.ReturnBullet(this, pool);
     }
 }
