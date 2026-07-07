@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using TMPro;
@@ -6,28 +7,35 @@ using UnityEngine.UI;
 
 public class RoomPanel : BasePanel
 {
+    [Header("房间信息")]
+    [SerializeField] private TextMeshProUGUI roomName;
+    [SerializeField] private TextMeshProUGUI playerNum;
+
+    [Header("玩家列表")]
+    [SerializeField] private Transform playerListTransform;
+    [SerializeField] private GameObject playerItemPrefab;
+
+    [Header("消息列表")]
+    [SerializeField] private TextMeshProUGUI chatTextField;
+    [SerializeField] private Transform msgListTransform;
+    [SerializeField] private GameObject msgItemPrefab;
+    [SerializeField] private Scrollbar scrollbar;
+
+    [Header("按钮")]
     [SerializeField] private Button leaveBtn;
     [SerializeField] private Button startBtn;
     [SerializeField] private Button readyBtn;
     [SerializeField] private Button sendBtn;
-    [SerializeField] private TextMeshProUGUI roomName;
-    [SerializeField] private TextMeshProUGUI playerNum;
-    [SerializeField] private TextMeshProUGUI chatTextField;
-    [SerializeField] private Scrollbar scrollbar;
-    [SerializeField] private Transform playerListTransform;
-    [SerializeField] private Transform msgListTransform;
-    [SerializeField] private GameObject playerItemPrefab;
-    [SerializeField] private GameObject msgItemPrefab;
 
     private LeaveRoomRequest leaveRoomRequest;
     private ChatRequest chatRequest;
     private StartGameRequest startGameRequest;
     private ReadyRequest readyRequest;
-    public List<PlayerInfo> playerList { get; set; } = new List<PlayerInfo>();
+    public List<PlayerInfo> PlayerList { get; set; } = new List<PlayerInfo>();
 
     private bool isHost = false;
     //防抖处理
-    private bool isProcessingReady = false; 
+    private bool isProcessingReady = false;
     private bool isProcessingLeave = false;
     private bool isProcessingStart = false;
 
@@ -58,6 +66,7 @@ public class RoomPanel : BasePanel
         {
             return;
         }
+
         isProcessingStart = true;
 
         startGameRequest.SendRequest();
@@ -96,7 +105,7 @@ public class RoomPanel : BasePanel
             Destroy(playerListTransform.GetChild(i).gameObject);
         }
 
-        foreach (var player in playerList)
+        foreach (var player in PlayerList)
         {
             GameObject gameObject = Instantiate(playerItemPrefab, playerListTransform, false);
             PlayerItem item = gameObject.GetComponent<PlayerItem>();
@@ -156,6 +165,17 @@ public class RoomPanel : BasePanel
             }
         }
     }
+    
+    /// <summary>
+    /// 清空消息列表
+    /// </summary>
+    private void ClearChatList()
+    {
+        for (int i = msgListTransform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(msgListTransform.GetChild(i).gameObject);
+        }
+    }
 
     /// <summary>
     /// 刷新房间信息
@@ -206,22 +226,34 @@ public class RoomPanel : BasePanel
         readyBtn.GetComponentInChildren<TextMeshProUGUI>().text = "准备";
     }
 
+    /// <summary>
+    /// 自动离开房间
+    /// </summary>
     public void AutoLeaveRoom()
     {
         isProcessingLeave = false;
 
-        for (int i = msgListTransform.childCount - 1; i >= 0; i--)
-        {
-            Destroy(msgListTransform.GetChild(i).gameObject);
-        }
+        ClearChatList();
+
         uiManager.PopPanel();
     }
 
     public void StartGame(List<PlayerInfo> playerList)
     {
-        uiManager.PushPanel(PanelType.Game);
-        uiManager.OnPlayerListUpdate.Invoke(playerList);
+        isProcessingStart = false;
+        ClearChatList();
+        PlayerList = playerList;
+        uiManager.PushPanel(PanelType.InGame);
+        Invoke(nameof(PlayerListUpdateDelayed), .01f);
     }
+
+    private void PlayerListUpdateDelayed()
+    {
+        uiManager.OnPlayerListUpdate.Invoke(PlayerList);
+    }
+
+
+
     public void ShowRoomTooltip(bool success, string str)
     {
         if (!success)

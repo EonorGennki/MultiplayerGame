@@ -450,18 +450,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d565f9a4a5937b439481a0f5eda0704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomName: {fileID: 7701212806318667417}
+  playerNum: {fileID: 670150555370828422}
+  playerListTransform: {fileID: 32422078641378142}
+  playerItemPrefab: {fileID: 8702263900396361252, guid: edf7dd42e2a44904ba0ff03ae7bd3ead, type: 3}
+  chatTextField: {fileID: 3073787775445321342}
+  msgListTransform: {fileID: 2202219081336868214}
+  msgItemPrefab: {fileID: 4512723816294799737, guid: db5cef627b399844da56d765333e1db7, type: 3}
+  scrollbar: {fileID: 3334992139239498739}
   leaveBtn: {fileID: 6251680612695490851}
   startBtn: {fileID: 888518963842098449}
   readyBtn: {fileID: 8620006427297854631}
   sendBtn: {fileID: 2409727626006911193}
-  roomName: {fileID: 7701212806318667417}
-  playerNum: {fileID: 670150555370828422}
-  chatTextField: {fileID: 3073787775445321342}
-  scrollbar: {fileID: 3334992139239498739}
-  playerListTransform: {fileID: 32422078641378142}
-  msgListTransform: {fileID: 2202219081336868214}
-  playerItemPrefab: {fileID: 8702263900396361252, guid: edf7dd42e2a44904ba0ff03ae7bd3ead, type: 3}
-  msgItemPrefab: {fileID: 4512723816294799737, guid: db5cef627b399844da56d765333e1db7, type: 3}
 --- !u!114 &4862172173288215188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1298,8 +1298,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0110620236a1f574d94dc827857015a5, type: 2}
-  m_sharedMaterial: {fileID: -3373617090421527296, guid: 0110620236a1f574d94dc827857015a5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2634,8 +2634,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0110620236a1f574d94dc827857015a5, type: 2}
-  m_sharedMaterial: {fileID: -3373617090421527296, guid: 0110620236a1f574d94dc827857015a5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

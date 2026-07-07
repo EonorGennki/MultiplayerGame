@@ -1,8 +1,11 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    private GameFacade facade;
+
     #region Component
     public Rigidbody2D Rb { get; private set; }
     public Animator Animator { get; private set; }
@@ -33,8 +36,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask whatIsGroud;
     public bool isGrounded { get; private set; }
 
-    [Space]
-    [SerializeField] private Transform aimTarget;
+    private Transform aimTarget;
+
+    private bool isLocal = false;
 
     private void Awake()
     {
@@ -43,46 +47,24 @@ public class PlayerController : MonoBehaviour
         PlayerStates = new PlayerStates(this, stateMachine);
     }
 
-    private void OnEnable()
-    {
-        input.Player.Enable();
-
-        input.Player.Move.performed += OnMovePerformed;
-        input.Player.Move.canceled += OnMoveCanceled;
-
-        input.Player.Jump.performed += OnJumpPerformed;
-        input.Player.Jump.canceled += OnJumpCanceled;
-
-        input.Player.Aim.performed += OnAimTargetUpdate;
-
-        input.Player.Fire.performed += OnFirePerformed;
-        input.Player.Fire.performed += OnFire;
-        input.Player.Fire.canceled += OnFireCanceled;
-    }
-
     private void OnDisable()
     {
-        input.Player.Move.performed -= OnMovePerformed;
-        input.Player.Move.canceled -= OnMoveCanceled;
+        if (isLocal)
+        {
+            Unsubcrise();
 
-        input.Player.Jump.performed -= OnJumpPerformed;
-        input.Player.Jump.canceled -= OnJumpCanceled;
-
-        input.Player.Aim.performed -= OnAimTargetUpdate;
-
-        input.Player.Fire.performed -= OnFirePerformed;
-        input.Player.Fire.performed -= OnFire;
-        input.Player.Fire.canceled -= OnFireCanceled;
-
-        input.Player.Disable();
+            input.Player.Disable();
+        }
     }
 
     void Start()
     {
+        facade = GameFacade.Instance;
         Rb = GetComponentInChildren<Rigidbody2D>();
         Animator = GetComponentInChildren<Animator>();
         GunController = GetComponentInChildren<GunController>();
         stateMachine.Initialize(PlayerStates.IdleState);
+        aimTarget = GetComponentsInChildren<Transform>().Last();
     }
 
     void Update()
@@ -102,8 +84,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    #region movement
+    public void Init(bool isLocal)
+    {
+        this.isLocal = isLocal;
 
+        if (!this.isLocal)
+        {
+            return;
+        }
+
+        input.Player.Enable();
+
+        Subscribe();
+    }
+
+    #region movement
     public void SetVelocity(float xVelocity, float yVeclocity)
     {
         Rb.velocity = new Vector2(xVelocity, yVeclocity);
@@ -127,7 +122,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (mousePos.x > transform.position.x && !facingRignt)
         {
-            Flip(); 
+            Flip();
         }
     }
 
@@ -170,16 +165,61 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Input
+    /// <summary>
+    /// 订阅输入事件
+    /// </summary>
+    private void Subscribe()
+    {
+        input.Player.Move.performed += OnMovePerformed;
+        input.Player.Move.canceled += OnMoveCanceled;
+
+        input.Player.Jump.performed += OnJumpPerformed;
+        input.Player.Jump.canceled += OnJumpCanceled;
+
+        input.Player.Aim.performed += OnAimTargetUpdate;
+
+        input.Player.Fire.performed += OnFirePerformed;
+        input.Player.Fire.performed += OnFire;
+        input.Player.Fire.canceled += OnFireCanceled;
+
+        input.Player.Leave.performed += OnLeavePerformed;
+    }
+
+    /// <summary>
+    /// 取消订阅输入事件
+    /// </summary>
+    private void Unsubcrise()
+    {
+        input.Player.Move.performed -= OnMovePerformed;
+        input.Player.Move.canceled -= OnMoveCanceled;
+
+        input.Player.Jump.performed -= OnJumpPerformed;
+        input.Player.Jump.canceled -= OnJumpCanceled;
+
+        input.Player.Aim.performed -= OnAimTargetUpdate;
+
+        input.Player.Fire.performed -= OnFirePerformed;
+        input.Player.Fire.performed -= OnFire;
+        input.Player.Fire.canceled -= OnFireCanceled;
+    }
+
     private void OnMovePerformed(InputAction.CallbackContext ctx) => MoveInput = ctx.ReadValue<Vector2>();
     private void OnMoveCanceled(InputAction.CallbackContext ctx) => MoveInput = Vector2.zero;
     private void OnJumpPerformed(InputAction.CallbackContext ctx) => Jump = true;
     private void OnJumpCanceled(InputAction.CallbackContext ctx) => Jump = false;
     private void OnFirePerformed(InputAction.CallbackContext ctx) => IsFiring = true;
     private void OnFireCanceled(InputAction.CallbackContext ctx) => IsFiring = false;
+    private void OnLeavePerformed(InputAction.CallbackContext ctx) => facade.ShowLeaveGamePanel();
+
     private void OnAimTargetUpdate(InputAction.CallbackContext ctx)
     {
         aimTarget.position = Camera.main.ScreenToWorldPoint(ctx.ReadValue<Vector2>());
         HandleFlip(aimTarget.position);
     }
     #endregion
+
+    private void OnDestroy()
+    {
+        Unsubcrise();
+    }
 }

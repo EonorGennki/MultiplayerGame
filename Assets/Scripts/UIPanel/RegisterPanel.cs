@@ -6,10 +6,16 @@ using UnityEngine.UI;
 public class RegisterPanel : BasePanel
 {
     private RegisterRequest registerRequest;
-    [SerializeField] private TextMeshProUGUI username;
-    [SerializeField] private TextMeshProUGUI password;
+
+    [Header("注册信息")]
+    [SerializeField] private TMP_InputField username;
+    [SerializeField] private TMP_InputField password;
+
+    [Header("注册提示")]
     [SerializeField] private TextMeshProUGUI Tip1;
     [SerializeField] private TextMeshProUGUI Tip2;
+
+    [Header("按钮")]
     [SerializeField] private Button RegisterBtn;
     [SerializeField] private Button BackBtn;
 
@@ -56,12 +62,13 @@ public class RegisterPanel : BasePanel
     {
         isProcessingRegister = false;
 
+
         uiManager.ShowTooltip(PanelType.AuthTooltip, str);
 
         if (success == true)
         {
-            username.text = "";
-            password.text = "";
+            this.username.text = "0";
+            this.password.text = "0";
             uiManager.PushPanel(PanelType.Login);
         }
     }

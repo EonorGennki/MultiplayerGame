@@ -63,6 +63,6 @@ public class LoginRequest : BaseRequest
 
     private void OnLoginSuccess(MainPack pack)
     {
-        
+        facade.LocalPlayerId = pack.PlayerPack[0].PlayerId;
     }
 }

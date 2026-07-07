@@ -129,4 +129,13 @@ public class UIManager : BaseManager
             tooltipPanel.Show(str);
         }
     }
+
+    public void ShowLeaveGamePanel()
+    {
+        if (panelDic.TryGetValue(PanelType.InGame, out BasePanel panel))
+        {
+            InGamePanel inGamePanel = panel as InGamePanel;
+            inGamePanel.ShowLeaveGamePanel();
+        }
+    }
 }

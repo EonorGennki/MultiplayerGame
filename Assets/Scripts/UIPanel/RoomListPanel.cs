@@ -6,13 +6,16 @@ using UnityEngine.UI;
 
 public class RoomListPanel : BasePanel
 {
-    [SerializeField] private Button backbtn;
-    [SerializeField] private Button searchBtn;
-    [SerializeField] private Button createbtn;
-    [SerializeField] private TextMeshProUGUI roomName;
+    [Header("建房信息")]
+    [SerializeField] private TMP_InputField roomName;
     [SerializeField] private Slider maxNum;
     [SerializeField] private Transform roomListTransform;
     [SerializeField] private GameObject roomItemPrefab;
+
+    [Header("按钮")]
+    [SerializeField] private Button backbtn;
+    [SerializeField] private Button searchBtn;
+    [SerializeField] private Button createbtn;
 
     private CreateRoomRequest createRoomRequest;
     private SearchRoomRequest searchRoomRequest;
@@ -66,6 +69,7 @@ public class RoomListPanel : BasePanel
 
     public void ShowRoomTooltip<T>(bool success, string str, List<PlayerInfo> playerList = null, RoomInfo roomInfo = null) where T : BaseRequest
     {
+        roomName.text = "";
         uiManager.ShowTooltip(PanelType.RoomTooltip, str);
         if (typeof(T) == typeof(CreateRoomRequest))
         {
@@ -93,7 +97,6 @@ public class RoomListPanel : BasePanel
                 uiManager.OnPlayerListUpdate.Invoke(playerList);
             }
         }
-
     }
 
     /// <summary>

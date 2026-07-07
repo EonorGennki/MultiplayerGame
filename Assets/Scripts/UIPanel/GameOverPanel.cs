@@ -2,17 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameOverPanel : MonoBehaviour
+public class GameOverPanel : BasePanel
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void OnEnter()
     {
-        
+        base.OnEnter();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void OnExit()
     {
-        
+        base.OnExit();
+    }
+
+    public override void OnPause()
+    {
+        base.OnPause();
+    }
+
+    public override void OnResume()
+    {
+        base.OnResume();
+    }
+
+    protected override void Hide()
+    {
+        base.Hide();
+    }
+
+    protected override void Show()
+    {
+        base.Show();
     }
 }

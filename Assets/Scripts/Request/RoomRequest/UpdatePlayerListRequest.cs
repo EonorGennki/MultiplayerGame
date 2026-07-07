@@ -22,11 +22,11 @@ public class UpdatePlayerListRequest : BaseRequest
     public override void OnResponse(MainPack pack)
     {
         RoomInfo roomInfo = new RoomInfo();
-        roomPanel.playerList.Clear();
+        roomPanel.PlayerList.Clear();
         foreach (var player in pack.PlayerPack)
         {
             PlayerInfo playerInfo = ToPlayerInfo(player);
-            roomPanel.playerList.Add(playerInfo);
+            roomPanel.PlayerList.Add(playerInfo);
             UpdateRoomInfo(pack, roomInfo);
         }
 

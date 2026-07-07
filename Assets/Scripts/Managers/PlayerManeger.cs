@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerManeger : BaseManager
@@ -8,29 +9,39 @@ public class PlayerManeger : BaseManager
     private long localPlayerId;
 
     private GameObject character;
-    private Transform spawnPos;
+    private GameObject[] spawnPoint;
 
     public override void OnInit()
     {
         base.OnInit();
-        character = Resources.Load("Prefab/Player") as GameObject;
+        character = Resources.Load("Prefabs/Player") as GameObject;
     }
 
     public void AddPlayer(List<PlayerInfo> playerList)
     {
-        spawnPos = GameObject.Find("SpawnPos").transform;
+        spawnPoint = GameObject.FindGameObjectsWithTag("SpawnPoint").OrderBy(go => go.name).ToArray();
+
+        int i = 0;
         foreach (var player in playerList)
         {
-            GameObject o = GameObject.Instantiate(character, spawnPos.position, Quaternion.identity);
+            GameObject o = GameObject.Instantiate(character, spawnPoint[i].transform.position, Quaternion.identity);
+            i++;
 
+            PlayerController playerController = o.GetComponent<PlayerController>();
             if (player.PlayerId == localPlayerId)
             {
-                players.Add(player.PlayerId, o);
+                playerController.Init(true);
             }
+            else
+            {
+                playerController.Init(false);
+            }
+
+            players.Add(player.PlayerId, o);
         }
     }
 
-    public void RemovePlayer(int playerId)
+    public void RemovePlayer(long playerId)
     {
         if (players.TryGetValue(playerId, out GameObject o))
         {
@@ -46,4 +57,14 @@ public class PlayerManeger : BaseManager
     public void SetLocalPlayerId(long playerId) => localPlayerId = playerId;
 
     public long GetLocalPlayerId() => localPlayerId;
+    
+    public void Clear()
+    {
+        foreach (var player in players.Values)
+        {
+            GameObject.Destroy(player);
+        }
+
+        players.Clear();
+    }
 }

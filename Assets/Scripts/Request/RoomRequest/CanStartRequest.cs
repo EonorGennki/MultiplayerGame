@@ -23,7 +23,7 @@ public class CanStartRequest : BaseRequest
 
     public override void OnResponse(MainPack pack)
     {
-        List<PlayerInfo> playerList = ToPlayerList(pack); ;
+        List<PlayerInfo> playerList = ToPlayerList(pack);
         mainContext.Post(_ => {
             facade.AddPlayer(playerList);
             roomPanel.StartGame(playerList);
@@ -46,7 +46,8 @@ public class CanStartRequest : BaseRequest
         long playerId = playerPack.PlayerId;
         string playerName = playerPack.PlayerName;
         bool isReady = playerPack.IsReady;
-        PlayerInfo playerInfo = new PlayerInfo(playerId, playerName, isReady);
+        int health = playerPack.Health;
+        PlayerInfo playerInfo = new PlayerInfo(playerId, playerName, isReady, health);
         return playerInfo;
     }
 }

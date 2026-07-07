@@ -1123,8 +1123,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f305bda95620d8b44ad20f39d562acff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  username: {fileID: 1216408841219186756}
-  password: {fileID: 5347663760101595074}
+  username: {fileID: 5761185811944855092}
+  password: {fileID: 2161540453951093931}
   Tip1: {fileID: 8574868762468392884}
   Tip2: {fileID: 7540421370324961611}
   RegisterBtn: {fileID: 5231923698172964031}

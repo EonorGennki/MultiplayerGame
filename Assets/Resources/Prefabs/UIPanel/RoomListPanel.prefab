@@ -794,13 +794,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468d3ce3a23a2f440b8519b459fdf624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backbtn: {fileID: 293815900094888642}
-  searchBtn: {fileID: 4715267215186264290}
-  createbtn: {fileID: 3389342784969669456}
-  roomName: {fileID: 7067745277432176859}
+  roomName: {fileID: 3763010523148321401}
   maxNum: {fileID: 6189213880401439856}
   roomListTransform: {fileID: 2283170434932929366}
   roomItemPrefab: {fileID: 1839410782824553897, guid: 61c37ebd58034dc4f97693d781638191, type: 3}
+  backbtn: {fileID: 293815900094888642}
+  searchBtn: {fileID: 4715267215186264290}
+  createbtn: {fileID: 3389342784969669456}
 --- !u!114 &254753027813605768
 MonoBehaviour:
   m_ObjectHideFlags: 0

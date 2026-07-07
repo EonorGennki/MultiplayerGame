@@ -47,33 +47,27 @@ public class GameFacade : MonoSingleton<GameFacade>
         inputManager.OnDestroy();
     }
 
-    public void Send(MainPack pack)
-    {
-        clientManager.Send(pack);
-    }
+    public void Send(MainPack pack) => clientManager.Send(pack);
 
-    public void HandleResponse(MainPack pack)
-    {
-        requestManager.HandleResponse(pack);
-    }
+    public void HandleResponse(MainPack pack) => requestManager.HandleResponse(pack);
 
-    public void AddRequest(BaseRequest request)
-    {
-        requestManager.AddRequest(request);
-    }
+    public void AddRequest(BaseRequest request) => requestManager.AddRequest(request);
 
-    public void RemoveRequest(ActionCode action)
-    {
-        requestManager.RemoveRequest(action);
-    }
+    public void RemoveRequest(ActionCode action) => requestManager.RemoveRequest(action);
 
-    public void AddPlayer(List<PlayerInfo> playerList)
-    {
-        playerManeger.AddPlayer(playerList);
-    }
+    public void AddPlayer(List<PlayerInfo> playerList) => playerManeger.AddPlayer(playerList);
 
-    public void RemovePlayer(int playerId)
+    public void RemovePlayer(long playerId) => playerManeger.RemovePlayer(playerId);
+
+    public void ShowLeaveGamePanel() => uiManager.ShowLeaveGamePanel();
+
+    /// <summary>
+    /// 自动离开游戏
+    /// </summary>
+    public void AutoLeaveGame()
     {
-        playerManeger.RemovePlayer(playerId);
+        playerManeger.Clear();
+        uiManager.PopPanel();
+        uiManager.PopPanel();
     }
 }

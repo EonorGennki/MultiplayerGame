@@ -9,6 +9,7 @@ public class InputManager : BaseManager
 
     public InputManager() : base()
     {
+        playerInput = new PlayerInputSet();
     }
 
     public override void OnDestroy()

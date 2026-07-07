@@ -11,6 +11,6 @@ public enum PanelType
     Register,
     RoomList,
     Room,
-    Game,
+    InGame,
     GameOver
 }

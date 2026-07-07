@@ -6,10 +6,16 @@ using UnityEngine.UI;
 public class LoginPanel : BasePanel
 {
     private LoginRequest loginRequest;
-    [SerializeField] private TextMeshProUGUI username;
-    [SerializeField] private TextMeshProUGUI password;
+
+    [Header("用户信息")]
+    [SerializeField] private TMP_InputField username;
+    [SerializeField] private TMP_InputField password;
+
+    [Header("登陆提示")]
     [SerializeField] private TextMeshProUGUI Tip1;
     [SerializeField] private TextMeshProUGUI Tip2;
+
+    [Header("按钮")]
     [SerializeField] private Button RegisterBtn;
     [SerializeField] private Button LoginBtn;
     [SerializeField] private Button BackBtn;
@@ -59,8 +65,14 @@ public class LoginPanel : BasePanel
 
         uiManager.ShowTooltip(PanelType.AuthTooltip, str);
 
-        if (success == true)
+        if (success)
         {
+            username.text = "";
+            password.text = "";
+
+            Tip1.text = "";
+            Tip2.text = "";
+
             uiManager.PushPanel(PanelType.RoomList);
         }
     }

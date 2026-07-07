@@ -17,12 +17,6 @@ public class PlayerStateItem : MonoBehaviour
         healthBar.value = health;
     }
 
-    public void UpdateState(string playerName, int health)
-    {
-        this.playerName.text = playerName;
-        healthBar.value = health;
-    }
-
     public void UpdateHealth(int health)
     {
         healthBar.value = health;
