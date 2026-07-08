@@ -1060,8 +1060,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ed58ce6a6603764d9b57784b267509f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStateItem: {fileID: 7622309011975279322, guid: 3987c7a441d53e64791722d1804db2c8, type: 3}
-  playerListTransform: {fileID: 782086493817941832}
+  playerStatsItem: {fileID: 7622309011975279322, guid: 3987c7a441d53e64791722d1804db2c8, type: 3}
+  playerStatsListTransform: {fileID: 782086493817941832}
   countDown: {fileID: 3514123936042279545}
   timer: 300
   exitGamePanel: {fileID: 2699847168196576297}

@@ -8,9 +8,9 @@ public class InGamePanel : BasePanel
     private LeaveGameRequest exitGameRequest;
 
     [Header("玩家列表")]
-    [SerializeField] private GameObject playerStateItem;
-    [SerializeField] private Transform playerListTransform;
-    private Dictionary<string, PlayerStateItem> playerStateItemDic = new Dictionary<string, PlayerStateItem>();
+    [SerializeField] private GameObject playerStatsItem;
+    [SerializeField] private Transform playerStatsListTransform;
+    private Dictionary<string, PlayerStateItem> playerStatsItemDic = new Dictionary<string, PlayerStateItem>();
 
     [Header("倒计时")]
     [SerializeField] private TextMeshProUGUI countDown;
@@ -54,25 +54,25 @@ public class InGamePanel : BasePanel
 
     public void UpdateList(List<PlayerInfo> playerList)
     {
-        for (int i = playerListTransform.childCount - 1; i >= 0; i--)
+        for (int i = playerStatsListTransform.childCount - 1; i >= 0; i--)
         {
-            Destroy(playerListTransform.GetChild(i).gameObject);
+            Destroy(playerStatsListTransform.GetChild(i).gameObject);
         }
 
-        playerStateItemDic.Clear();
+        playerStatsItemDic.Clear();
 
         foreach (var player in playerList)
         {
-            GameObject o = Instantiate(playerStateItem, playerListTransform, false);
+            GameObject o = Instantiate(playerStatsItem, playerStatsListTransform, false);
             PlayerStateItem item = o.GetComponent<PlayerStateItem>();
             item.Init(player.PlayerName, player.Health);
-            playerStateItemDic.Add(player.PlayerName, item);
+            playerStatsItemDic.Add(player.PlayerName, item);
         }
     }
 
     private void OnHealthChanged(string playerId, int health)
     {
-        if (playerStateItemDic.TryGetValue(playerId, out PlayerStateItem item))
+        if (playerStatsItemDic.TryGetValue(playerId, out PlayerStateItem item))
         {
             item.UpdateHealth(health);
         }

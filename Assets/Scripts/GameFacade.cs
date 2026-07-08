@@ -7,13 +7,13 @@ public class GameFacade : MonoSingleton<GameFacade>
     private ClientManager clientManager;
     private RequestManager requestManager;
     private UIManager uiManager;
-    private PlayerManeger playerManeger;
+    private GameManeger gameManeger;
     private InputManager inputManager;
 
     public long LocalPlayerId
     {
-        get => playerManeger.GetLocalPlayerId();
-        set => playerManeger.SetLocalPlayerId(value);
+        get => gameManeger.GetLocalPlayerId();
+        set => gameManeger.SetLocalPlayerId(value);
     }
 
     protected override void Awake()
@@ -23,7 +23,7 @@ public class GameFacade : MonoSingleton<GameFacade>
         uiManager = new UIManager();
         clientManager = new ClientManager();
         requestManager = new RequestManager();
-        playerManeger = new PlayerManeger();
+        gameManeger = new GameManeger();
         inputManager = new InputManager();
     }
 
@@ -32,7 +32,7 @@ public class GameFacade : MonoSingleton<GameFacade>
         clientManager.OnInit();
         requestManager.OnInit();
         uiManager.OnInit();
-        playerManeger.OnInit();
+        gameManeger.OnInit();
         inputManager.OnInit();
     }
 
@@ -43,7 +43,7 @@ public class GameFacade : MonoSingleton<GameFacade>
         clientManager.OnDestroy();
         requestManager.OnDestroy();
         uiManager.OnDestroy();
-        playerManeger.OnDestroy();
+        gameManeger.OnDestroy();
         inputManager.OnDestroy();
     }
 
@@ -55,9 +55,9 @@ public class GameFacade : MonoSingleton<GameFacade>
 
     public void RemoveRequest(ActionCode action) => requestManager.RemoveRequest(action);
 
-    public void AddPlayer(List<PlayerInfo> playerList) => playerManeger.AddPlayer(playerList);
+    public void AddPlayer(List<PlayerInfo> playerList) => gameManeger.AddPlayer(playerList);
 
-    public void RemovePlayer(long playerId) => playerManeger.RemovePlayer(playerId);
+    public void RemovePlayer(long playerId) => gameManeger.RemovePlayer(playerId);
 
     public void ShowLeaveGamePanel() => uiManager.ShowLeaveGamePanel();
 
@@ -66,8 +66,10 @@ public class GameFacade : MonoSingleton<GameFacade>
     /// </summary>
     public void AutoLeaveGame()
     {
-        playerManeger.Clear();
+        gameManeger.Clear();
         uiManager.PopPanel();
         uiManager.PopPanel();
     }
+
+    public void UpdateCharacterState(long playerId, Input input, Vector2 aimTargetPos) => gameManeger.UpdateCharacterState(playerId, input, aimTargetPos);
 }

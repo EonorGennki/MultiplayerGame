@@ -1,10 +1,8 @@
+using Google.Protobuf;
+using SocketGameProtocal;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using SocketGameProtocal;
-using Google.Protobuf;
 
 public class Message
 {
@@ -35,6 +33,7 @@ public class Message
     {
         startIndex += len;
 
+        //数据不完整，等待更多数据
         if (startIndex <= 4)
         {
             return;
@@ -42,10 +41,13 @@ public class Message
 
         int count = BitConverter.ToInt32(buffer, 0);
 
-        while (startIndex >= count + 4)
+        while (startIndex >= 4)
         {
+            //解析数据
             MainPack pack = (MainPack)MainPack.Descriptor.Parser.ParseFrom(buffer, 4, count);
             HandleResponse(pack);
+
+            //移除已处理数据
             Array.Copy(buffer, count + 4, buffer, 0, startIndex - count - 4);
             startIndex -= count + 4;
         }

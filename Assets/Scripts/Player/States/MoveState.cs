@@ -18,11 +18,11 @@ public class MoveState : GroundState
     {
         base.Update();
 
-        if (player.MoveInput.x == 0)
+        if (input.moveInput.x == 0)
         {
             stateMachine.ChangeState(playerStates.IdleState);
         }
 
-        player.SetVelocity(player.MoveInput.x * player.moveSpeed, rb.velocity.y);
+        player.SetVelocity(input.moveInput.x * player.moveSpeed, rb.velocity.y);
     }
 }

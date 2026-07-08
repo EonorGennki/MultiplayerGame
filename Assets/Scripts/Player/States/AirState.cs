@@ -22,9 +22,9 @@ public class AirState : PlayerState
     {
         base.Update();
 
-        if (player.MoveInput.x != 0)
+        if (input.moveInput.x != 0)
         {
-            player.SetVelocity(player.MoveInput.x * player.moveSpeed * player.airControl, rb.velocity.y);
+            player.SetVelocity(input.moveInput.x * player.moveSpeed * player.airControl, rb.velocity.y);
         }
     }
 }

@@ -22,7 +22,7 @@ public class IdleState : GroundState
     {
         base.Update();
 
-        if (player.MoveInput.x != 0)
+        if (input.moveInput.x != 0)
         {
             stateMachine.ChangeState(playerStates.MoveState);
         }

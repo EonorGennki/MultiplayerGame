@@ -11,6 +11,7 @@ public abstract class PlayerState
     protected PlayerStates playerStates;
     protected Animator animator;
     protected Rigidbody2D rb;
+    protected Input input;
 
     public PlayerState(PlayerController player, StateMachine stateMachine, string animeName)
     {
@@ -24,6 +25,7 @@ public abstract class PlayerState
         playerStates = player.PlayerStates;
         animator = player.Animator;
         rb = player.Rb;
+        input = player.Input;
 
         animator.SetBool(animeName, true);
     }

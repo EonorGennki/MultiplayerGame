@@ -22,7 +22,7 @@ public class GroundState : PlayerState
     {
         base.Update();
 
-        if (player.Jump)
+        if (input.jump)
         {
             stateMachine.ChangeState(playerStates.JumpState);
         }
