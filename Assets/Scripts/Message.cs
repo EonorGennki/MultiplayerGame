@@ -33,6 +33,8 @@ public class Message
     {
         startIndex += len;
 
+        Debug.Log("预期长度："+ startIndex);
+
         //数据不完整，等待更多数据
         if (startIndex <= 4)
         {
@@ -40,8 +42,9 @@ public class Message
         }
 
         int count = BitConverter.ToInt32(buffer, 0);
+        Debug.Log("实际长度："+ count);
 
-        while (startIndex >= 4)
+        while (startIndex >= count + 4)
         {
             //解析数据
             MainPack pack = (MainPack)MainPack.Descriptor.Parser.ParseFrom(buffer, 4, count);
@@ -50,6 +53,7 @@ public class Message
             //移除已处理数据
             Array.Copy(buffer, count + 4, buffer, 0, startIndex - count - 4);
             startIndex -= count + 4;
+            count = BitConverter.ToInt32(buffer, 0);
         }
     }
 
