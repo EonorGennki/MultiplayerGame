@@ -71,5 +71,5 @@ public class GameFacade : MonoSingleton<GameFacade>
         uiManager.PopPanel();
     }
 
-    public void UpdateCharacterState(long playerId, Input input, Vector2 aimTargetPos) => gameManeger.UpdateCharacterState(playerId, input, aimTargetPos);
+    public void UpdateCharacterState(long playerId, StatePack statePack) => gameManeger.UpdateCharacterState(playerId, statePack);
 }

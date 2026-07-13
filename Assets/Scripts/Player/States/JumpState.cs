@@ -12,7 +12,7 @@ public class JumpState : AirState
     {
         base.Enter();
 
-        player.SetVelocity(rb.velocity.x * player.airControl, player.jumpForce);
+        player.SetVelocity(rb.velocity.x * player.AirControl, player.JumpForce);
     }
 
     public override void Exit()

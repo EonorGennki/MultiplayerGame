@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
@@ -57,6 +58,7 @@ public class RoomListPanel : BasePanel
         if (roomName == string.Empty)
         {
             uiManager.ShowTooltip(PanelType.RoomTooltip, "房间名不能为空！");
+            isProcessingCreate = false;
             return;
         }
         createRoomRequest.SendRequest(roomName, (int)maxNum.value);

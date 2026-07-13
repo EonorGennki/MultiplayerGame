@@ -3,42 +3,47 @@ using UnityEngine.InputSystem;
 
 public class GunController : MonoBehaviour
 {
-    [Header("Gun data")]
-    public GunData currentGunData;
+    public GunData CurrentGunData { get; private set; }
 
-    [Header("Transform")]
-    [SerializeField] private Transform firePoint; //开枪位置
-    [SerializeField] private Transform gunHolder; //武器载点
-    [SerializeField] private Transform aimTarget;
+    private Transform firePoint; //开枪位置
+    private Transform gunHolder; //武器载点
+    private Transform aimTarget; //瞄准位置
 
-    private bool canShoot => Time.time >= nextFireTime && currentGunData is not null;
+    private bool CanShoot => Time.time >= nextFireTime && CurrentGunData is not null;
     private float spread;
     private float nextFireTime;
     private GameObject currentGunModel;
-    private Mouse mouse;
+    private bool shouldScale;
 
     public System.Action<GunData> OnGunChanged;
 
     private void Start()
     {
-        if (currentGunData is not null)
+        CurrentGunData = Resources.Load<GunData>("GunData/HG");
+
+        gunHolder = transform.GetChild(0);
+        aimTarget = transform.GetChild(2);
+
+        if (CurrentGunData is not null)
         {
-            EquipGun(currentGunData);
+            EquipGun(CurrentGunData);
         }
     }
 
     private void Update()
     {
 
-        if (currentGunData is null)
+        if (CurrentGunData is null)
         {
             return;
         }
 
-        spread = System.Math.Max(currentGunData.baseSpread, spread - currentGunData.spreadRecoverySpeed * Time.deltaTime);
+        spread = System.Math.Max(CurrentGunData.baseSpread, spread - CurrentGunData.spreadRecoverySpeed * Time.deltaTime);
 
         UpdateGunAim();
     }
+
+    public void SetShouldScale(bool value) => shouldScale = value;
 
     /// <summary>
     /// 装备武器
@@ -51,7 +56,7 @@ public class GunController : MonoBehaviour
             return;
         }
 
-        currentGunData = newGunData;
+        CurrentGunData = newGunData;
         spread = newGunData.baseSpread;
         nextFireTime = 0;
 
@@ -69,10 +74,10 @@ public class GunController : MonoBehaviour
             currentGunModel = null;
         }
 
-        if (currentGunData.gunPrefab is not null && gunHolder is not null)
+        if (CurrentGunData.gunPrefab is not null && gunHolder is not null)
         {
             currentGunModel = Instantiate(
-                currentGunData.gunPrefab,
+                CurrentGunData.gunPrefab,
                 gunHolder.position,
                 gunHolder.rotation,
                 gunHolder
@@ -90,10 +95,10 @@ public class GunController : MonoBehaviour
         Vector2 aimDirection = (aimTarget.position - gunHolder.position).normalized;
         float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
 
-        bool ShouldFlip = aimTarget.position.x - transform.position.x < 0 ? true : false;
-
-        if (!ShouldFlip)
+        if (!shouldScale)
         {
+            gunHolder.localScale = new Vector3(1, 1, 1);
+
             if (angle > 60)
             {
                 angle = 60;
@@ -102,11 +107,11 @@ public class GunController : MonoBehaviour
             {
                 angle = -70;
             }
-
-            gunHolder.localScale = new Vector3(1, 1, 1);
         }
         else
         {
+            gunHolder.localScale = new Vector3(1, -1, 1);
+
             if (angle > 0 && angle < 120)
             {
                 angle = 120;
@@ -115,8 +120,6 @@ public class GunController : MonoBehaviour
             {
                 angle = -110;
             }
-
-            gunHolder.localScale = new Vector3(1, -1, 1);
         }
 
         gunHolder.rotation = Quaternion.Euler(0, 0, angle);
@@ -129,7 +132,7 @@ public class GunController : MonoBehaviour
     /// <returns></returns>
     public bool TryShoot()
     {
-        if (!canShoot)
+        if (!CanShoot)
         {
             return false;
         }
@@ -143,16 +146,16 @@ public class GunController : MonoBehaviour
     /// </summary>
     private void ExecuteShoot()
     {
-        nextFireTime = Time.time + currentGunData.fireRate;
+        nextFireTime = Time.time + CurrentGunData.fireRate;
 
-        for (int i = 0; i < currentGunData.bulletsPerShot; i++)
+        for (int i = 0; i < CurrentGunData.bulletsPerShot; i++)
         {
             float spreadAngle = Random.Range(-spread, spread);
             Vector2 direction = GetShootDirection(spreadAngle);
             ShootBullet(direction);
         }
 
-        spread = Mathf.Min(spread + currentGunData.spreadIncreasePerShot, currentGunData.maxSpread);
+        spread = Mathf.Min(spread + CurrentGunData.spreadIncreasePerShot, CurrentGunData.maxSpread);
     }
 
     /// <summary>
@@ -180,9 +183,9 @@ public class GunController : MonoBehaviour
 
     private void ShootBullet(Vector2 direction)
     {
-        if (currentGunData.bulletPrefab is null) return;
+        if (CurrentGunData.bulletPrefab is null) return;
 
-        BulletPool.Instance.ShootBullet(currentGunData, firePoint.position, direction);
+        BulletPool.Instance.ShootBullet(CurrentGunData, firePoint.position, direction);
     }
 
 }

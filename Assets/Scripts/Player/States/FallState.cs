@@ -18,7 +18,7 @@ public class FallState : AirState
     {
         base.Update();
 
-        if (player.isGrounded)
+        if (player.IsGrounded)
         {
             stateMachine.ChangeState(playerStates.IdleState);
         }

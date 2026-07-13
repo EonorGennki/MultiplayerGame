@@ -23,7 +23,9 @@ public class InputManager : BaseManager
 
         playerInput = new PlayerInputSet();
 
-        SwitchMap("UI");
+        currentMapName = "UI";
+
+        SwitchMap(currentMapName);
     }
 
     public void SwitchMap(string mapName)

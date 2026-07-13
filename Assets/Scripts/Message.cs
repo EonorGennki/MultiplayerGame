@@ -33,8 +33,6 @@ public class Message
     {
         startIndex += len;
 
-        Debug.Log("预期长度："+ startIndex);
-
         //数据不完整，等待更多数据
         if (startIndex <= 4)
         {
@@ -42,7 +40,6 @@ public class Message
         }
 
         int count = BitConverter.ToInt32(buffer, 0);
-        Debug.Log("实际长度："+ count);
 
         while (startIndex >= count + 4)
         {

@@ -8,6 +8,7 @@ public class GameManeger : BaseManager
 
     private long localPlayerId;
 
+    private PlayerController playerController;
     private GameObject character;
     private GameObject[] spawnPoint;
 
@@ -27,14 +28,17 @@ public class GameManeger : BaseManager
             GameObject o = GameObject.Instantiate(character, spawnPoint[i].transform.position, Quaternion.identity);
             i++;
 
-            PlayerController playerController = o.GetComponent<PlayerController>();
             if (player.PlayerId == localPlayerId)
             {
-                playerController.Init(true);
+                o.AddComponent<UpdateCharacterStateRequest>();
+                o.AddComponent<StateSync>();
+                o.AddComponent<GunController>();
+                o.AddComponent<PlayerController>();
             }
             else
             {
-                playerController.Init(false);
+                o.AddComponent<GunController>();
+                o.AddComponent<SyncController>();
             }
 
             players.Add(player.PlayerId, o);
@@ -57,17 +61,16 @@ public class GameManeger : BaseManager
     public void SetLocalPlayerId(long playerId) => localPlayerId = playerId;
 
     public long GetLocalPlayerId() => localPlayerId;
-    
-    public void UpdateCharacterState(long playerId, Input input, Vector2 aimTargetPos)
+
+    public void UpdateCharacterState(long playerId, StatePack statePack)
     {
-        if (!players.TryGetValue(playerId, out GameObject player))
+        if (!players.TryGetValue(playerId, out GameObject playerObject))
         {
             return;
         }
 
-        PlayerController playerController = player.GetComponent<PlayerController>();
-        playerController.SetInput(input);
-        playerController.SetAimTarget(aimTargetPos);
+        SyncController syncController = playerObject.GetComponent<SyncController>();
+        syncController.Sync(statePack);
     }
 
     public void Clear()

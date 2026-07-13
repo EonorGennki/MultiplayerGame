@@ -27,6 +27,7 @@ public abstract class PlayerState
         rb = player.Rb;
         input = player.Input;
 
+        player.stateSync.AnimeName = animeName;
         animator.SetBool(animeName, true);
     }
 

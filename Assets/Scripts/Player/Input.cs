@@ -6,5 +6,6 @@ public class Input
 {
     public Vector2 moveInput;
     public bool jump;
+    public int fireSeq = 0;
     public bool isFiring;
 }

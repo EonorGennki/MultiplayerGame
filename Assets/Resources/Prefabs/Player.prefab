@@ -111,7 +111,7 @@ Transform:
   m_GameObject: {fileID: 2977973090871640799}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.11, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -232,8 +232,6 @@ GameObject:
   - component: {fileID: 4425060150107780045}
   - component: {fileID: 2466573383191102861}
   - component: {fileID: 1683869169941241963}
-  - component: {fileID: 5795589778274898911}
-  - component: {fileID: 593928184607584477}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -321,38 +319,3 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 2.05, y: 3.05}
   m_Direction: 0
---- !u!114 &5795589778274898911
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8355512196146137182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24ffb77eb03eeaa4f86f54ccc757b874, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 7
-  jumpForce: 10
-  airControl: 0.6
-  groundCheckDistance: 1.7
-  whatIsGroud:
-    serializedVersion: 2
-    m_Bits: 128
---- !u!114 &593928184607584477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8355512196146137182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9affb3b12ed2f514cbffca6314b2422b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentGunData: {fileID: 11400000, guid: 1aa3eb54cd3b5e542b9b3a3a1214c604, type: 2}
-  firePoint: {fileID: 0}
-  gunHolder: {fileID: 1938105949185635534}
-  aimTarget: {fileID: 2868387245499736119}

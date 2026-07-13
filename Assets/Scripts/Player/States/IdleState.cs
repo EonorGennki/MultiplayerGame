@@ -10,7 +10,7 @@ public class IdleState : GroundState
     {
         base.Enter();
 
-        player.SetZeroVelocity();
+        player.SetVelocity(0, rb.velocity.y);
     }
 
     public override void Exit()

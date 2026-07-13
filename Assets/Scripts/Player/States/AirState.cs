@@ -24,7 +24,7 @@ public class AirState : PlayerState
 
         if (input.moveInput.x != 0)
         {
-            player.SetVelocity(input.moveInput.x * player.moveSpeed * player.airControl, rb.velocity.y);
+            player.SetVelocity(input.moveInput.x * player.MoveSpeed * player.AirControl, rb.velocity.y);
         }
     }
 }

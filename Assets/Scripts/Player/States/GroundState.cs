@@ -22,6 +22,11 @@ public class GroundState : PlayerState
     {
         base.Update();
 
+        if (rb.velocity.y < 0)
+        {
+            stateMachine.ChangeState(playerStates.FallState);
+        }
+
         if (input.jump)
         {
             stateMachine.ChangeState(playerStates.JumpState);

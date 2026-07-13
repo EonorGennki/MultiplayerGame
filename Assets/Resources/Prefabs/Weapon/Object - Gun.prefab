@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1342769596796489009}
   - component: {fileID: 7386561961639559957}
   m_Layer: 0
-  m_Name: Object - Gun
+  m_Name: "Object - \u7A81\u51FB\u6B65\u67AA"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 778270775
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 10bf3de46095fa24faaaa943a7f07a9f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_Size: {x: 2.9166667, y: 0.9166667}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &8954165071198182912
@@ -171,6 +171,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de830e5b292edc248a62e254faf4b30b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunData: {fileID: 0}
+  gunData: {fileID: 11400000, guid: 1b4582ad34a1b354b8150af3afb6d8db, type: 2}
   duration: 1
   height: 0.2

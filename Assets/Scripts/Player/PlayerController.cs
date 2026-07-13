@@ -1,4 +1,3 @@
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D Rb { get; private set; }
     public Animator Animator { get; private set; }
     public GunController GunController { get; private set; }
-    private UpdateCharacterStateRequest updateCharacterStateRequest;
+    public StateSync stateSync { get; private set; }
     #endregion
 
     #region State
@@ -23,21 +22,17 @@ public class PlayerController : MonoBehaviour
     public Input Input { get; private set; }
     #endregion
 
-    [Header("Movement")]
-    public float moveSpeed;
-    public int jumpForce;
-    [Range(0, 1)]
-    public float airControl = 1f;
-    private bool facingRignt = true;
+    public PlayerData PlayerData { get; private set; }
+    public float MoveSpeed { get; private set; }
+    public float JumpForce { get; private set; }
+    public float AirControl { get; private set; }
+    private bool facingRight = true;
 
-    [Header("Collision detected")]
-    [SerializeField] private float groundCheckDistance;
-    [SerializeField] private LayerMask whatIsGroud;
-    public bool isGrounded { get; private set; }
+    public float GroundCheckDistance { get; private set; }
+    public LayerMask WhatIsGround { get; private set; }
+    public bool IsGrounded { get; private set; }
 
     private Transform aimTarget;
-
-    private bool isLocal = false;
 
     private void Awake()
     {
@@ -45,26 +40,40 @@ public class PlayerController : MonoBehaviour
         stateMachine = new StateMachine();
         PlayerStates = new PlayerStates(this, stateMachine);
         Input = new Input();
+        PlayerData = Resources.Load<PlayerData>("PlayerData/Player");
+    }
+    private void OnEnable()
+    {
+        playerInput.Player.Enable();
+
+        Subscribe();
     }
 
     private void OnDisable()
     {
-        if (isLocal)
-        {
-            Unsubcrise();
+        Unsubcrise();
 
-            playerInput.Player.Disable();
-        }
+        playerInput.Player.Disable();
     }
 
     void Start()
     {
+        MoveSpeed = PlayerData.moveSpeed;
+        JumpForce = PlayerData.jumpForce;
+        AirControl = PlayerData.airControl;
+        GroundCheckDistance = PlayerData.groundCheckDistance;
+        WhatIsGround = PlayerData.whatIsGroud;
+
         facade = GameFacade.Instance;
-        Rb = GetComponentInChildren<Rigidbody2D>();
         Animator = GetComponentInChildren<Animator>();
-        GunController = GetComponentInChildren<GunController>();
+        Rb = GetComponent<Rigidbody2D>();
+        GunController = GetComponent<GunController>();
+        stateSync = GetComponent<StateSync>();
+        aimTarget = transform.GetChild(2);
+
         stateMachine.Initialize(PlayerStates.IdleState);
-        aimTarget = GetComponentsInChildren<Transform>().Last();
+
+        stateSync.SetInput(Input);
     }
 
     void Update()
@@ -72,31 +81,18 @@ public class PlayerController : MonoBehaviour
         stateMachine.UpdateCurrentState();
         DetectCollision();
 
-        if (!Input.isFiring || GunController.currentGunData is null)
+
+
+        if (!Input.isFiring || GunController.CurrentGunData is null)
         {
             return;
         }
 
         //全自动射击
-        if (GunController.currentGunData.fireMode == FireMode.FullAuto)
+        if (GunController.CurrentGunData.fireMode == FireMode.FullAuto)
         {
             GunController.TryShoot();
         }
-    }
-
-    public void Init(bool isLocal)
-    {
-        this.isLocal = isLocal;
-
-        if (!this.isLocal)
-        {
-            return;
-        }
-
-        updateCharacterStateRequest = gameObject.AddComponent<UpdateCharacterStateRequest>();
-        playerInput.Player.Enable();
-
-        Subscribe();
     }
 
     #region movement
@@ -107,42 +103,48 @@ public class PlayerController : MonoBehaviour
 
     public void SetZeroVelocity() => Rb.velocity = Vector2.zero;
 
-    private void HandleFlip(Vector2 mousePos)
+    /// <summary>
+    /// 处理人物翻转
+    /// </summary>
+    /// <param name="mousePos"></param>
+    public void HandleFlip(Vector2 mousePos)
     {
         float direction = mousePos.x - transform.position.x;
 
-        //防抖处理
         if (Mathf.Abs(direction) < .1f)
         {
             return;
         }
 
-        if (mousePos.x < transform.position.x && facingRignt)
+        if (direction < 0 && facingRight)
         {
             Flip();
+            GunController.SetShouldScale(true);
         }
-        else if (mousePos.x > transform.position.x && !facingRignt)
+        else if (direction > 0 && !facingRight)
         {
             Flip();
+            GunController.SetShouldScale(false);
         }
     }
 
     private void Flip()
     {
         transform.Rotate(0, 180, 0);
-        facingRignt = !facingRignt;
+        facingRight = !facingRight;
+        stateSync.isFlip = true;
     }
     #endregion
 
     #region Collision detection
     private void DetectCollision()
     {
-        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, whatIsGroud);
+        IsGrounded = Physics2D.Raycast(transform.position, Vector2.down, GroundCheckDistance, WhatIsGround);
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, -groundCheckDistance));
+        Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, -GroundCheckDistance));
     }
     #endregion
 
@@ -153,14 +155,15 @@ public class PlayerController : MonoBehaviour
     /// <param name="ctx"></param>
     private void OnFire(InputAction.CallbackContext ctx)
     {
-        if (!ctx.performed || GunController.currentGunData is null)
+        if (!ctx.performed || GunController.CurrentGunData is null)
         {
             return;
         }
 
-        if (GunController.currentGunData.fireMode == FireMode.SemiAuto)
+        if (GunController.CurrentGunData.fireMode == FireMode.SemiAuto)
         {
             GunController.TryShoot();
+            Input.fireSeq++;
         }
     }
     #endregion
@@ -204,48 +207,23 @@ public class PlayerController : MonoBehaviour
         playerInput.Player.Fire.canceled -= OnFireCanceled;
     }
 
-    private void OnMovePerformed(InputAction.CallbackContext ctx)
-    {
-        Input.moveInput = ctx.ReadValue<Vector2>();
-        updateCharacterStateRequest.SendRequest(Input, aimTarget.transform.position);
-    }
+    private void OnMovePerformed(InputAction.CallbackContext ctx) => Input.moveInput = ctx.ReadValue<Vector2>();
 
-    private void OnMoveCanceled(InputAction.CallbackContext ctx)
-    {
-        Input.moveInput = Vector2.zero;
-        updateCharacterStateRequest.SendRequest(Input, aimTarget.transform.position);
-    }
+    private void OnMoveCanceled(InputAction.CallbackContext ctx) => Input.moveInput = Vector2.zero;
 
-    private void OnJumpPerformed(InputAction.CallbackContext ctx)
-    {
-        Input.jump = true;
-        updateCharacterStateRequest.SendRequest(Input, aimTarget.transform.position);
-    }
+    private void OnJumpPerformed(InputAction.CallbackContext ctx) => Input.jump = true;
 
-    private void OnJumpCanceled(InputAction.CallbackContext ctx)
-    {
-        Input.jump = false;
-        updateCharacterStateRequest.SendRequest(Input, aimTarget.transform.position);
-    }
+    private void OnJumpCanceled(InputAction.CallbackContext ctx) => Input.jump = false;
 
-    private void OnFirePerformed(InputAction.CallbackContext ctx)
-    {
-        Input.isFiring = true;
-        updateCharacterStateRequest.SendRequest(Input, aimTarget.transform.position);
-    }
+    private void OnFirePerformed(InputAction.CallbackContext ctx) => Input.isFiring = true;
 
-    private void OnFireCanceled(InputAction.CallbackContext ctx)
-    {
-        Input.isFiring = false;
-        updateCharacterStateRequest.SendRequest(Input, aimTarget.transform.position);
-    }
+    private void OnFireCanceled(InputAction.CallbackContext ctx) => Input.isFiring = false;
     private void OnLeavePerformed(InputAction.CallbackContext ctx) => facade.ShowLeaveGamePanel();
 
     private void OnAimTargetUpdate(InputAction.CallbackContext ctx)
     {
         aimTarget.position = Camera.main.ScreenToWorldPoint(ctx.ReadValue<Vector2>());
         HandleFlip(aimTarget.position);
-        updateCharacterStateRequest.SendRequest(Input, aimTarget.transform.position);
     }
     #endregion
 
@@ -259,9 +237,4 @@ public class PlayerController : MonoBehaviour
 
     public void SetAimTarget(Vector2 aimTargetPos) => aimTarget.transform.position = aimTargetPos;
     #endregion
-
-    private void OnDestroy()
-    {
-        Unsubcrise();
-    }
 }

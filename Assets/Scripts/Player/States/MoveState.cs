@@ -23,6 +23,6 @@ public class MoveState : GroundState
             stateMachine.ChangeState(playerStates.IdleState);
         }
 
-        player.SetVelocity(input.moveInput.x * player.moveSpeed, rb.velocity.y);
+        player.SetVelocity(input.moveInput.x * player.MoveSpeed, rb.velocity.y);
     }
 }
