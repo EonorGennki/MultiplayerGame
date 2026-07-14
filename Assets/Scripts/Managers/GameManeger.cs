@@ -12,6 +12,8 @@ public class GameManeger : BaseManager
     private GameObject character;
     private GameObject[] spawnPoint;
 
+    private BulletPool bulletPool => BulletPool.Instance;
+
     public override void OnInit()
     {
         base.OnInit();

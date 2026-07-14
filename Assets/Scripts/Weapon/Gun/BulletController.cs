@@ -16,17 +16,6 @@ public class BulletController : MonoBehaviour
 
     private ObjectPool<BulletController> pool;
 
-    public void Init(Vector2 spawnPos, Vector2 velocity, float damage, float range,  LayerMask hitLayerMask, ObjectPool<BulletController> pool)
-    {
-        this.spawnPos = spawnPos;
-        this.velocity = velocity;
-        this.damage = damage;
-        this.range = range;
-        this.hitLayerMask = hitLayerMask;
-        this.pool = pool;
-        transform.right = velocity.normalized;
-    }
-
     private void Update()
     {
         transform.Translate(velocity * Time.deltaTime, Space.World);
@@ -46,7 +35,7 @@ public class BulletController : MonoBehaviour
             return;
         }
 
-        if (Vector2.Distance(spawnPos, transform.position) >= range)
+        if (Vector2.Distance(spawnPos, transform.position) > range)
         {
             ReturnBullet();
         }
@@ -55,7 +44,34 @@ public class BulletController : MonoBehaviour
         if (lifeTimer <= 0)
         {
             ReturnBullet();
+            lifeTimer = 5f;
         }
+    }
+
+    /// <summary>
+    ///×Óµ¯³õÊ¼»¯
+    /// </summary>
+    /// <param name="spawnPos"></param>
+    /// <param name="velocity"></param>
+    /// <param name="damage"></param>
+    /// <param name="range"></param>
+    /// <param name="hitLayerMask"></param>
+    /// <param name="pool"></param>
+    public void Init(Vector2 spawnPos, Vector2 velocity, float damage, float range,  LayerMask hitLayerMask, ObjectPool<BulletController> pool)
+    {
+        Debug.Log(spawnPos);
+        Debug.Log(velocity);
+        Debug.Log(damage);
+        Debug.Log(range);
+        Debug.Log(hitLayerMask);
+        Debug.Log(pool);
+        this.spawnPos = spawnPos;
+        this.velocity = velocity;
+        this.damage = damage;
+        this.range = range;
+        this.hitLayerMask = hitLayerMask;
+        this.pool = pool;
+        transform.right = velocity.normalized;
     }
 
     /// <summary>

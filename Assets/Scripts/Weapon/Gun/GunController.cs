@@ -9,11 +9,11 @@ public class GunController : MonoBehaviour
     private Transform gunHolder; //武器载点
     private Transform aimTarget; //瞄准位置
 
-    private bool CanShoot => Time.time >= nextFireTime && CurrentGunData is not null;
-    private float spread;
-    private float nextFireTime;
-    private GameObject currentGunModel;
-    private bool shouldScale;
+    private bool CanShoot => Time.time >= nextFireTime && CurrentGunData is not null; //能否执行射击标识
+    private float spread; //散步
+    private float nextFireTime; //下次开火时间
+    private GameObject currentGunModel; //当前武器模型
+    private bool shouldScale; //是否旋转标识
 
     public System.Action<GunData> OnGunChanged;
 
@@ -136,7 +136,7 @@ public class GunController : MonoBehaviour
         {
             return false;
         }
-
+        
         ExecuteShoot();
         return true;
     }
@@ -181,10 +181,13 @@ public class GunController : MonoBehaviour
             );
     }
 
+    /// <summary>
+    /// 发射子弹
+    /// </summary>
+    /// <param name="direction"></param>
     private void ShootBullet(Vector2 direction)
     {
         if (CurrentGunData.bulletPrefab is null) return;
-
         BulletPool.Instance.ShootBullet(CurrentGunData, firePoint.position, direction);
     }
 

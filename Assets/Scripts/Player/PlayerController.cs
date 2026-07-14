@@ -155,6 +155,7 @@ public class PlayerController : MonoBehaviour
     /// <param name="ctx"></param>
     private void OnFire(InputAction.CallbackContext ctx)
     {
+
         if (!ctx.performed || GunController.CurrentGunData is null)
         {
             return;
