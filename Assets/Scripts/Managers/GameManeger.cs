@@ -8,11 +8,8 @@ public class GameManeger : BaseManager
 
     private long localPlayerId;
 
-    private PlayerController playerController;
     private GameObject character;
     private GameObject[] spawnPoint;
-
-    private BulletPool bulletPool => BulletPool.Instance;
 
     public override void OnInit()
     {

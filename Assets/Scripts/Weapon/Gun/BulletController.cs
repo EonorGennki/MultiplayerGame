@@ -30,7 +30,7 @@ public class BulletController : MonoBehaviour
         if (hit.collider != null)
         {
             IDamageable damageable = hit.collider.GetComponent<IDamageable>();
-            damageable?.TakeDamage(damage, hit.point, velocity.normalized);
+            damageable?.TakeDamage(damage);
             ReturnBullet();
             return;
         }

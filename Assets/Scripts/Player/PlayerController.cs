@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Input
-    private PlayerInputSet playerInput;
+    private PlayerInputSet player;
     public Input Input { get; private set; }
     #endregion
 
@@ -36,24 +36,15 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        playerInput = new PlayerInputSet();
         stateMachine = new StateMachine();
         PlayerStates = new PlayerStates(this, stateMachine);
         Input = new Input();
         PlayerData = Resources.Load<PlayerData>("PlayerData/Player");
     }
-    private void OnEnable()
-    {
-        playerInput.Player.Enable();
-
-        Subscribe();
-    }
 
     private void OnDisable()
     {
         Unsubcrise();
-
-        playerInput.Player.Disable();
     }
 
     void Start()
@@ -74,14 +65,16 @@ public class PlayerController : MonoBehaviour
         stateMachine.Initialize(PlayerStates.IdleState);
 
         stateSync.SetInput(Input);
+
+        player = facade.GetPlayerInput();
+        facade.SwitchActionMap("Player");
+        Subscribe();
     }
 
     void Update()
     {
         stateMachine.UpdateCurrentState();
         DetectCollision();
-
-
 
         if (!Input.isFiring || GunController.CurrentGunData is null)
         {
@@ -175,19 +168,19 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Subscribe()
     {
-        playerInput.Player.Move.performed += OnMovePerformed;
-        playerInput.Player.Move.canceled += OnMoveCanceled;
+        player.Player.Move.performed += OnMovePerformed;
+        player.Player.Move.canceled += OnMoveCanceled;
 
-        playerInput.Player.Jump.performed += OnJumpPerformed;
-        playerInput.Player.Jump.canceled += OnJumpCanceled;
+        player.Player.Jump.performed += OnJumpPerformed;
+        player.Player.Jump.canceled += OnJumpCanceled;
 
-        playerInput.Player.Aim.performed += OnAimTargetUpdate;
+        player.Player.Aim.performed += OnAimTargetUpdate;
 
-        playerInput.Player.Fire.performed += OnFirePerformed;
-        playerInput.Player.Fire.performed += OnFire;
-        playerInput.Player.Fire.canceled += OnFireCanceled;
+        player.Player.Fire.performed += OnFirePerformed;
+        player.Player.Fire.performed += OnFire;
+        player.Player.Fire.canceled += OnFireCanceled;
 
-        playerInput.Player.Leave.performed += OnLeavePerformed;
+        player.Player.Leave.performed += OnLeavePerformed;
     }
 
     /// <summary>
@@ -195,17 +188,17 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Unsubcrise()
     {
-        playerInput.Player.Move.performed -= OnMovePerformed;
-        playerInput.Player.Move.canceled -= OnMoveCanceled;
+        player.Player.Move.performed -= OnMovePerformed;
+        player.Player.Move.canceled -= OnMoveCanceled;
 
-        playerInput.Player.Jump.performed -= OnJumpPerformed;
-        playerInput.Player.Jump.canceled -= OnJumpCanceled;
+        player.Player.Jump.performed -= OnJumpPerformed;
+        player.Player.Jump.canceled -= OnJumpCanceled;
 
-        playerInput.Player.Aim.performed -= OnAimTargetUpdate;
+        player.Player.Aim.performed -= OnAimTargetUpdate;
 
-        playerInput.Player.Fire.performed -= OnFirePerformed;
-        playerInput.Player.Fire.performed -= OnFire;
-        playerInput.Player.Fire.canceled -= OnFireCanceled;
+        player.Player.Fire.performed -= OnFirePerformed;
+        player.Player.Fire.performed -= OnFire;
+        player.Player.Fire.canceled -= OnFireCanceled;
     }
 
     private void OnMovePerformed(InputAction.CallbackContext ctx) => Input.moveInput = ctx.ReadValue<Vector2>();

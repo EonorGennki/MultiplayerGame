@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class InGamePanel : BasePanel
 {
     private LeaveGameRequest exitGameRequest;
+    private GameFacade facade;
 
     [Header("Íæ¼ÒÁÐ±í")]
     [SerializeField] private GameObject playerStatsItem;
@@ -24,6 +25,7 @@ public class InGamePanel : BasePanel
     protected override void Start()
     {
         exitGameRequest = GetComponent<LeaveGameRequest>();
+        facade = GameFacade.Instance;
     }
 
     private void FixedUpdate()
@@ -44,6 +46,7 @@ public class InGamePanel : BasePanel
     private void OnCancelBtnClick()
     {
         exitGamePanel.SetActive(false);
+        facade.SwitchActionMap("Player");
     }
 
     private void OnConfirmBtnClick()
@@ -78,7 +81,11 @@ public class InGamePanel : BasePanel
         }
     }
 
-    public void ShowLeaveGamePanel() => exitGamePanel.SetActive(true);
+    public void ShowLeaveGamePanel()
+    {
+        facade.SwitchActionMap("UI");
+        exitGamePanel.SetActive(true);
+    }
 
     private void AddListeners()
     {

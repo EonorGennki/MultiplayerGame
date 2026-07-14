@@ -1,6 +1,7 @@
  using SocketGameProtocal;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameFacade : MonoSingleton<GameFacade>
 {
@@ -66,10 +67,15 @@ public class GameFacade : MonoSingleton<GameFacade>
     /// </summary>
     public void AutoLeaveGame()
     {
+        inputManager.SwitchMap("UI");
         gameManeger.Clear();
         uiManager.PopPanel();
         uiManager.PopPanel();
     }
 
     public void UpdateCharacterState(long playerId, StatePack statePack) => gameManeger.UpdateCharacterState(playerId, statePack);
+
+    public void SwitchActionMap(string mapName) => inputManager.SwitchMap(mapName);
+
+    public PlayerInputSet GetPlayerInput() => inputManager.PlayerInput;
 }

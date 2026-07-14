@@ -1,15 +1,16 @@
+using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class InputManager : BaseManager
 {
-    private PlayerInputSet playerInput;
-    private InputActionMap curretMap;
-
+    public PlayerInputSet PlayerInput {  get; private set; }
+    private InputActionMap currentMap;
     private string currentMapName;
 
     public InputManager() : base()
     {
-        playerInput = new PlayerInputSet();
+        PlayerInput = new PlayerInputSet();
     }
 
     public override void OnDestroy()
@@ -21,11 +22,9 @@ public class InputManager : BaseManager
     {
         base.OnInit();
 
-        playerInput = new PlayerInputSet();
+        PlayerInput = new PlayerInputSet();
 
-        currentMapName = "UI";
-
-        SwitchMap(currentMapName);
+        SwitchMap("UI");
     }
 
     public void SwitchMap(string mapName)
@@ -35,19 +34,22 @@ public class InputManager : BaseManager
             return;
         }
 
-        if (curretMap is not null)
+        if (currentMap is not null)
         {
-            curretMap.Disable();
+            currentMap.Disable();
         }
 
         switch (mapName)
         {
             case "Player":
-                curretMap = playerInput.Player;
+                currentMap = PlayerInput.Player;
                 break;
             case "UI":
-                curretMap = playerInput.UI;
+                currentMap = PlayerInput.UI;
                 break;
         }
+
+        currentMap.Enable();
+        currentMapName = mapName;
     }
 }
