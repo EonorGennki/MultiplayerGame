@@ -247,12 +247,7 @@ public class RoomPanel : BasePanel
         Invoke(nameof(PlayerListUpdateDelayed), .01f);
     }
 
-    private void PlayerListUpdateDelayed()
-    {
-        uiManager.OnPlayerListUpdate.Invoke(PlayerList);
-    }
-
-
+    private void PlayerListUpdateDelayed() => uiManager.TriggerPlayerListUpdate(PlayerList);
 
     public void ShowRoomTooltip(bool success, string str)
     {

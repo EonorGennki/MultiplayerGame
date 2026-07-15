@@ -6,7 +6,7 @@ public class BulletController : MonoBehaviour
 {
     #region Bullet stats
     private Vector2 velocity;
-    private float damage;
+    private int damage;
     private float range;
     private Vector2 spawnPos;
     private LayerMask hitLayerMask;
@@ -23,7 +23,7 @@ public class BulletController : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(
             transform.position,
             velocity.normalized,
-            velocity.magnitude * Time.deltaTime + 0.1f,
+            velocity.magnitude * Time.deltaTime + 0.05f,
             hitLayerMask
         );
 
@@ -57,14 +57,8 @@ public class BulletController : MonoBehaviour
     /// <param name="range"></param>
     /// <param name="hitLayerMask"></param>
     /// <param name="pool"></param>
-    public void Init(Vector2 spawnPos, Vector2 velocity, float damage, float range,  LayerMask hitLayerMask, ObjectPool<BulletController> pool)
+    public void Init(Vector2 spawnPos, Vector2 velocity, int damage, float range,  LayerMask hitLayerMask, ObjectPool<BulletController> pool)
     {
-        Debug.Log(spawnPos);
-        Debug.Log(velocity);
-        Debug.Log(damage);
-        Debug.Log(range);
-        Debug.Log(hitLayerMask);
-        Debug.Log(pool);
         this.spawnPos = spawnPos;
         this.velocity = velocity;
         this.damage = damage;

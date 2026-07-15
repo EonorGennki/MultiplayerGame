@@ -79,9 +79,9 @@ public class RoomListPanel : BasePanel
             if (success)
             {
                 uiManager.PushPanel(PanelType.Room);
-                uiManager.OnIsHostSet.Invoke(true);
-                uiManager.OnRoomInfoUpdate.Invoke(roomInfo);
-                uiManager.OnPlayerListUpdate.Invoke(playerList);
+                uiManager.TriggerIsHostSet(true);
+                uiManager.TriggerRoomInfoUpdate(roomInfo);
+                uiManager.TriggerPlayerListUpdate(playerList);
             }
         }
         else if (typeof(T) == typeof(SearchRoomRequest))
@@ -94,9 +94,9 @@ public class RoomListPanel : BasePanel
             if (success)
             {
                 uiManager.PushPanel(PanelType.Room);
-                uiManager.OnIsHostSet.Invoke(false);
-                uiManager.OnRoomInfoUpdate.Invoke(roomInfo);
-                uiManager.OnPlayerListUpdate.Invoke(playerList);
+                uiManager.TriggerIsHostSet(false);
+                uiManager.TriggerRoomInfoUpdate(roomInfo);
+                uiManager.TriggerPlayerListUpdate(playerList);
             }
         }
     }

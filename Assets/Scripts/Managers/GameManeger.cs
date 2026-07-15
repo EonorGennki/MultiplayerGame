@@ -29,14 +29,14 @@ public class GameManeger : BaseManager
 
             if (player.PlayerId == localPlayerId)
             {
+                o.AddComponent<PlayerHealth>().SetMaxHealth(player.Health);
+                o.AddComponent<UpdateHealthRequest>();
                 o.AddComponent<UpdateCharacterStateRequest>();
                 o.AddComponent<StateSync>();
-                o.AddComponent<GunController>();
                 o.AddComponent<PlayerController>();
             }
             else
             {
-                o.AddComponent<GunController>();
                 o.AddComponent<SyncController>();
             }
 

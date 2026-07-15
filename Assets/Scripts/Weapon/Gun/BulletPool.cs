@@ -55,7 +55,7 @@ public class BulletPool : MonoBehaviour
     /// 发射子弹（通过预制体）
     /// </summary>
     public void ShootBullet(GameObject bulletPrefab, Vector2 firePoint, Vector2 velocity,
-                            float damage, float range, LayerMask hitLayerMask)
+                            int damage, float range, LayerMask hitLayerMask)
     {
         if (bulletPrefab is null) return;
 
@@ -84,7 +84,7 @@ public class BulletPool : MonoBehaviour
             gunData.bulletPrefab,
             firePoint,
             direction * gunData.bulletSpeed,
-            gunData.attack,
+            gunData.damage,
             gunData.range,
             gunData.hitLayerMask
         );

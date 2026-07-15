@@ -8,12 +8,13 @@ public class PlayerStateItem : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI playerName;
     [SerializeField] private Slider healthBar;
-
-    public Event OnChanged;
+    
 
     public void Init(string playerName, int health)
     {
         this.playerName.text = playerName;
+        healthBar.maxValue = health;
+        healthBar.minValue = 0;
         healthBar.value = health;
     }
 

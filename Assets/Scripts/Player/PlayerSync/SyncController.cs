@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class SyncController : MonoBehaviour
 {
-    private float syncSpeed = 15f;
-    private float teleportThreshold = 2f; //瞬移阈值
+    private readonly float syncSpeed = 15f;
+    private readonly float teleportThreshold = 2f; //瞬移阈值
 
     private Animator Animator;
     private GunController GunController;
-    private PlayerData playerData;
     private Collider2D col;
+    private PlayerData playerData;
 
     private Vector2 targetPos;
     private Vector2 targetVelocity;
@@ -17,7 +17,7 @@ public class SyncController : MonoBehaviour
     private string OldAnimeName = "idle";
 
     private float lastUpdateTime; //上一次更新状态时间
-    private int lastFireSeq; //上一次单发开火序列号
+    private int lastFireSeq = 0; //上一次单发开火序列号
     private bool facingRight = true;
     private bool hasNewData;
 
@@ -25,11 +25,13 @@ public class SyncController : MonoBehaviour
     {
         Animator = GetComponentInChildren<Animator>();
         GunController = GetComponent<GunController>();
-        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+        col = GetComponent<Collider2D>();
         playerData = Resources.Load<PlayerData>("PlayerData/Player");
+
+        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+
         aimTarget = transform.GetChild(2);
         Animator.SetBool(OldAnimeName, true);
-        col = GetComponent<Collider2D>();
     }
 
     private void Update()
@@ -111,7 +113,7 @@ public class SyncController : MonoBehaviour
         hasNewData = true;
 
         PlayAnime(statePack.animeName);
-        Shoot(statePack);
+        Shoot(statePack.input);
 
         if (statePack.isFlip)
         {
@@ -125,17 +127,24 @@ public class SyncController : MonoBehaviour
     /// 射击
     /// </summary>
     /// <param name="statePack"></param>
-    private void Shoot(StatePack statePack)
+    private void Shoot(Input input)
     {
-        if (statePack.input.isFiring)
+
+        if (GunController.CurrentGunData.fireMode == FireMode.FullAuto)
         {
-            GunController.TryShoot();
+            if (input.isFiring)
+            {
+                GunController.TryShoot();
+            }
         }
 
-        if (statePack.input.fireSeq > lastFireSeq)
+        if (GunController.CurrentGunData.fireMode == FireMode.SemiAuto)
         {
-            GunController.TryShoot();
-            lastFireSeq = statePack.input.fireSeq;
+            if (input.fireSeq > lastFireSeq)
+            {
+                GunController.TryShoot();
+                lastFireSeq = input.fireSeq;
+            }
         }
     }
 

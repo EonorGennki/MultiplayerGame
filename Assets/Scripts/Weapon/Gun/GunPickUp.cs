@@ -47,19 +47,14 @@ public class GunPickup : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Player"))
+        GunController gunController = collision.GetComponent<GunController>();
+
+        if (gunController is null)
         {
             return;
         }
 
         if (gunData is null)
-        {
-            return;
-        }
-
-        GunController gunController = collision.GetComponent<GunController>();
-
-        if (gunController is null)
         {
             return;
         }

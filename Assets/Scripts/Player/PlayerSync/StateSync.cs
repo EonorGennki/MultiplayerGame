@@ -14,6 +14,7 @@ public class StateSync : MonoBehaviour
     private float timer = 0; //计时器
     private Vector2 lastSentPos; //上一次发送的玩家位置
     private float lastSendAngle; //上次发送的角度
+    private int lastFireSeq = 0; //上一次开火的序列号
     private Input input; //玩家指令
 
     public string AnimeName {  get; set; }
@@ -53,7 +54,7 @@ public class StateSync : MonoBehaviour
         float angleDiff = Mathf.DeltaAngle(lastSendAngle, currentAngle);
 
         bool hasMoved = distanceMoved > sendDistanceThreshold;
-        bool hasAction = input.jump || input.isFiring || isFlip;
+        bool hasAction = input.jump || input.isFiring || isFlip || input.fireSeq > lastFireSeq;
         bool hasAngleChanged =  Mathf.Abs(angleDiff) > angleSendThreshold;
 
         bool canSend = hasMoved || hasAction || hasAngleChanged;
@@ -66,6 +67,7 @@ public class StateSync : MonoBehaviour
         Send(playerPos);
         lastSentPos = playerPos;
         lastSendAngle = currentAngle;
+        lastFireSeq = input.fireSeq;
     }
 
     private void Send(Vector2 playerPos)

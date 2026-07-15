@@ -11,7 +11,7 @@ public class GunData : ScriptableObject
     public string description; //描述
 
     [Header("Shooting properties")]
-    public int attack = 20; //攻击力
+    public int damage = 20; //伤害
     public float fireRate = .3f; //射击间隔
     public float range = 10f; //射程
     public float bulletSpeed = 20f; //子弹速度

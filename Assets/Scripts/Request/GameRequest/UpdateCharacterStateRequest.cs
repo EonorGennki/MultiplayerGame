@@ -71,6 +71,7 @@ public class UpdateCharacterStateRequest : BaseRequest
         Vector2 moveInput = new Vector2(inputPack.XInput, inputPack.YInput);
         input.moveInput = moveInput;
         input.jump = inputPack.Jump;
+        input.fireSeq = inputPack.FireSeq;
         input.isFiring = inputPack.IsFiring;
     }
 

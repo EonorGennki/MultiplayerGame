@@ -11,7 +11,7 @@ public class InGamePanel : BasePanel
     [Header("玩家列表")]
     [SerializeField] private GameObject playerStatsItem;
     [SerializeField] private Transform playerStatsListTransform;
-    private Dictionary<string, PlayerStateItem> playerStatsItemDic = new Dictionary<string, PlayerStateItem>();
+    private Dictionary<long, PlayerStateItem> playerStatsItemDic = new Dictionary<long, PlayerStateItem>();
 
     [Header("倒计时")]
     [SerializeField] private TextMeshProUGUI countDown;
@@ -22,10 +22,16 @@ public class InGamePanel : BasePanel
     [SerializeField] private Button cancelBtn;
     [SerializeField] private Button confirmBtn;
 
+    private void OnDisable()
+    {
+        facade.EventCenter.OnHealthChanged -= OnHealthChanged;
+    }
+
     protected override void Start()
     {
         exitGameRequest = GetComponent<LeaveGameRequest>();
         facade = GameFacade.Instance;
+        facade.EventCenter.OnHealthChanged += OnHealthChanged;
     }
 
     private void FixedUpdate()
@@ -55,6 +61,10 @@ public class InGamePanel : BasePanel
         exitGamePanel.SetActive(false);
     }
 
+    /// <summary>
+    /// 更新玩家列表
+    /// </summary>
+    /// <param name="playerList"></param>
     public void UpdateList(List<PlayerInfo> playerList)
     {
         for (int i = playerStatsListTransform.childCount - 1; i >= 0; i--)
@@ -69,11 +79,16 @@ public class InGamePanel : BasePanel
             GameObject o = Instantiate(playerStatsItem, playerStatsListTransform, false);
             PlayerStateItem item = o.GetComponent<PlayerStateItem>();
             item.Init(player.PlayerName, player.Health);
-            playerStatsItemDic.Add(player.PlayerName, item);
+            playerStatsItemDic.Add(player.PlayerId, item);
         }
     }
 
-    private void OnHealthChanged(string playerId, int health)
+    /// <summary>
+    /// 更新生命值
+    /// </summary>
+    /// <param name="playerId"></param>
+    /// <param name="health"></param>
+    public void OnHealthChanged(long playerId, int health)
     {
         if (playerStatsItemDic.TryGetValue(playerId, out PlayerStateItem item))
         {

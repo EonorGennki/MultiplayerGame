@@ -13,9 +13,9 @@ public class UIManager : BaseManager
 
     private Transform canvasTransform;
 
-    public Action<List<PlayerInfo>> OnPlayerListUpdate;
-    public Action<RoomInfo> OnRoomInfoUpdate;
-    public Action<bool> OnIsHostSet;
+    public event Action<List<PlayerInfo>> OnPlayerListUpdate;
+    public event Action<RoomInfo> OnRoomInfoUpdate;
+    public event Action<bool> OnIsHostSet;
 
     public UIManager() : base()
     {
@@ -130,6 +130,9 @@ public class UIManager : BaseManager
         }
     }
 
+    /// <summary>
+    /// 显示离开游戏面板
+    /// </summary>
     public void ShowLeaveGamePanel()
     {
         if (panelDic.TryGetValue(PanelType.InGame, out BasePanel panel))
@@ -138,4 +141,8 @@ public class UIManager : BaseManager
             inGamePanel.ShowLeaveGamePanel();
         }
     }
+
+    public void TriggerIsHostSet(bool isHost) => OnIsHostSet?.Invoke(isHost);
+    public void TriggerRoomInfoUpdate(RoomInfo roomInfo) => OnRoomInfoUpdate?.Invoke(roomInfo);
+    public void TriggerPlayerListUpdate(List<PlayerInfo> playerList) => OnPlayerListUpdate?.Invoke(playerList);
 }
