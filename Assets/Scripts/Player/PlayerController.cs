@@ -22,12 +22,14 @@ public class PlayerController : MonoBehaviour
     public Input Input { get; private set; }
     #endregion
 
+    #region playerData
     public PlayerData PlayerData { get; private set; }
     public float MoveSpeed { get; private set; }
     public float JumpForce { get; private set; }
     public float AirControl { get; private set; }
-    private bool facingRight = true;
+    #endregion
 
+    private bool facingRight = true;
     public float GroundCheckDistance { get; private set; }
     public LayerMask WhatIsGround { get; private set; }
     public bool IsGrounded { get; private set; }
@@ -40,11 +42,6 @@ public class PlayerController : MonoBehaviour
         PlayerStates = new PlayerStates(this, stateMachine);
         Input = new Input();
         PlayerData = Resources.Load<PlayerData>("PlayerData/Player");
-    }
-
-    private void OnDisable()
-    {
-        Unsubcrise();
     }
 
     void Start()
@@ -69,6 +66,8 @@ public class PlayerController : MonoBehaviour
         player = facade.GetPlayerInput();
         facade.SwitchActionMap("Player");
         Subscribe();
+
+        facade.EventCenter.TriggerOnCameraFollow(transform);
     }
 
     void Update()
@@ -221,14 +220,4 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
-    #region Set input and aim target
-    public void SetInput(Input input)
-    {
-        Input.moveInput = input.moveInput;
-        Input.jump = input.jump;
-        Input.isFiring = input.isFiring;
-    }
-
-    public void SetAimTarget(Vector2 aimTargetPos) => aimTarget.transform.position = aimTargetPos;
-    #endregion
 }

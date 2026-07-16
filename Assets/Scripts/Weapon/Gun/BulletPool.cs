@@ -54,7 +54,7 @@ public class BulletPool : MonoBehaviour
     /// <summary>
     /// 发射子弹（通过预制体）
     /// </summary>
-    public void ShootBullet(GameObject bulletPrefab, Vector2 firePoint, Vector2 velocity,
+    public void ShootBullet(long playerId, GameObject bulletPrefab, Vector2 firePoint, Vector2 velocity,
                             int damage, float range, LayerMask hitLayerMask)
     {
         if (bulletPrefab is null) return;
@@ -68,7 +68,7 @@ public class BulletPool : MonoBehaviour
         // 从池获取子弹
         BulletController bullet = pool.Get();
         bullet.transform.position = firePoint;
-        bullet.Init(firePoint, velocity, damage, range, hitLayerMask, pool);
+        bullet.Init(playerId, firePoint, velocity, damage, range, hitLayerMask, pool);
 
         activeBullets.Add(bullet);
     }
@@ -76,11 +76,12 @@ public class BulletPool : MonoBehaviour
     /// <summary>
     /// 发射子弹（通过武器数据中的预制体）
     /// </summary>
-    public void ShootBullet(GunData gunData, Vector2 firePoint, Vector2 direction)
+    public void ShootBullet(long playerId, GunData gunData, Vector2 firePoint, Vector2 direction)
     {
         if (gunData is null ) return;
 
         ShootBullet(
+            playerId,
             gunData.bulletPrefab,
             firePoint,
             direction * gunData.bulletSpeed,

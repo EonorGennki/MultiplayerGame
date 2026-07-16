@@ -1,36 +1,51 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour, IDamageable
 {
+    private long playerId;
     private EventCenter eventCenter;
     private UpdateHealthRequest updateHealthRequest;
 
-    private long playerId;
     public int MaxHealth { get; private set; }
-    private int currentHealth;
 
     private void Start()
     {
+        playerId = GameFacade.Instance.LocalPlayerId;
         eventCenter = GameFacade.Instance.EventCenter;
         updateHealthRequest = GetComponent<UpdateHealthRequest>();
-        playerId = GameFacade.Instance.LocalPlayerId;
-        currentHealth = MaxHealth;
+    }
+
+    /// <summary>
+    /// 重置生命值
+    /// </summary>
+    public void ResetHealth()
+    {
+        updateHealthRequest.SendRequest(playerId, MaxHealth);
     }
 
     public void SetMaxHealth(int maxHealth) => MaxHealth = maxHealth;
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(long attackPlayerId, int damage)
     {
-        updateHealthRequest.SendRequest(playerId, damage);
+        updateHealthRequest.SendRequest(playerId, -damage, attackPlayerId);
     }
 
-    public void UpdateHealth(long playerId, int health)
+    /// <summary>
+    /// 更新生命值
+    /// </summary>
+    /// <param name="playerId"></param>
+    /// <param name="health"></param>
+    /// <param name="isDead"></param>
+    public void UpdateHealth(long playerId, int health, bool isDead)
     {
-        currentHealth = health;
-        eventCenter.TriggerHealthChanged(playerId, currentHealth);
-    }
+        eventCenter.TriggerHealthChanged(playerId, health);
 
+        if (playerId == GameFacade.Instance.LocalPlayerId)
+        {
+            if (isDead)
+            {
+                GameFacade.Instance.Respawn();
+            }
+        }
+    }
 }

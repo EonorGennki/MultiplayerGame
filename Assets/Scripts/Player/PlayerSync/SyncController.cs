@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class SyncController : MonoBehaviour
 {
+    private GameFacade facade;
+
     private readonly float syncSpeed = 15f;
     private readonly float teleportThreshold = 2f; //À≤“∆„–÷µ
 
@@ -23,12 +25,12 @@ public class SyncController : MonoBehaviour
 
     private void Start()
     {
+        facade = GameFacade.Instance;
         Animator = GetComponentInChildren<Animator>();
         GunController = GetComponent<GunController>();
         col = GetComponent<Collider2D>();
-        playerData = Resources.Load<PlayerData>("PlayerData/Player");
-
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+        playerData = Resources.Load<PlayerData>("PlayerData/Player");
 
         aimTarget = transform.GetChild(2);
         Animator.SetBool(OldAnimeName, true);

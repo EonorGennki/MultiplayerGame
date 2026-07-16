@@ -16,7 +16,7 @@ MonoBehaviour:
   gunType: 5
   sprite: {fileID: 21300000, guid: fa31bff96f4451b448a4b54524cbbf14, type: 3}
   description: "\u9730\u5F39\u67AA"
-  attack: 8
+  damage: 20
   fireRate: 0.8
   range: 8
   bulletSpeed: 20
@@ -30,4 +30,4 @@ MonoBehaviour:
   gunPrefab: {fileID: 7482897546141025779, guid: 5e05158e7df025f4cab49171684016a1, type: 3}
   hitLayerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 192

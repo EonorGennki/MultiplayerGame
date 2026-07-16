@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManeger : BaseManager
 {
-    private Dictionary<long, GameObject> players = new Dictionary<long, GameObject>();
+    private Dictionary<long, GameObject> playerDic = new Dictionary<long, GameObject>();
 
     private long localPlayerId;
 
@@ -17,7 +17,11 @@ public class GameManeger : BaseManager
         character = Resources.Load("Prefabs/Player") as GameObject;
     }
 
-    public void AddPlayer(List<PlayerInfo> playerList)
+    /// <summary>
+    /// 生成玩家
+    /// </summary>
+    /// <param name="playerList"></param>
+    public void SpawnPlayer(List<PlayerInfo> playerList)
     {
         spawnPoint = GameObject.FindGameObjectsWithTag("SpawnPoint").OrderBy(go => go.name).ToArray();
 
@@ -27,12 +31,15 @@ public class GameManeger : BaseManager
             GameObject o = GameObject.Instantiate(character, spawnPoint[i].transform.position, Quaternion.identity);
             i++;
 
+            o.AddComponent<GunController>().SetPlayerId(player.PlayerId);
+
             if (player.PlayerId == localPlayerId)
             {
-                o.AddComponent<PlayerHealth>().SetMaxHealth(player.Health);
-                o.AddComponent<UpdateHealthRequest>();
+                o.AddComponent<GainScoreRequest>();
                 o.AddComponent<UpdateCharacterStateRequest>();
                 o.AddComponent<StateSync>();
+                o.AddComponent<PlayerHealth>().SetMaxHealth(player.Health);
+                o.AddComponent<UpdateHealthRequest>();
                 o.AddComponent<PlayerController>();
             }
             else
@@ -40,15 +47,19 @@ public class GameManeger : BaseManager
                 o.AddComponent<SyncController>();
             }
 
-            players.Add(player.PlayerId, o);
+            playerDic.Add(player.PlayerId, o);
         }
     }
 
+    /// <summary>
+    /// 移除玩家
+    /// </summary>
+    /// <param name="playerId"></param>
     public void RemovePlayer(long playerId)
     {
-        if (players.TryGetValue(playerId, out GameObject o))
+        if (playerDic.TryGetValue(playerId, out GameObject o))
         {
-            players.Remove(playerId);
+            playerDic.Remove(playerId);
             GameObject.Destroy(o);
         }
         else
@@ -57,13 +68,26 @@ public class GameManeger : BaseManager
         }
     }
 
+    /// <summary>
+    /// 存储本地玩家id
+    /// </summary>
+    /// <param name="playerId"></param>
     public void SetLocalPlayerId(long playerId) => localPlayerId = playerId;
 
+    /// <summary>
+    /// 获取本地玩家id
+    /// </summary>
+    /// <returns></returns>
     public long GetLocalPlayerId() => localPlayerId;
 
+    /// <summary>
+    /// 位置同步
+    /// </summary>
+    /// <param name="playerId"></param>
+    /// <param name="statePack"></param>
     public void UpdateCharacterState(long playerId, StatePack statePack)
     {
-        if (!players.TryGetValue(playerId, out GameObject playerObject))
+        if (!playerDic.TryGetValue(playerId, out GameObject playerObject))
         {
             return;
         }
@@ -72,13 +96,36 @@ public class GameManeger : BaseManager
         syncController.Sync(statePack);
     }
 
+    /// <summary>
+    /// 清理玩家和列表
+    /// </summary>
     public void Clear()
     {
-        foreach (var player in players.Values)
+        foreach (var player in playerDic.Values)
         {
             GameObject.Destroy(player);
         }
 
-        players.Clear();
+        playerDic.Clear();
+    }
+
+    /// <summary>
+    /// 重生
+    /// </summary>
+    public void Respawn()
+    {
+        if (playerDic.TryGetValue(localPlayerId, out GameObject player))
+        {
+            player.SetActive(false);
+            int index = Random.Range(0, spawnPoint.Length);
+            player.transform.position = spawnPoint[index].transform.position;
+            player.GetComponent<PlayerHealth>().ResetHealth();
+            player.SetActive(true);
+        }
+    }
+
+    public void GainScore()
+    {
+
     }
 }

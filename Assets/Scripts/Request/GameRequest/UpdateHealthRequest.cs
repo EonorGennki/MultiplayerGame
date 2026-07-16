@@ -1,4 +1,6 @@
 using SocketGameProtocal;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UpdateHealthRequest : BaseRequest
@@ -20,7 +22,7 @@ public class UpdateHealthRequest : BaseRequest
         base.Start();
     }
 
-    public void SendRequest(long playerId, int damage)
+    public void SendRequest(long playerId, int deltaHealth, long attackPlayerId = -1)
     {
         MainPack pack = new MainPack();
         pack.RequestCode = requestCode;
@@ -28,7 +30,8 @@ public class UpdateHealthRequest : BaseRequest
 
         PlayerPack playerPack = new PlayerPack();
         playerPack.PlayerId = playerId;
-        playerPack.Damage = damage;
+        playerPack.DeltaHealth = deltaHealth;
+        playerPack.AttackPlayerId = attackPlayerId;
 
         pack.PlayerPack.Add(playerPack);
 
@@ -40,6 +43,7 @@ public class UpdateHealthRequest : BaseRequest
         PlayerPack playerPack = pack.PlayerPack[0];
         long playerId = playerPack.PlayerId;
         int health = playerPack.Health;
-        mainContext.Post(_ => playerHealth.UpdateHealth(playerId, health), null);
+        bool isDead = playerPack.IsDead;
+        mainContext.Post(_ => playerHealth.UpdateHealth(playerId, health, isDead), null);
     }
 }

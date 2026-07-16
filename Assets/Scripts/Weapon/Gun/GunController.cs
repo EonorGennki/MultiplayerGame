@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class GunController : MonoBehaviour
 {
+    private long playerId;
     public GunData CurrentGunData { get; private set; }
 
     private Transform firePoint; //开枪位置
@@ -42,6 +43,8 @@ public class GunController : MonoBehaviour
 
         UpdateGunAim();
     }
+
+    public void SetPlayerId(long playerId) => this.playerId = playerId;
 
     public void SetShouldScale(bool value) => shouldScale = value;
 
@@ -152,7 +155,7 @@ public class GunController : MonoBehaviour
         {
             float spreadAngle = Random.Range(-spread, spread);
             Vector2 direction = GetShootDirection(spreadAngle);
-            ShootBullet(direction);
+            ShootBullet(playerId, direction);
         }
 
         spread = Mathf.Min(spread + CurrentGunData.spreadIncreasePerShot, CurrentGunData.maxSpread);
@@ -185,10 +188,10 @@ public class GunController : MonoBehaviour
     /// 发射子弹
     /// </summary>
     /// <param name="direction"></param>
-    private void ShootBullet(Vector2 direction)
+    private void ShootBullet(long playerId, Vector2 direction)
     {
         if (CurrentGunData.bulletPrefab is null) return;
-        BulletPool.Instance.ShootBullet(CurrentGunData, firePoint.position, direction);
+        BulletPool.Instance.ShootBullet(playerId, CurrentGunData, firePoint.position, direction);
     }
 
 }

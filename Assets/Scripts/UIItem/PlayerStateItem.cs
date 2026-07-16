@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class PlayerStateItem : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI playerName;
+    [SerializeField] private TextMeshProUGUI score;
     [SerializeField] private Slider healthBar;
     
 
@@ -16,10 +17,16 @@ public class PlayerStateItem : MonoBehaviour
         healthBar.maxValue = health;
         healthBar.minValue = 0;
         healthBar.value = health;
+        score.text = 0.ToString();
     }
 
     public void UpdateHealth(int health)
     {
         healthBar.value = health;
+    }
+
+    public void UpdateScore(int score)
+    {
+        this.score.text = score.ToString();
     }
 }

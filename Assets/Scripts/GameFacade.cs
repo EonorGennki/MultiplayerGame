@@ -63,9 +63,10 @@ public class GameFacade : MonoSingleton<GameFacade>
     #endregion
 
     #region game manager
-    public void AddPlayer(List<PlayerInfo> playerList) => gameManeger.AddPlayer(playerList);
+    public void AddPlayer(List<PlayerInfo> playerList) => gameManeger.SpawnPlayer(playerList);
     public void RemovePlayer(long playerId) => gameManeger.RemovePlayer(playerId);
     public void UpdateCharacterState(long playerId, StatePack statePack) => gameManeger.UpdateCharacterState(playerId, statePack);
+    public void Respawn() => gameManeger.Respawn();
     #endregion
 
     #region ui manager

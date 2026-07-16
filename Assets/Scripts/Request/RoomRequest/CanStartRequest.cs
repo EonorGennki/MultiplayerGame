@@ -48,6 +48,7 @@ public class CanStartRequest : BaseRequest
         bool isReady = playerPack.IsReady;
         int health = playerPack.Health;
         PlayerInfo playerInfo = new PlayerInfo(playerId, playerName, isReady, health);
+        playerInfo.MaxHealth = health;
         return playerInfo;
     }
 }

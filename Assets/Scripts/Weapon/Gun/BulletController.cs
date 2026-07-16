@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
+    private long playerId;
+
     #region Bullet stats
     private Vector2 velocity;
     private int damage;
@@ -30,7 +32,7 @@ public class BulletController : MonoBehaviour
         if (hit.collider != null)
         {
             IDamageable damageable = hit.collider.GetComponent<IDamageable>();
-            damageable?.TakeDamage(damage);
+            damageable?.TakeDamage(playerId, damage);
             ReturnBullet();
             return;
         }
@@ -57,8 +59,9 @@ public class BulletController : MonoBehaviour
     /// <param name="range"></param>
     /// <param name="hitLayerMask"></param>
     /// <param name="pool"></param>
-    public void Init(Vector2 spawnPos, Vector2 velocity, int damage, float range,  LayerMask hitLayerMask, ObjectPool<BulletController> pool)
+    public void Init(long playerId, Vector2 spawnPos, Vector2 velocity, int damage, float range,  LayerMask hitLayerMask, ObjectPool<BulletController> pool)
     {
+        this.playerId = playerId;
         this.spawnPos = spawnPos;
         this.velocity = velocity;
         this.damage = damage;

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class InGamePanel : BasePanel
 {
     private LeaveGameRequest exitGameRequest;
-    private GameFacade facade;
+    private GameFacade Facade => GameFacade.Instance;
 
     [Header("玩家列表")]
     [SerializeField] private GameObject playerStatsItem;
@@ -15,27 +15,31 @@ public class InGamePanel : BasePanel
 
     [Header("倒计时")]
     [SerializeField] private TextMeshProUGUI countDown;
-    [SerializeField] private float timer;
+    [SerializeField] private float time;
+    private float timer;
+    private bool canCountDown;
 
     [Header("退出游戏")]
     [SerializeField] private GameObject exitGamePanel;
     [SerializeField] private Button cancelBtn;
     [SerializeField] private Button confirmBtn;
 
-    private void OnDisable()
-    {
-        facade.EventCenter.OnHealthChanged -= OnHealthChanged;
-    }
+    [Header("游戏结束")]
+    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private Button ExitBtn;
 
     protected override void Start()
     {
         exitGameRequest = GetComponent<LeaveGameRequest>();
-        facade = GameFacade.Instance;
-        facade.EventCenter.OnHealthChanged += OnHealthChanged;
     }
 
     private void FixedUpdate()
     {
+        if (!canCountDown)
+        {
+            return;
+        }
+
         if (timer > 0)
         {
             timer -= Time.deltaTime;
@@ -43,6 +47,8 @@ public class InGamePanel : BasePanel
             if (timer< 0)
             {
                 timer = 0;
+                ShowGameOverPanel();
+                canCountDown = false;
             }
 
             countDown.text = Mathf.Floor(timer).ToString();
@@ -52,7 +58,7 @@ public class InGamePanel : BasePanel
     private void OnCancelBtnClick()
     {
         exitGamePanel.SetActive(false);
-        facade.SwitchActionMap("Player");
+        Facade.SwitchActionMap("Player");
     }
 
     private void OnConfirmBtnClick()
@@ -96,10 +102,24 @@ public class InGamePanel : BasePanel
         }
     }
 
+    public void OnScoreChanged(long playerId, int score)
+    {
+        if (playerStatsItemDic.TryGetValue(playerId, out PlayerStateItem item))
+        {
+            item.UpdateScore(score);
+        }
+    }
+
     public void ShowLeaveGamePanel()
     {
-        facade.SwitchActionMap("UI");
+        Facade.SwitchActionMap("UI");
         exitGamePanel.SetActive(true);
+    }
+
+    private void ShowGameOverPanel()
+    {
+        Facade.SwitchActionMap("UI");
+        gameOverPanel.SetActive(true);
     }
 
     private void AddListeners()
@@ -107,6 +127,8 @@ public class InGamePanel : BasePanel
         cancelBtn.onClick.AddListener(OnCancelBtnClick);
         confirmBtn.onClick.AddListener(OnConfirmBtnClick);
         uiManager.OnPlayerListUpdate += UpdateList;
+        Facade.EventCenter.OnHealthChanged += OnHealthChanged;
+        Facade.EventCenter.OnScoreChanged += OnScoreChanged;
     }
 
     private void RemoveListeners()
@@ -114,6 +136,8 @@ public class InGamePanel : BasePanel
         cancelBtn.onClick.RemoveAllListeners();
         confirmBtn.onClick.RemoveAllListeners();
         uiManager.OnPlayerListUpdate -= UpdateList;
+        Facade.EventCenter.OnHealthChanged -= OnHealthChanged;
+        Facade.EventCenter.OnHealthChanged -= OnScoreChanged;
     }
 
     protected override void Show()
@@ -132,6 +156,8 @@ public class InGamePanel : BasePanel
     {
         base.OnEnter();
         Show();
+        timer = time;
+        canCountDown = true;
     }
 
     public override void OnExit()
