@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class InGamePanel : BasePanel
 {
-    private LeaveGameRequest exitGameRequest;
     private GameFacade Facade => GameFacade.Instance;
+
+    private LeaveGameRequest exitGameRequest;
+    private GameOverRequest gameOverRequest;
 
     [Header("玩家列表")]
     [SerializeField] private GameObject playerStatsItem;
@@ -26,11 +28,13 @@ public class InGamePanel : BasePanel
 
     [Header("游戏结束")]
     [SerializeField] private GameObject gameOverPanel;
-    [SerializeField] private Button ExitBtn;
+    [SerializeField] private TextMeshProUGUI gameOverText;
+    [SerializeField] private Button exitBtn;
 
     protected override void Start()
     {
         exitGameRequest = GetComponent<LeaveGameRequest>();
+        gameOverRequest = GetComponent<GameOverRequest>();
     }
 
     private void FixedUpdate()
@@ -47,8 +51,8 @@ public class InGamePanel : BasePanel
             if (timer< 0)
             {
                 timer = 0;
-                ShowGameOverPanel();
                 canCountDown = false;
+                gameOverRequest.SendRequest(Facade.LocalPlayerId);
             }
 
             countDown.text = Mathf.Floor(timer).ToString();
@@ -66,6 +70,12 @@ public class InGamePanel : BasePanel
         exitGameRequest.SendRequest();
         exitGamePanel.SetActive(false);
     }
+
+    private void OnExitBtnClick()
+    {
+        exitGameRequest.SendRequest();
+        gameOverPanel.SetActive(false);
+    }    
 
     /// <summary>
     /// 更新玩家列表
@@ -116,14 +126,16 @@ public class InGamePanel : BasePanel
         exitGamePanel.SetActive(true);
     }
 
-    private void ShowGameOverPanel()
+    public void ShowGameOverPanel(string text)
     {
         Facade.SwitchActionMap("UI");
         gameOverPanel.SetActive(true);
+        gameOverText.text = text;
     }
 
     private void AddListeners()
     {
+        exitBtn.onClick.AddListener(OnExitBtnClick);
         cancelBtn.onClick.AddListener(OnCancelBtnClick);
         confirmBtn.onClick.AddListener(OnConfirmBtnClick);
         uiManager.OnPlayerListUpdate += UpdateList;
@@ -133,6 +145,7 @@ public class InGamePanel : BasePanel
 
     private void RemoveListeners()
     {
+        exitBtn.onClick.RemoveAllListeners();
         cancelBtn.onClick.RemoveAllListeners();
         confirmBtn.onClick.RemoveAllListeners();
         uiManager.OnPlayerListUpdate -= UpdateList;
